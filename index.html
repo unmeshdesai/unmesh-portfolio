@@ -79,6 +79,7 @@ nav.scrolled{padding:.65rem 3rem}
 .nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--cyan);transition:width .25s}
 .nav-links a:hover{color:var(--cyan)}
 .nav-links a:hover::after{width:100%}
+.menu-toggle{display:none;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--border2);border-radius:6px;background:var(--surface);color:var(--cyan);font-size:1.05rem;line-height:1;cursor:none}
 .theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--border2);border-radius:50%;background:var(--surface);color:var(--cyan);font-size:1rem;line-height:1;cursor:none;transition:border-color .2s,transform .2s,box-shadow .2s}
 .theme-toggle:hover{border-color:var(--cyan);transform:translateY(-1px);box-shadow:0 0 14px var(--cyan-glow)}
 .nav-avail{display:flex;align-items:center;gap:.5rem;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--green)}
@@ -218,8 +219,12 @@ footer > *{position:relative;z-index:2}
   .projects-grid{grid-template-columns:1fr 1fr}
   .skills-wrapper{grid-template-columns:1fr}
   .metrics-grid{grid-template-columns:repeat(2,1fr)}
-  nav{padding:.8rem 1.5rem}
-  .nav-links{gap:1rem}
+  nav{padding:.8rem 1.5rem;flex-wrap:wrap;gap:.6rem}
+  .menu-toggle{display:inline-flex;order:3}
+  .theme-toggle{order:2}
+  .nav-links{display:none;order:4;flex-basis:100%;flex-direction:column;gap:.2rem;padding:.8rem;border:1px solid var(--border);border-radius:8px;background:var(--surface)}
+  .nav-links.open{display:flex}
+  .nav-links a{display:block;padding:.55rem .3rem;font-size:.72rem}
   .nav-avail{display:none}
   .theme-toggle{width:30px;height:30px;font-size:.9rem}
   footer{flex-direction:column;gap:.5rem;text-align:center}
@@ -231,6 +236,16 @@ footer > *{position:relative;z-index:2}
   .exp-spine{display:none}
   .edu-grid{grid-template-columns:1fr}
   .metrics-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-name{font-size:clamp(2.2rem,12vw,3.2rem)}
+  .hero-desc{font-size:.88rem;line-height:1.65;padding-left:.9rem}
+  .btn-primary,.btn-outline{width:100%;justify-content:center}
+  .metric-num{font-size:2.25rem}
+  .contact-grid{gap:.8rem}
+}
+@media (pointer:coarse),(hover:none){
+  body{cursor:auto}
+  #cursor,#cursor-ring,#cursor-gradient{display:none}
+  .btn-primary,.btn-outline,.proj-card,.contact-pill,.theme-toggle,.menu-toggle{cursor:pointer}
 }
 </style>
 </head>
@@ -251,6 +266,7 @@ footer > *{position:relative;z-index:2}
     <li><a href="#education">Education</a></li>
     <li><a href="education_contact.html#contact">Contact</a></li>
   </ul>
+  <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
   <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Switch theme">☀</button>
   <div class="nav-avail"><div class="nav-dot"></div>Open to opportunities</div>
 </nav>
@@ -635,6 +651,8 @@ document.querySelectorAll('a,button,.proj-card,.contact-pill').forEach(el=>{
 /* THEME TOGGLE */
 const root=document.documentElement;
 const themeToggle=document.getElementById('theme-toggle');
+const menuToggle=document.getElementById('menu-toggle');
+const navLinks=document.querySelector('.nav-links');
 const themeKey='portfolio-theme';
 function setTheme(theme){
   root.setAttribute('data-theme',theme);
@@ -650,6 +668,25 @@ themeToggle.addEventListener('click',()=>{
   const next=current==='dark'?'light':'dark';
   setTheme(next);
   localStorage.setItem(themeKey,next);
+});
+menuToggle.addEventListener('click',()=>{
+  const isOpen=navLinks.classList.toggle('open');
+  menuToggle.setAttribute('aria-expanded',isOpen?'true':'false');
+  menuToggle.textContent=isOpen?'✕':'☰';
+});
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  if(window.innerWidth<=900){
+    navLinks.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded','false');
+    menuToggle.textContent='☰';
+  }
+}));
+window.addEventListener('resize',()=>{
+  if(window.innerWidth>900){
+    navLinks.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded','false');
+    menuToggle.textContent='☰';
+  }
 });
 
 /* PARTICLE CANVAS */
