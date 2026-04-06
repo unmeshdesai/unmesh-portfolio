@@ -41,6 +41,18 @@ section{position:relative;z-index:0;padding:6rem 3rem}
 .s-title em{font-style:italic;color:var(--cyan)}
 #contact{background:var(--bg);text-align:center;padding-top:8rem}
 .contact-grid{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-top:2.5rem}
+.contact-form-wrap{max-width:760px;margin:2rem auto 0;padding:1.2rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-align:left}
+.contact-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.field{display:flex;flex-direction:column;gap:.4rem}
+.field label{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.08em;color:var(--text-muted);text-transform:uppercase}
+.field input,.field textarea{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--border2);border-radius:8px;padding:.72rem .8rem;font-family:'Syne',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s,box-shadow .2s}
+.field input:focus,.field textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px var(--cyan-dim)}
+.field.full{grid-column:1/-1}
+.submit-btn{margin-top:.9rem;display:inline-flex;align-items:center;justify-content:center;background:var(--cyan);color:var(--bg);border:none;border-radius:8px;padding:.75rem 1.3rem;font-family:'Space Mono',monospace;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:none}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed}
+.form-status{margin-top:.8rem;min-height:1.2rem;font-size:.85rem}
+.form-status.ok{color:var(--green)}
+.form-status.err{color:#ff6b6b}
 .contact-pill{display:flex;align-items:center;gap:.6rem;background:var(--surface);border:1px solid var(--border);padding:.8rem 1.4rem;border-radius:40px;font-family:'Space Mono',monospace;font-size:.72rem;color:var(--text);text-decoration:none;cursor:none;transition:border-color .2s,color .2s,box-shadow .2s}
 .contact-pill:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 20px rgba(0,212,255,.1)}
 .fade-in{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
@@ -51,7 +63,7 @@ footer > *{position:relative;z-index:2}
 .footer-logo{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--text-muted)}
 .footer-logo span{color:var(--cyan)}
 .footer-copy{font-family:'Space Mono',monospace;font-size:.56rem;color:var(--text-muted)}
-@media(max-width:900px){nav{padding:.8rem 1.5rem}.nav-links{gap:1rem}.nav-avail{display:none}section{padding:4rem 1.5rem}footer{flex-direction:column;gap:.3rem;text-align:center;padding:.6rem .75rem}.footer-logo,.footer-copy{line-height:1.35}}
+@media(max-width:900px){nav{padding:.8rem 1.5rem}.nav-links{gap:1rem}.nav-avail{display:none}section{padding:4rem 1.5rem}.contact-form-grid{grid-template-columns:1fr}footer{flex-direction:column;gap:.3rem;text-align:center;padding:.6rem .75rem}.footer-logo,.footer-copy{line-height:1.35}}
 </style>
 </head>
 <body>
@@ -74,7 +86,35 @@ footer > *{position:relative;z-index:2}
   <div class="container">
     <div class="s-eye" style="justify-content:center"><div class="s-line"></div><span class="s-lbl">Let's Connect</span></div>
     <h2 class="s-title fade-in" style="text-align:center">Ready to <em>Build</em><br>Something Great?</h2>
-    <p style="text-align:center;color:var(--text-dim);font-size:.9rem;max-width:480px;margin:0 auto 1rem;line-height:1.7">Open to CRM engineering roles, automation consulting, and interesting Zoho ecosystem projects. Let's talk.</p>
+    <p style="text-align:center;color:var(--text-dim);font-size:.9rem;max-width:480px;margin:0 auto 1rem;line-height:1.7">Open to CRM engineering roles, automation consulting, and interesting Zoho ecosystem projects. Send your requirement and I will get back quickly.</p>
+    <div class="contact-form-wrap fade-in">
+      <form id="contact-form" novalidate>
+        <div class="contact-form-grid">
+          <div class="field">
+            <label for="name">Full Name *</label>
+            <input id="name" name="name" type="text" required placeholder="Your full name">
+          </div>
+          <div class="field">
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" required placeholder="you@example.com">
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" placeholder="+91 98765 43210">
+          </div>
+          <div class="field">
+            <label for="subject">Subject *</label>
+            <input id="subject" name="subject" type="text" required placeholder="What do you need help with?">
+          </div>
+          <div class="field full">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" rows="5" required placeholder="Share project details, timeline, and goals."></textarea>
+          </div>
+        </div>
+        <button id="submit-btn" class="submit-btn" type="submit">Send Message</button>
+        <div id="form-status" class="form-status" aria-live="polite"></div>
+      </form>
+    </div>
     <div class="contact-grid">
       <a href="mailto:unnmeshdesai98@gmail.com" class="contact-pill"><span>✉</span> unnmeshdesai98@gmail.com</a>
       <a href="tel:+919145433474" class="contact-pill"><span>📞</span> +91 91454 33474</a>
@@ -138,6 +178,12 @@ document.querySelectorAll('a,button,.contact-pill').forEach(el=>{
 const root=document.documentElement;
 const themeToggle=document.getElementById('theme-toggle');
 const themeKey='portfolio-theme';
+const form=document.getElementById('contact-form');
+const submitBtn=document.getElementById('submit-btn');
+const formStatus=document.getElementById('form-status');
+const API_BASE=window.location.hostname.includes('localhost')
+  ? 'http://localhost:3000'
+  : 'https://your-backend-domain.com';
 function setTheme(theme){
   root.setAttribute('data-theme',theme);
   themeToggle.textContent=theme==='light'?'🌙':'☀';
@@ -150,6 +196,41 @@ themeToggle.addEventListener('click',()=>{
   const next=current==='dark'?'light':'dark';
   setTheme(next);
   localStorage.setItem(themeKey,next);
+});
+
+form.addEventListener('submit',async(e)=>{
+  e.preventDefault();
+  formStatus.textContent='';
+  formStatus.className='form-status';
+  submitBtn.disabled=true;
+  submitBtn.textContent='Sending...';
+
+  const payload={
+    name:form.name.value.trim(),
+    email:form.email.value.trim(),
+    phone:form.phone.value.trim(),
+    subject:form.subject.value.trim(),
+    message:form.message.value.trim()
+  };
+
+  try{
+    const response=await fetch(`${API_BASE}/api/contact`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    });
+    const data=await response.json();
+    if(!response.ok)throw new Error(data.error||'Unable to submit form.');
+    form.reset();
+    formStatus.textContent=data.message||'Message sent successfully.';
+    formStatus.classList.add('ok');
+  }catch(error){
+    formStatus.textContent=error.message||'Something went wrong.';
+    formStatus.classList.add('err');
+  }finally{
+    submitBtn.disabled=false;
+    submitBtn.textContent='Send Message';
+  }
 });
 
 const canvas=document.getElementById('canvas-bg');
