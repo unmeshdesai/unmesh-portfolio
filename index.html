@@ -124,8 +124,7 @@ section{position:relative;z-index:0;padding:6rem 3rem}
 .hero-left,.hero-right{position:relative;z-index:2}
 .metrics-grid{position:relative;z-index:2}
 .container{max-width:1100px;margin:0 auto}
-.s-eye{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
-.s-num{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--cyan);letter-spacing:.15em}
+.s-eye{display:flex;align-items:center;gap:.7rem;margin-bottom:1rem}
 .s-line{height:1px;width:40px;background:var(--border2)}
 .s-lbl{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--text-muted);letter-spacing:.15em;text-transform:uppercase}
 .s-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:800;color:var(--white);letter-spacing:-.02em;margin-bottom:3.5rem;line-height:1.1}
@@ -204,11 +203,11 @@ section{position:relative;z-index:0;padding:6rem 3rem}
 .contact-pill{display:flex;align-items:center;gap:.6rem;background:var(--surface);border:1px solid var(--border);padding:.8rem 1.4rem;border-radius:40px;font-family:'Space Mono',monospace;font-size:.72rem;color:var(--text);text-decoration:none;cursor:none;transition:border-color .2s,color .2s,box-shadow .2s}
 .contact-pill:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 20px rgba(0,212,255,.1)}
 
-footer{background:var(--bg);border-top:1px solid var(--border);padding:1rem 1.25rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:0}
+footer{background:var(--bg);border-top:1px solid var(--border);padding:.7rem .9rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:0}
 footer > *{position:relative;z-index:2}
-.footer-logo{font-family:'Space Mono',monospace;font-size:.72rem;color:var(--text-muted)}
+.footer-logo{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--text-muted)}
 .footer-logo span{color:var(--cyan)}
-.footer-copy{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--text-muted)}
+.footer-copy{font-family:'Space Mono',monospace;font-size:.56rem;color:var(--text-muted)}
 
 .fade-in{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
 .fade-in.visible{opacity:1;transform:translateY(0)}
@@ -233,7 +232,8 @@ footer > *{position:relative;z-index:2}
   .nav-links.open{display:flex}
   .nav-links a{display:block;padding:.55rem .3rem;font-size:.7rem;letter-spacing:.1em}
   .nav-avail{display:none}
-  footer{flex-direction:column;gap:.4rem;text-align:center;padding:.85rem 1rem}
+  footer{flex-direction:column;gap:.3rem;text-align:center;padding:.6rem .75rem}
+  .footer-logo,.footer-copy{line-height:1.35}
 }
 @media(max-width:600px){
   nav{grid-template-columns:minmax(0,1fr) auto auto}
@@ -273,7 +273,7 @@ footer > *{position:relative;z-index:2}
 
 <!-- NAV -->
 <nav id="navbar">
-  <div class="nav-logo">unmesh<span>@dev</span>:~$</div>
+  <div class="nav-logo">UNMESH <span>// CRM LAB</span></div>
   <ul class="nav-links">
     <li><a href="#skills">Skills</a></li>
     <li><a href="#experience">Experience</a></li>
@@ -358,7 +358,7 @@ footer > *{position:relative;z-index:2}
 <!-- SKILLS -->
 <section id="skills">
   <div class="container">
-    <div class="s-eye"><span class="s-num">01</span><div class="s-line"></div><span class="s-lbl">Tech Stack</span></div>
+    <div class="s-eye"><div class="s-line"></div><span class="s-lbl">Tech Stack</span></div>
     <h2 class="s-title fade-in">Skills &amp; <em>Expertise</em></h2>
     <div class="skills-wrapper">
       <div class="fade-in">
@@ -458,7 +458,7 @@ footer > *{position:relative;z-index:2}
 <!-- EXPERIENCE -->
 <section id="experience">
   <div class="container">
-    <div class="s-eye"><span class="s-num">02</span><div class="s-line"></div><span class="s-lbl">Career Timeline</span></div>
+    <div class="s-eye"><div class="s-line"></div><span class="s-lbl">Career Timeline</span></div>
     <h2 class="s-title fade-in">Work <em>Experience</em></h2>
     <div class="exp-track">
 
@@ -557,7 +557,7 @@ footer > *{position:relative;z-index:2}
 <!-- PROJECTS -->
 <section id="projects">
   <div class="container">
-    <div class="s-eye"><span class="s-num">03</span><div class="s-line"></div><span class="s-lbl">Selected Work</span></div>
+    <div class="s-eye"><div class="s-line"></div><span class="s-lbl">Selected Work</span></div>
     <h2 class="s-title fade-in">Featured <em>Projects</em></h2>
     <div class="projects-grid">
 
@@ -618,7 +618,7 @@ footer > *{position:relative;z-index:2}
 <!-- EDUCATION -->
 <section id="education">
   <div class="container">
-    <div class="s-eye"><span class="s-num">04</span><div class="s-line"></div><span class="s-lbl">Academic Background</span></div>
+    <div class="s-eye"><div class="s-line"></div><span class="s-lbl">Academic Background</span></div>
     <h2 class="s-title fade-in"><em>Education</em></h2>
     <div class="edu-grid">
       <div class="edu-card">
@@ -645,7 +645,7 @@ footer > *{position:relative;z-index:2}
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">unmesh<span>@dev</span>:~$ <span style="color:var(--text-muted)">echo "Thanks for visiting"</span></div>
+  <div class="footer-logo">UNMESH <span>// AUTOMATION STUDIO</span> <span style="color:var(--text-muted)">Thanks for visiting</span></div>
   <div class="footer-copy">© 2025 Unmesh Desai — Built with precision</div>
 </footer>
 
@@ -655,22 +655,48 @@ footer > *{position:relative;z-index:2}
 const cursor=document.getElementById('cursor');
 const ring=document.getElementById('cursor-ring');
 const gradientGlow=document.getElementById('cursor-gradient');
+const isTouchDevice=window.matchMedia('(pointer:coarse)').matches||('ontouchstart' in window);
 let mx=0,my=0,rx=0,ry=0;
 function updatePointer(x,y){
   mx=x;my=y;
   cursor.style.left=mx+'px';
   cursor.style.top=my+'px';
 }
+function snapPointer(x,y){
+  rx=x;ry=y;
+  ring.style.left=rx+'px';
+  ring.style.top=ry+'px';
+  gradientGlow.style.left=rx+'px';
+  gradientGlow.style.top=ry+'px';
+}
 updatePointer(window.innerWidth/2,window.innerHeight/2);
+snapPointer(window.innerWidth/2,window.innerHeight/2);
 document.addEventListener('mousemove',e=>updatePointer(e.clientX,e.clientY));
 document.addEventListener('pointermove',e=>updatePointer(e.clientX,e.clientY));
 document.addEventListener('touchstart',e=>{
-  if(e.touches&&e.touches[0])updatePointer(e.touches[0].clientX,e.touches[0].clientY);
+  if(e.touches&&e.touches[0]){
+    const x=e.touches[0].clientX,y=e.touches[0].clientY;
+    updatePointer(x,y);
+    snapPointer(x,y);
+  }
 },{passive:true});
 document.addEventListener('touchmove',e=>{
-  if(e.touches&&e.touches[0])updatePointer(e.touches[0].clientX,e.touches[0].clientY);
+  if(e.touches&&e.touches[0]){
+    const x=e.touches[0].clientX,y=e.touches[0].clientY;
+    updatePointer(x,y);
+    snapPointer(x,y);
+  }
 },{passive:true});
-(function anim(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';gradientGlow.style.left=rx+'px';gradientGlow.style.top=ry+'px';requestAnimationFrame(anim)})();
+(function anim(){
+  const ease=isTouchDevice ? 0.45 : 0.18;
+  rx+=(mx-rx)*ease;
+  ry+=(my-ry)*ease;
+  ring.style.left=rx+'px';
+  ring.style.top=ry+'px';
+  gradientGlow.style.left=rx+'px';
+  gradientGlow.style.top=ry+'px';
+  requestAnimationFrame(anim);
+})();
 document.querySelectorAll('a,button,.proj-card,.contact-pill').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cursor.style.width='20px';cursor.style.height='20px';ring.style.width='50px';ring.style.height='50px';ring.style.borderColor='var(--cyan)'});
   el.addEventListener('mouseleave',()=>{cursor.style.width='12px';cursor.style.height='12px';ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='var(--cursor-ring)'});
