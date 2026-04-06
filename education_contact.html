@@ -17,6 +17,9 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden;cursor:none}
 #cursor{position:fixed;width:12px;height:12px;background:var(--cursor-core);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .15s,height .15s;mix-blend-mode:var(--cursor-blend);box-shadow:0 0 0 1px rgba(255,255,255,.15),0 0 12px var(--cyan-glow)}
 #cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--cursor-ring);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s}
+#canvas-bg{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.68}
+#cursor-gradient{position:fixed;width:760px;height:760px;left:0;top:0;pointer-events:none;z-index:1;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(0,212,255,.34) 0%,rgba(124,77,255,.2) 35%,rgba(0,212,255,.08) 55%,rgba(0,212,255,0) 76%);filter:blur(18px);opacity:.78;transition:opacity .25s}
+[data-theme="light"] #cursor-gradient{opacity:.58;background:radial-gradient(circle,rgba(0,135,179,.34) 0%,rgba(124,77,255,.16) 34%,rgba(0,135,179,.1) 54%,rgba(0,135,179,0) 76%)}
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:.9rem 3rem;background:var(--nav-bg);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);box-shadow:0 6px 20px rgba(12,24,44,.06)}
 .nav-logo{font-family:'Space Mono',monospace;font-size:.8rem;color:var(--cyan);letter-spacing:.05em}
 .nav-logo span{color:var(--text-dim)}
@@ -29,8 +32,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .nav-avail{display:flex;align-items:center;gap:.5rem;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--green)}
 .nav-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s ease infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-section{position:relative;z-index:1;padding:6rem 3rem}
-.container{max-width:1100px;margin:0 auto}
+section{position:relative;z-index:0;padding:6rem 3rem}
+.container{max-width:1100px;margin:0 auto;position:relative;z-index:2}
 .s-eye{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
 .s-num{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--cyan);letter-spacing:.15em}
 .s-line{height:1px;width:40px;background:var(--border2)}
@@ -44,21 +47,24 @@ section{position:relative;z-index:1;padding:6rem 3rem}
 .fade-in{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
 .fade-in.visible{opacity:1;transform:translateY(0)}
 .glow-line{height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.25;margin:0 3rem;position:relative;z-index:1}
-footer{background:var(--bg);border-top:1px solid var(--border);padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center}
+footer{background:var(--bg);border-top:1px solid var(--border);padding:1rem 1.25rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:0}
+footer > *{position:relative;z-index:2}
 .footer-logo{font-family:'Space Mono',monospace;font-size:.72rem;color:var(--text-muted)}
 .footer-logo span{color:var(--cyan)}
 .footer-copy{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--text-muted)}
-@media(max-width:900px){nav{padding:.8rem 1.5rem}.nav-links{gap:1rem}.nav-avail{display:none}section{padding:4rem 1.5rem}footer{flex-direction:column;gap:.5rem;text-align:center}}
+@media(max-width:900px){nav{padding:.8rem 1.5rem}.nav-links{gap:1rem}.nav-avail{display:none}section{padding:4rem 1.5rem}footer{flex-direction:column;gap:.4rem;text-align:center;padding:.85rem 1rem}}
 </style>
 </head>
 <body>
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
+<canvas id="canvas-bg"></canvas>
+<div id="cursor-gradient"></div>
 
 <nav>
   <div class="nav-logo">unmesh<span>@dev</span>:~$</div>
   <ul class="nav-links">
-    <li><a href="unmesh_portfolio.html#skills">Home</a></li>
+    <li><a href="index.html#skills">Home</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Switch theme">☀</button>
@@ -86,9 +92,15 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:1.5rem 3r
 <script>
 const cursor=document.getElementById('cursor');
 const ring=document.getElementById('cursor-ring');
+const gradientGlow=document.getElementById('cursor-gradient');
 let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px'});
-(function anim(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim)})();
+function updatePointer(x,y){mx=x;my=y;cursor.style.left=mx+'px';cursor.style.top=my+'px';}
+updatePointer(window.innerWidth/2,window.innerHeight/2);
+document.addEventListener('mousemove',e=>updatePointer(e.clientX,e.clientY));
+document.addEventListener('pointermove',e=>updatePointer(e.clientX,e.clientY));
+document.addEventListener('touchstart',e=>{if(e.touches&&e.touches[0])updatePointer(e.touches[0].clientX,e.touches[0].clientY);},{passive:true});
+document.addEventListener('touchmove',e=>{if(e.touches&&e.touches[0])updatePointer(e.touches[0].clientX,e.touches[0].clientY);},{passive:true});
+(function anim(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';gradientGlow.style.left=rx+'px';gradientGlow.style.top=ry+'px';requestAnimationFrame(anim)})();
 document.querySelectorAll('a,button,.contact-pill').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cursor.style.width='20px';cursor.style.height='20px';ring.style.width='50px';ring.style.height='50px';ring.style.borderColor='var(--cyan)'});
   el.addEventListener('mouseleave',()=>{cursor.style.width='12px';cursor.style.height='12px';ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='var(--cursor-ring)'});
@@ -110,6 +122,29 @@ themeToggle.addEventListener('click',()=>{
   setTheme(next);
   localStorage.setItem(themeKey,next);
 });
+
+const canvas=document.getElementById('canvas-bg');
+const ctx=canvas.getContext('2d');
+let W,H,particles=[];
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+resize();
+window.addEventListener('resize',resize);
+class P{
+  constructor(){this.reset()}
+  reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.r=Math.random()*1.4+.3;this.a=Math.random()*.45+.1}
+  update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset()}
+  draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(0,212,255,${this.a})`;ctx.fill()}
+}
+for(let i=0;i<80;i++)particles.push(new P());
+function drawLines(){
+  for(let i=0;i<particles.length;i++){
+    for(let j=i+1;j<particles.length;j++){
+      const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<130){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=`rgba(0,212,255,${.1*(1-d/130)})`;ctx.lineWidth=.5;ctx.stroke()}
+    }
+  }
+}
+(function ac(){ctx.clearRect(0,0,W,H);particles.forEach(p=>{p.update();p.draw()});drawLines();requestAnimationFrame(ac)})();
 
 const io=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
