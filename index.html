@@ -69,6 +69,9 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;font-w
 [data-theme="light"] #projects{background:rgba(246,248,252,.74)}
 [data-theme="light"] #metrics{background:rgba(241,245,251,.7)}
 [data-theme="light"] #education{background:rgba(255,255,255,.72)}
+[data-theme="light"] #services{background:rgba(255,255,255,.72)}
+[data-theme="light"] #process{background:rgba(246,248,252,.74)}
+[data-theme="light"] #cta{background:rgba(255,255,255,.72)}
 
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-track{background:var(--bg)}
@@ -182,6 +185,26 @@ section{position:relative;z-index:0;padding:6rem 3rem}
 .ptag{font-family:'JetBrains Mono',monospace;font-size:.58rem;padding:.15rem .45rem;background:var(--surface);color:var(--text-muted);border:1px solid var(--border);border-radius:3px;transition:all .2s}
 .proj-card:hover .ptag{border-color:rgba(0,212,255,.2);color:var(--cyan)}
 
+#services{background:rgba(13,17,23,.66)}
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.service-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;transition:border-color .25s,transform .25s}
+.service-card:hover{border-color:var(--cyan);transform:translateY(-4px)}
+.service-icon{font-size:1.25rem;margin-bottom:.6rem}
+.service-title{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;color:var(--white);margin-bottom:.45rem}
+.service-desc{font-size:.78rem;line-height:1.6;color:var(--text-dim)}
+
+#process{background:rgba(8,11,16,.66)}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.process-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.1rem}
+.process-step{font-family:'Space Mono',monospace;font-size:.58rem;color:var(--cyan);letter-spacing:.12em;margin-bottom:.5rem}
+.process-title{font-size:.9rem;font-weight:700;color:var(--white);margin-bottom:.35rem}
+.process-desc{font-size:.76rem;line-height:1.55;color:var(--text-dim)}
+
+#cta{background:rgba(13,17,23,.66)}
+.cta-banner{margin:0 auto;max-width:900px;background:linear-gradient(120deg,var(--surface),var(--bg2));border:1px solid var(--border2);border-radius:14px;padding:1.8rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.cta-copy h3{font-family:'Syne',sans-serif;font-size:1.35rem;color:var(--white);margin-bottom:.35rem}
+.cta-copy p{font-size:.82rem;color:var(--text-dim);line-height:1.6}
+
 #metrics{background:rgba(22,28,40,.64);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3.5rem 3rem;position:relative;z-index:0}
 .metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);max-width:900px;margin:0 auto}
 .metric-cell{background:var(--surface);padding:2rem 1.5rem;text-align:center}
@@ -221,6 +244,8 @@ footer > *{position:relative;z-index:2}
   .terminal{display:none}
   section{padding:4rem 1.5rem}
   .projects-grid{grid-template-columns:1fr 1fr}
+  .services-grid{grid-template-columns:1fr 1fr}
+  .process-grid{grid-template-columns:1fr 1fr}
   .skills-wrapper{grid-template-columns:1fr}
   .metrics-grid{grid-template-columns:repeat(2,1fr)}
   nav{padding:.75rem 1rem;display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;column-gap:.45rem;row-gap:.55rem}
@@ -238,6 +263,8 @@ footer > *{position:relative;z-index:2}
 @media(max-width:600px){
   nav{grid-template-columns:minmax(0,1fr) auto auto}
   .projects-grid{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:1fr}
+  .process-grid{grid-template-columns:1fr}
   .exp-card{grid-template-columns:1fr;gap:.5rem}
   .exp-meta{text-align:left}
   .exp-spine{display:none}
@@ -248,6 +275,7 @@ footer > *{position:relative;z-index:2}
   .btn-primary,.btn-outline{width:100%;justify-content:center}
   .metric-num{font-size:2.25rem}
   .contact-grid{gap:.8rem}
+  .cta-banner{flex-direction:column;align-items:flex-start;padding:1.2rem}
 }
 @media(max-width:420px){
   nav{padding:.65rem .75rem;column-gap:.35rem}
@@ -607,6 +635,85 @@ footer > *{position:relative;z-index:2}
         <div class="proj-tags"><span class="ptag">REST API</span><span class="ptag">Insurance</span><span class="ptag">Zoho CRM</span><span class="ptag">Workflow</span></div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="s-eye"><div class="s-line"></div><span class="s-lbl">What I Offer</span></div>
+    <h2 class="s-title fade-in">Core <em>Services</em></h2>
+    <div class="services-grid">
+      <div class="service-card fade-in">
+        <div class="service-icon">⚙️</div>
+        <div class="service-title">CRM Implementation</div>
+        <div class="service-desc">End-to-end setup of Zoho CRM modules, fields, layouts, blueprints, and role structures tailored to your business model.</div>
+      </div>
+      <div class="service-card fade-in" style="transition-delay:.06s">
+        <div class="service-icon">🔌</div>
+        <div class="service-title">API Integrations</div>
+        <div class="service-desc">Secure integrations between CRM and websites, ERPs, payment gateways, and third-party business tools.</div>
+      </div>
+      <div class="service-card fade-in" style="transition-delay:.12s">
+        <div class="service-icon">🤖</div>
+        <div class="service-title">Workflow Automation</div>
+        <div class="service-desc">Automated lead assignment, follow-ups, alerts, and scheduled operations that reduce manual effort.</div>
+      </div>
+      <div class="service-card fade-in" style="transition-delay:.18s">
+        <div class="service-icon">📊</div>
+        <div class="service-title">Dashboards & Insights</div>
+        <div class="service-desc">Actionable KPI dashboards for leadership visibility across pipeline, revenue, and performance.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="s-eye"><div class="s-line"></div><span class="s-lbl">How I Work</span></div>
+    <h2 class="s-title fade-in">Delivery <em>Process</em></h2>
+    <div class="process-grid">
+      <div class="process-card fade-in">
+        <div class="process-step">STEP 01</div>
+        <div class="process-title">Discover</div>
+        <div class="process-desc">Understand your current processes, friction points, and business goals.</div>
+      </div>
+      <div class="process-card fade-in" style="transition-delay:.06s">
+        <div class="process-step">STEP 02</div>
+        <div class="process-title">Architect</div>
+        <div class="process-desc">Design data models, automations, and integration flows with scalability in mind.</div>
+      </div>
+      <div class="process-card fade-in" style="transition-delay:.12s">
+        <div class="process-step">STEP 03</div>
+        <div class="process-title">Build & Integrate</div>
+        <div class="process-desc">Implement CRM customizations, Deluge scripts, and APIs with end-to-end testing.</div>
+      </div>
+      <div class="process-card fade-in" style="transition-delay:.18s">
+        <div class="process-step">STEP 04</div>
+        <div class="process-title">Optimize</div>
+        <div class="process-desc">Train teams, track adoption, and continuously improve the system performance.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="container">
+    <div class="cta-banner fade-in">
+      <div class="cta-copy">
+        <h3>Need a CRM that actually drives outcomes?</h3>
+        <p>Let us design and automate your workflows so your team can focus on revenue instead of repetitive manual tasks.</p>
+      </div>
+      <a href="education_contact.html#contact" class="btn-primary">Start a Project</a>
     </div>
   </div>
 </section>
