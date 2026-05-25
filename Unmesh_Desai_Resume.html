@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unmesh Desai — Senior Zoho Developer & Data Architecture Specialist</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --accent: #2E5FA3;
+    --accent-light: #d6e4f7;
+    --mid: #3d3d3d;
+    --muted: #666;
+    --rule: #2E5FA3;
+    --bg: #ffffff;
+    --stripe: #f5f9fd;
+    --border: #ddeaf6;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11.5px;
+    color: var(--mid);
+    background: #eef3f8;
+    line-height: 1.55;
+  }
+
+  .page {
+    width: 850px;
+    margin: 32px auto;
+    background: var(--bg);
+    padding: 44px 52px 44px 52px;
+    box-shadow: 0 4px 40px rgba(46,95,163,0.10);
+  }
+
+  /* ── HEADER ── */
+  .header { border-bottom: 3px solid var(--accent); padding-bottom: 14px; margin-bottom: 18px; }
+  .name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    color: var(--ink);
+    letter-spacing: 0.5px;
+    line-height: 1;
+  }
+  .title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    margin-top: 5px;
+    letter-spacing: 0.3px;
+  }
+  .contact-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 22px;
+    margin-top: 10px;
+    font-size: 10.5px;
+    color: var(--muted);
+  }
+  .contact-bar a { color: var(--accent); text-decoration: none; }
+  .contact-bar span::before { content: ""; }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 16px; }
+  .section-title {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: var(--accent);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 3px;
+    margin-bottom: 10px;
+  }
+
+  /* ── SUMMARY ── */
+  .summary p {
+    font-size: 11.5px;
+    color: var(--mid);
+    line-height: 1.65;
+  }
+
+  /* ── SKILLS TABLE ── */
+  .skills-grid {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+  }
+  .skills-grid th {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    padding: 6px 10px;
+    text-align: left;
+    font-size: 10.5px;
+    letter-spacing: 0.3px;
+    border: 1px solid #c5d8ef;
+  }
+  .skills-grid td {
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--mid);
+  }
+  .skills-grid tr:nth-child(odd) td { background: var(--stripe); }
+  .skills-grid tr:nth-child(even) td { background: #fff; }
+
+  /* ── JOB ── */
+  .job { margin-bottom: 12px; }
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 2px;
+    margin-bottom: 4px;
+  }
+  .job-left { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+  .job-title { font-size: 12.5px; font-weight: 600; color: var(--ink); }
+  .job-sep { color: #bbb; font-size: 11px; }
+  .job-company { font-size: 11.5px; font-weight: 600; color: var(--accent); }
+  .job-meta { font-size: 10.5px; color: #888; font-style: italic; white-space: nowrap; }
+
+  ul.bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul.bullets li {
+    display: flex;
+    gap: 7px;
+    font-size: 11px;
+    color: var(--mid);
+    margin-bottom: 3px;
+    line-height: 1.55;
+  }
+  ul.bullets li::before {
+    content: "▸";
+    color: var(--accent);
+    font-size: 9px;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  ul.bullets li strong { color: var(--ink); font-weight: 600; }
+
+  /* ── PROJECTS TABLE ── */
+  .projects-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+  }
+  .projects-table td {
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+    vertical-align: top;
+  }
+  .projects-table td:first-child {
+    background: #eaf2fb;
+    font-weight: 600;
+    color: var(--accent);
+    width: 196px;
+    font-size: 10.5px;
+  }
+  .projects-table tr:nth-child(even) td:first-child { background: #deeaf6; }
+  .projects-table td:last-child { color: var(--mid); }
+
+  /* ── EDUCATION ── */
+  .edu-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+  .edu-degree { font-size: 12px; font-weight: 600; color: var(--ink); }
+  .edu-meta { font-size: 10.5px; color: #888; font-style: italic; }
+
+  /* ── KEYWORD FOOTER ── */
+  .keyword-bar {
+    border-top: 1px solid #ddd;
+    padding-top: 8px;
+    margin-top: 10px;
+    font-size: 9.5px;
+    color: #aaa;
+    line-height: 1.6;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; }
+    .page { margin: 0; box-shadow: none; width: 100%; padding: 28px 36px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="name">Unmesh Desai</div>
+    <div class="title">Senior Zoho Developer &amp; Data Architecture Specialist</div>
+    <div class="contact-bar">
+      <span>Mumbai, MH 401305</span>
+      <span>+91 9145433474</span>
+      <span><a href="mailto:unnmeshdesai98@gmail.com">unnmeshdesai98@gmail.com</a></span>
+      <span><a href="https://unmeshdesai.github.io/unmesh-portfolio" target="_blank">unmeshdesai.github.io/unmesh-portfolio</a></span>
+    </div>
+  </div>
+
+  <!-- PROFESSIONAL SUMMARY -->
+  <div class="section summary">
+    <div class="section-title">Professional Summary</div>
+    <p>Senior Zoho Developer with 5+ years of hands-on expertise architecting enterprise CRM solutions, custom Zoho Creator applications, and cross-platform data pipelines. Proven track record delivering end-to-end implementations — from data modeling and schema design to REST API integration, Deluge scripting, and real-time analytics dashboards. Experienced in CRM data architecture, migration strategy, and business process automation across Real Estate, Diamond Trading, Insurance, E-commerce, and Equipment Rental sectors. Passionate about building scalable, maintainable Zoho ecosystems that align technical architecture with business outcomes.</p>
+  </div>
+
+  <!-- CORE COMPETENCIES -->
+  <div class="section">
+    <div class="section-title">Core Technical Competencies</div>
+    <table class="skills-grid">
+      <thead>
+        <tr>
+          <th>Zoho Platform</th>
+          <th>Data Architecture &amp; Integration</th>
+          <th>Development &amp; Scripting</th>
+          <th>Architecture &amp; Strategy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Zoho CRM (Advanced Customization)</td>
+          <td>CRM Data Modeling &amp; Schema Design</td>
+          <td>Deluge Scripting (Expert)</td>
+          <td>Business Process Optimization</td>
+        </tr>
+        <tr>
+          <td>Zoho Creator (Full-Stack Apps)</td>
+          <td>REST API Design &amp; Integration</td>
+          <td>JavaScript / HTML / CSS</td>
+          <td>Requirement Gathering &amp; Analysis</td>
+        </tr>
+        <tr>
+          <td>Zoho Analytics &amp; BI Dashboards</td>
+          <td>ETL Pipelines &amp; Data Migration</td>
+          <td>MySQL &amp; Relational Databases</td>
+          <td>CRM Implementation Strategy</td>
+        </tr>
+        <tr>
+          <td>Zoho Desk, Books, Campaigns</td>
+          <td>HubSpot → Zoho CRM Migration</td>
+          <td>Python (Automation Scripts)</td>
+          <td>Role Hierarchy &amp; Security Design</td>
+        </tr>
+        <tr>
+          <td>Blueprint &amp; Workflow Automation</td>
+          <td>Shopify + Stripe Data Sync</td>
+          <td>Node.js</td>
+          <td>Stakeholder Management</td>
+        </tr>
+        <tr>
+          <td>Zoho One Ecosystem Architecture</td>
+          <td>Data Cleansing &amp; Governance</td>
+          <td>Webhook &amp; Event-Driven Systems</td>
+          <td>Client Training &amp; Documentation</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PROFESSIONAL EXPERIENCE -->
+  <div class="section">
+    <div class="section-title">Professional Experience</div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-left">
+          <span class="job-title">Senior CRM Developer &amp; Data Architect</span>
+          <span class="job-sep">|</span>
+          <span class="job-company">KGK InfoTech LLP</span>
+        </div>
+        <span class="job-meta">Jan 2025 – Present · Mumbai, India</span>
+      </div>
+      <ul class="bullets">
+        <li>Architected a fully customized Zoho CRM environment for a global diamond trading operation — designing custom modules, complex field relationships, and multi-tier role hierarchies to reflect live sales and operations workflows.</li>
+        <li>Designed and deployed a <strong>bidirectional REST API integration layer</strong> connecting CRM with internal ERP systems, enabling real-time data sync across inventory, sales orders, and customer records.</li>
+        <li>Built a multi-layer <strong>data architecture using Zoho Analytics</strong> with 10+ cross-module reports and executive dashboards, surfacing pipeline velocity, conversion rates, and operations KPIs.</li>
+        <li>Engineered <strong>Blueprint-driven sales processes</strong> with conditional transitions, validation rules, and automated Deluge triggers — reducing manual intervention across the lead-to-close cycle.</li>
+        <li>Implemented field-level security, profile-based access controls, and data audit trails to meet compliance and data governance requirements.</li>
+        <li>Led scheduled function design for bulk data jobs: nightly sync tasks, automated data cleansing, and exception alert systems.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-left">
+          <span class="job-title">Zoho Developer &amp; CRM Solutions Engineer</span>
+          <span class="job-sep">|</span>
+          <span class="job-company">Vedika Web Solutions</span>
+        </div>
+        <span class="job-meta">Oct 2020 – Dec 2024 · Pune, India</span>
+      </div>
+      <ul class="bullets">
+        <li>Delivered <strong>100+ custom Deluge scripts</strong> across Zoho CRM, Creator, Desk, and Books — covering automation triggers, custom functions, client portal logic, and cross-app workflows.</li>
+        <li>Designed and built end-to-end <strong>Zoho Creator applications</strong> for Real Estate and Education clients — including relational data models, user role flows, booking engines, and report modules.</li>
+        <li>Architected a full <strong>CRM migration from HubSpot to Zoho CRM</strong>: audited legacy data schemas, mapped field relationships, transformed records, rebuilt automation, and validated data integrity post-migration with zero data loss.</li>
+        <li>Built an <strong>E-commerce data pipeline</strong> integrating Shopify, Zoho CRM, Zoho Books, and Stripe — automating order ingestion, inventory sync, customer lifecycle tracking, and payment reconciliation.</li>
+        <li>Developed a <strong>REST API integration framework</strong> for an insurance agency CRM: automated policy imports, claim status webhooks, and SLA-based notification routing.</li>
+        <li>Created real-time <strong>Zoho Analytics dashboards</strong> for a real estate agency — tracking lead conversion funnels, sales pipeline stages, and agent performance metrics.</li>
+        <li>Drove a <strong>30% increase in client lead generation</strong> through automation-powered campaign workflows; improved sales pipeline visibility through advanced reporting implementations.</li>
+        <li>Conducted business process analysis with stakeholders to map bottlenecks, define data flows, and translate requirements into technical specifications.</li>
+        <li>Delivered Zoho platform training programs for internal teams and clients, achieving high adoption rates across new CRM deployments.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-left">
+          <span class="job-title">Business Associate</span>
+          <span class="job-sep">|</span>
+          <span class="job-company">The Pioneer Organization</span>
+        </div>
+        <span class="job-meta">Mar 2020 – May 2020 · Mumbai, India</span>
+      </div>
+      <ul class="bullets">
+        <li>Generated new business for national brands through targeted outreach, client relationship management, and execution of growth strategies.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-left">
+          <span class="job-title">Customer Service Representative</span>
+          <span class="job-sep">|</span>
+          <span class="job-company">Teleperformance</span>
+        </div>
+        <span class="job-meta">Aug 2019 – Dec 2019 · Goregaon, India</span>
+      </div>
+      <ul class="bullets">
+        <li>Delivered technical support, customer acquisition, and digital solutions for enterprise clients in an omnichannel environment.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- KEY PROJECTS -->
+  <div class="section">
+    <div class="section-title">Key Projects &amp; Technical Implementations</div>
+    <table class="projects-table">
+      <tbody>
+        <tr>
+          <td>KGK Diamonds — Zoho CRM</td>
+          <td>Full CRM architecture for a global diamond trading company: custom modules, Blueprint-driven workflows, REST API integration with internal databases, and multi-tier executive dashboards in Zoho Analytics.</td>
+        </tr>
+        <tr>
+          <td>Interpretation Equipment Rental (Zoho Creator)</td>
+          <td>Custom Creator app managing 1,500+ equipment pieces across 2 warehouses — relational data model for inventory, booking workflow engine, in/out logging, and automated availability validation.</td>
+        </tr>
+        <tr>
+          <td>HubSpot → Zoho CRM Migration</td>
+          <td>End-to-end data migration: schema audit, field mapping, data transformation scripts, workflow recreation, and post-migration data integrity validation. Zero data loss, minimal downtime.</td>
+        </tr>
+        <tr>
+          <td>Shopify + Zoho E-commerce Pipeline</td>
+          <td>REST API data pipeline connecting Shopify, Zoho CRM, Zoho Books, and Stripe — automating order processing, inventory sync, customer lifecycle events, and payment reconciliation.</td>
+        </tr>
+        <tr>
+          <td>Real Estate Analytics Dashboard</td>
+          <td>Zoho Analytics implementation: designed data schema, cross-module joins, and real-time dashboards tracking lead conversion, pipeline stage velocity, and agent KPIs for a real estate agency.</td>
+        </tr>
+        <tr>
+          <td>Insurance Agency API Integration</td>
+          <td>Integrated Zoho CRM with external insurance portals via REST API: automated policy imports, claim status webhooks, and SLA-driven notification workflows.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="section">
+    <div class="section-title">Education</div>
+    <div class="edu-row">
+      <span class="edu-degree">Bachelor of Management Studies (BMS) — Marketing</span>
+      <span class="edu-meta">Jan 2019 · Patkar College of Commerce and Economics, Mumbai</span>
+    </div>
+    <div class="edu-row">
+      <span class="edu-degree">Web Development &amp; Computer Programming</span>
+      <span class="edu-meta">Dec 2019 · Aptech Learning</span>
+    </div>
+  </div>
+
+  <!-- KEYWORD FOOTER -->
+  <div class="keyword-bar">
+    <strong style="color:#bbb;">Keywords:</strong> Zoho CRM · Zoho Creator · Zoho Analytics · Zoho Desk · Zoho Books · Zoho One · Deluge Scripting · REST API · JSON · Webhooks · MySQL · JavaScript · Python · HubSpot · Shopify · Stripe · ETL · Data Modeling · CRM Architecture · Workflow Automation · Business Process Automation · Data Migration · Data Governance · Blueprint · Scheduled Functions · BI Dashboards · Salesforce · NetSuite
+  </div>
+
+</div>
+</body>
+</html>
