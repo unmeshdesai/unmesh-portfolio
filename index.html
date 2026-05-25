@@ -3,932 +3,375 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unmesh Desai — CRM Engineer & Automation Architect</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-
+<meta name="description" content="Unmesh Desai - Zoho CRM Engineer and Automation Architect portfolio.">
+<title>Unmesh Desai | Zoho CRM Engineer</title>
 <style>
-:root {
-  --bg:        #080b10;
-  --bg2:       #0d1117;
-  --bg3:       #111620;
-  --surface:   #161c28;
-  --border:    #1e2a3a;
-  --border2:   #243045;
-  --cyan:      #00d4ff;
-  --cyan-dim:  rgba(0,212,255,.1);
-  --cyan-glow: rgba(0,212,255,.35);
-  --green:     #39d353;
-  --orange:    #ff8c42;
-  --red:       #ff4757;
-  --purple:    #bd93f9;
-  --text:      #c9d1d9;
-  --text-dim:  #586475;
-  --text-muted:#3d4c5e;
-  --white:     #e6edf3;
-  --nav-bg:    rgba(8,11,16,.85);
-  --cursor-core:#00d4ff;
-  --cursor-ring:rgba(0,212,255,.5);
-  --cursor-blend:screen;
-  --radius:    6px;
+:root{
+  --bg:#f4f6fb;
+  --panel:#fff;
+  --soft:#f8fafd;
+  --line:#dfe5ef;
+  --strong-line:#cbd5e1;
+  --text:#172033;
+  --muted:#667085;
+  --faint:#8a94a6;
+  --blue:#2868e8;
+  --blue-soft:#eaf1ff;
+  --green:#178a4a;
+  --green-soft:#e8f7ee;
+  --orange:#b66a00;
+  --orange-soft:#fff4df;
+  --shadow:0 12px 28px rgba(24,39,75,.07);
+  --radius:10px;
 }
-[data-theme="light"] {
-  --bg:        #f6f8fc;
-  --bg2:       #ffffff;
-  --bg3:       #eef3fb;
-  --surface:   #f1f5fb;
-  --border:    #d8e1ee;
-  --border2:   #c8d6e8;
-  --cyan:      #0087b3;
-  --cyan-dim:  rgba(0,135,179,.12);
-  --cyan-glow: rgba(0,135,179,.28);
-  --green:     #198754;
-  --orange:    #d97706;
-  --red:       #dc3545;
-  --purple:    #7c4dff;
-  --text:      #1f2a37;
-  --text-dim:  #4a5c72;
-  --text-muted:#6b7d95;
-  --white:     #0f1724;
-  --nav-bg:    rgba(255,255,255,.9);
-  --cursor-core:#006f94;
-  --cursor-ring:rgba(0,111,148,.55);
-  --cursor-blend:normal;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;font-weight:400;overflow-x:hidden;cursor:none}
-
-#cursor{position:fixed;width:12px;height:12px;background:var(--cursor-core);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .15s,height .15s;mix-blend-mode:var(--cursor-blend);box-shadow:0 0 0 1px rgba(255,255,255,.15),0 0 12px var(--cyan-glow)}
-#cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--cursor-ring);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s}
-
-#canvas-bg{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.82}
-#cursor-gradient{position:fixed;width:760px;height:760px;left:0;top:0;pointer-events:none;z-index:1;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(0,212,255,.34) 0%,rgba(124,77,255,.2) 35%,rgba(0,212,255,.08) 55%,rgba(0,212,255,0) 76%);filter:blur(18px);opacity:.78;transition:opacity .25s}
-[data-theme="light"] #cursor-gradient{opacity:.58;background:radial-gradient(circle,rgba(0,135,179,.34) 0%,rgba(124,77,255,.16) 34%,rgba(0,135,179,.1) 54%,rgba(0,135,179,0) 76%)}
-[data-theme="light"] #skills{background:rgba(246,248,252,.78)}
-[data-theme="light"] #experience{background:rgba(255,255,255,.72)}
-[data-theme="light"] #projects{background:rgba(246,248,252,.74)}
-[data-theme="light"] #metrics{background:rgba(241,245,251,.7)}
-[data-theme="light"] #education{background:rgba(255,255,255,.72)}
-[data-theme="light"] #services{background:rgba(255,255,255,.72)}
-[data-theme="light"] #process{background:rgba(246,248,252,.74)}
-[data-theme="light"] #cta{background:rgba(255,255,255,.72)}
-
-::-webkit-scrollbar{width:3px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
-::-webkit-scrollbar-thumb:hover{background:var(--cyan)}
-
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:.9rem 3rem;background:var(--nav-bg);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);box-shadow:0 6px 20px rgba(12,24,44,.06);transition:padding .3s}
-nav.scrolled{padding:.65rem 3rem}
-.nav-logo{font-family:'Space Mono',monospace;font-size:.8rem;color:var(--cyan);letter-spacing:.05em}
-.nav-logo span{color:var(--text-dim)}
-.nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--text-dim);text-decoration:none;letter-spacing:.12em;text-transform:uppercase;transition:color .2s;position:relative}
-.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--cyan);transition:width .25s}
-.nav-links a:hover{color:var(--cyan)}
-.nav-links a:hover::after{width:100%}
-.menu-toggle{display:none;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--border2);border-radius:6px;background:var(--surface);color:var(--cyan);font-size:1.05rem;line-height:1;cursor:none}
-.theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--border2);border-radius:50%;background:var(--surface);color:var(--cyan);font-size:1rem;line-height:1;cursor:none;transition:border-color .2s,transform .2s,box-shadow .2s}
-.theme-toggle:hover{border-color:var(--cyan);transform:translateY(-1px);box-shadow:0 0 14px var(--cyan-glow)}
-.nav-avail{display:flex;align-items:center;gap:.5rem;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--green)}
-.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s ease infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-
-#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:7rem 3rem 4rem;position:relative;z-index:1;gap:4rem}
-.hero-left{animation:fadeUp .8s ease .05s both}
-.hero-right{animation:fadeUp .8s ease .2s both}
-.hero-tag{display:inline-flex;align-items:center;gap:.6rem;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--cyan);letter-spacing:.15em;text-transform:uppercase;border:1px solid var(--border2);padding:.4rem .9rem;border-radius:2px;margin-bottom:2.5rem;background:var(--cyan-dim)}
-.hero-tag{animation:floatTag 4s ease-in-out infinite}
-.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 6px var(--cyan)}
-.hero-name{font-family:'Syne',sans-serif;font-size:clamp(3.5rem,7vw,6.5rem);font-weight:800;line-height:.92;letter-spacing:-.03em;color:var(--white);margin-bottom:1.5rem}
-.hero-name .accent{color:transparent;-webkit-text-stroke:1px var(--cyan)}
-.hero-name .line2{display:block;color:var(--cyan);text-shadow:0 0 40px rgba(0,212,255,.4)}
-.hero-typewriter{font-family:'Space Mono',monospace;font-size:1rem;color:var(--text-dim);margin-bottom:2.5rem;min-height:1.5rem}
-.cursor-blink{display:inline-block;width:2px;height:1em;background:var(--cyan);margin-left:2px;vertical-align:text-bottom;animation:blink .8s step-end infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-.hero-desc{font-size:.95rem;line-height:1.75;color:var(--text-dim);max-width:460px;margin-bottom:3rem;border-left:2px solid var(--border2);padding-left:1.2rem}
-.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap}
-.btn-primary{display:inline-flex;align-items:center;gap:.5rem;background:var(--cyan);color:var(--bg);font-family:'Space Mono',monospace;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.6rem;border:none;border-radius:var(--radius);cursor:none;text-decoration:none;transition:box-shadow .25s,transform .25s}
-.btn-primary:hover{box-shadow:0 0 30px var(--cyan-glow);transform:translateY(-2px)}
-.btn-outline{display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:var(--cyan);font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.6rem;border:1px solid var(--border2);border-radius:var(--radius);cursor:none;text-decoration:none;transition:border-color .25s,background .25s,transform .25s}
-.btn-outline:hover{border-color:var(--cyan);background:var(--cyan-dim);transform:translateY(-2px)}
-
-.terminal{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 0 60px rgba(0,0,0,.6)}
-.terminal-bar{background:var(--surface);padding:.65rem 1rem;display:flex;align-items:center;gap:.6rem;border-bottom:1px solid var(--border)}
-.t-dot{width:10px;height:10px;border-radius:50%}
-.t-dot.r{background:#ff5f57}.t-dot.y{background:#febc2e}.t-dot.g{background:#28c840}
-.terminal-title{margin-left:auto;margin-right:auto;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--text-dim);letter-spacing:.05em}
-.terminal-body{padding:1.5rem;font-family:'JetBrains Mono',monospace;font-size:.78rem;line-height:2;color:var(--text)}
-.t-line{display:block;white-space:pre}
-.tc{color:var(--cyan)}.tg{color:var(--green)}.to{color:var(--orange)}.tp{color:var(--purple)}.tm{color:var(--text-muted)}.tw{color:var(--white)}.td{color:var(--text-dim)}
-
-section{position:relative;z-index:0;padding:6rem 3rem}
-.container{position:relative;z-index:2}
-.hero-left,.hero-right{position:relative;z-index:2}
-.metrics-grid{position:relative;z-index:2}
-.container{max-width:1100px;margin:0 auto}
-.s-eye{display:flex;align-items:center;gap:.7rem;margin-bottom:1rem}
-.s-line{height:1px;width:40px;background:var(--border2)}
-.s-lbl{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--text-muted);letter-spacing:.15em;text-transform:uppercase}
-.s-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:800;color:var(--white);letter-spacing:-.02em;margin-bottom:3.5rem;line-height:1.1}
-.s-title em{font-style:italic;color:var(--cyan);background:linear-gradient(90deg,var(--cyan),var(--purple),var(--cyan));background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:accentShift 5s linear infinite}
-
-#skills{background:rgba(8,11,16,.72)}
-.skills-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
-.sg-title{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--cyan);letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.5rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
-.skill-list{display:flex;flex-direction:column;gap:.9rem}
-.skill-row{display:flex;flex-direction:column;gap:.4rem}
-.skill-meta{display:flex;justify-content:space-between;align-items:baseline}
-.sn{font-size:.85rem;font-weight:600;color:var(--white)}
-.sp{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--text-dim)}
-.skill-track{height:3px;background:var(--surface);border-radius:2px;overflow:hidden}
-.skill-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--cyan),var(--purple));width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1)}
-.skill-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.3rem}
-.stag{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.08em;padding:.2rem .55rem;background:var(--surface);color:var(--text-dim);border:1px solid var(--border);border-radius:3px;transition:border-color .2s,color .2s}
-.stag:hover{border-color:var(--cyan);color:var(--cyan)}
-
-#experience{background:rgba(13,17,23,.68)}
-.exp-track{display:flex;flex-direction:column}
-.exp-card{display:grid;grid-template-columns:160px 2px 1fr;gap:0 2rem;padding-bottom:3.5rem;opacity:0;transform:translateX(-20px);transition:opacity .6s,transform .6s}
-.exp-card.visible{opacity:1;transform:translateX(0)}
-.exp-card:last-child{padding-bottom:0}
-.exp-meta{text-align:right;padding-top:4px}
-.exp-period{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--cyan);letter-spacing:.08em;line-height:1.8}
-.exp-dur{font-size:.7rem;color:var(--text-muted);margin-top:.3rem;font-family:'Space Mono',monospace}
-.exp-spine{background:var(--border);position:relative;flex-shrink:0}
-.exp-spine::before{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:10px;height:10px;border-radius:50%;background:var(--bg);border:2px solid var(--cyan);box-shadow:0 0 10px var(--cyan-glow)}
-.exp-role{font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:700;color:var(--white);line-height:1.2}
-.exp-company{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;margin-top:.25rem}
-.exp-loc{font-size:.78rem;color:var(--text-muted);margin-top:.1rem}
-.exp-bullets{margin-top:1rem;list-style:none;display:flex;flex-direction:column;gap:.45rem}
-.exp-bullets li{font-size:.84rem;line-height:1.65;color:var(--text-dim);padding-left:1.1rem;position:relative}
-.exp-bullets li::before{content:'▸';position:absolute;left:0;color:var(--cyan);font-size:.7rem;top:.1rem}
-.exp-badges{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
-.ebadge{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.08em;padding:.18rem .55rem;border-radius:2px}
-.eg{background:rgba(57,211,83,.1);color:var(--green);border:1px solid rgba(57,211,83,.25)}
-.ec{background:rgba(0,212,255,.1);color:var(--cyan);border:1px solid rgba(0,212,255,.25)}
-.eo{background:rgba(255,140,66,.1);color:var(--orange);border:1px solid rgba(255,140,66,.25)}
-
-#projects{background:rgba(8,11,16,.66)}
-.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
-.proj-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.6rem;position:relative;overflow:hidden;cursor:none;opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s,border-color .25s,box-shadow .25s}
-.proj-card.visible{opacity:1;transform:translateY(0)}
-.proj-card:hover{border-color:var(--cyan);box-shadow:0 0 30px rgba(0,212,255,.08),0 8px 32px rgba(0,0,0,.4)}
-.proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple));transform:scaleX(0);transform-origin:left;transition:transform .35s}
-.proj-card:hover::before{transform:scaleX(1)}
-.proj-card.lifted{transform:translateY(-5px)}
-.proj-num{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--text-muted);letter-spacing:.15em;margin-bottom:.8rem}
-.proj-icon{font-size:1.4rem;margin-bottom:.8rem}
-.proj-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--white);line-height:1.3;margin-bottom:.6rem}
-.proj-desc{font-size:.8rem;line-height:1.65;color:var(--text-dim);margin-bottom:1.2rem}
-.proj-tags{display:flex;flex-wrap:wrap;gap:.35rem}
-.ptag{font-family:'JetBrains Mono',monospace;font-size:.58rem;padding:.15rem .45rem;background:var(--surface);color:var(--text-muted);border:1px solid var(--border);border-radius:3px;transition:all .2s}
-.proj-card:hover .ptag{border-color:rgba(0,212,255,.2);color:var(--cyan)}
-
-#services{background:rgba(13,17,23,.66)}
-.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
-.service-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.3rem;transition:border-color .25s,transform .25s}
-.service-card:hover{border-color:var(--cyan);transform:translateY(-4px)}
-.service-icon{font-size:1.25rem;margin-bottom:.6rem}
-.service-title{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;color:var(--white);margin-bottom:.45rem}
-.service-desc{font-size:.78rem;line-height:1.6;color:var(--text-dim)}
-
-#process{background:rgba(8,11,16,.66)}
-.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
-.process-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.1rem}
-.process-step{font-family:'Space Mono',monospace;font-size:.58rem;color:var(--cyan);letter-spacing:.12em;margin-bottom:.5rem}
-.process-title{font-size:.9rem;font-weight:700;color:var(--white);margin-bottom:.35rem}
-.process-desc{font-size:.76rem;line-height:1.55;color:var(--text-dim)}
-
-#cta{background:rgba(13,17,23,.66)}
-.cta-banner{margin:0 auto;max-width:900px;background:linear-gradient(120deg,var(--surface),var(--bg2));border:1px solid var(--border2);border-radius:14px;padding:1.8rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.cta-copy h3{font-family:'Syne',sans-serif;font-size:1.35rem;color:var(--white);margin-bottom:.35rem}
-.cta-copy p{font-size:.82rem;color:var(--text-dim);line-height:1.6}
-
-#metrics{background:rgba(22,28,40,.64);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3.5rem 3rem;position:relative;z-index:0}
-.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);max-width:900px;margin:0 auto}
-.metric-cell{background:var(--surface);padding:2rem 1.5rem;text-align:center}
-.metric-num{font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;color:var(--cyan);line-height:1;text-shadow:0 0 20px var(--cyan-glow)}
-.metric-suf{font-size:1.5rem;color:var(--text-dim)}
-.metric-label{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--text-muted);letter-spacing:.12em;text-transform:uppercase;margin-top:.5rem}
-
-#education{background:rgba(13,17,23,.7)}
-.edu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem}
-.edu-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1.6rem;display:flex;gap:1rem;align-items:flex-start;opacity:0;transform:translateY(15px);transition:opacity .5s,transform .5s,border-color .25s}
-.edu-card.visible{opacity:1;transform:translateY(0)}
-.edu-card:hover{border-color:var(--border2)}
-.edu-yr{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--cyan);background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.2);padding:.3rem .5rem;border-radius:4px;white-space:nowrap;letter-spacing:.05em;flex-shrink:0}
-.edu-deg{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;color:var(--white);line-height:1.3;margin-bottom:.3rem}
-.edu-inst{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--text-muted);letter-spacing:.05em}
-
-#contact{background:var(--bg);text-align:center;border-top:1px solid var(--border)}
-.contact-grid{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-top:2.5rem}
-.contact-pill{display:flex;align-items:center;gap:.6rem;background:var(--surface);border:1px solid var(--border);padding:.8rem 1.4rem;border-radius:40px;font-family:'Space Mono',monospace;font-size:.72rem;color:var(--text);text-decoration:none;cursor:none;transition:border-color .2s,color .2s,box-shadow .2s}
-.contact-pill:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 20px rgba(0,212,255,.1)}
-
-footer{background:var(--bg);border-top:1px solid var(--border);padding:.7rem .9rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:0}
-footer > *{position:relative;z-index:2}
-.footer-logo{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--text-muted)}
-.footer-logo span{color:var(--cyan)}
-.footer-copy{font-family:'Space Mono',monospace;font-size:.56rem;color:var(--text-muted)}
-
-.fade-in{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
-.fade-in.visible{opacity:1;transform:translateY(0)}
-.glow-line{height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.25;margin:0 3rem;position:relative;z-index:1}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-@keyframes floatTag{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-@keyframes accentShift{0%{background-position:0 50%}100%{background-position:220% 50%}}
-
-@media(max-width:900px){
-  #hero{grid-template-columns:1fr;padding:5rem 1.5rem 3rem}
-  .terminal{display:none}
-  section{padding:4rem 1.5rem}
-  .projects-grid{grid-template-columns:1fr 1fr}
-  .services-grid{grid-template-columns:1fr 1fr}
-  .process-grid{grid-template-columns:1fr 1fr}
-  .skills-wrapper{grid-template-columns:1fr}
-  .metrics-grid{grid-template-columns:repeat(2,1fr)}
-  nav{padding:.75rem 1rem;display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;column-gap:.45rem;row-gap:.55rem}
-  nav.scrolled{padding:.75rem 1rem}
-  .nav-logo{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.72rem}
-  .menu-toggle{display:inline-flex}
-  .theme-toggle{width:30px;height:30px;font-size:.9rem}
-  .nav-links{display:none;grid-column:1/-1;flex-direction:column;gap:.2rem;padding:.7rem .75rem;border:1px solid var(--border);border-radius:8px;background:var(--surface)}
-  .nav-links.open{display:flex}
-  .nav-links a{display:block;padding:.55rem .3rem;font-size:.7rem;letter-spacing:.1em}
-  .nav-avail{display:none}
-  footer{flex-direction:column;gap:.3rem;text-align:center;padding:.6rem .75rem}
-  .footer-logo,.footer-copy{line-height:1.35}
+body{min-height:100vh;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;font-size:14px;line-height:1.55}
+a{color:inherit;text-decoration:none}
+.app{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;background:#fbfcff;border-right:1px solid var(--line);display:flex;flex-direction:column}
+.brand{display:flex;align-items:center;gap:10px;padding:18px;border-bottom:1px solid var(--line)}
+.brand-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#e23d3d 0 24%,#f6b728 24% 50%,#2f73e8 50% 74%,#18a85f 74%);box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.brand strong{display:block;font-size:14px}
+.brand span{display:block;color:var(--faint);font-size:12px}
+.nav{padding:14px 10px}
+.nav-label{padding:8px 10px;color:var(--faint);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.nav a{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;color:#344054;font-weight:650}
+.nav a:hover,.nav a.active{background:var(--blue-soft);color:var(--blue)}
+.nav i{width:22px;height:22px;border:1px solid var(--line);border-radius:6px;background:var(--panel);display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:800;color:var(--blue)}
+.mini-profile{margin-top:auto;padding:14px;border-top:1px solid var(--line);display:flex;gap:10px;align-items:center}
+.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#172033;color:#fff;font-size:12px;font-weight:800}
+.mini-profile strong{display:block;font-size:13px}
+.mini-profile span{display:block;color:var(--faint);font-size:12px}
+.main{min-width:0}
+.topbar{position:sticky;top:0;z-index:10;height:62px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:0 24px}
+.search{flex:1;height:38px;border:1px solid var(--line);border-radius:8px;background:var(--soft);display:flex;align-items:center;gap:9px;padding:0 12px;color:var(--faint)}
+.search input{width:100%;border:0;background:transparent;outline:0;color:var(--text);font:inherit}
+.actions{display:flex;gap:8px}
+.btn{height:36px;border:1px solid var(--line);border-radius:7px;background:var(--panel);display:inline-flex;align-items:center;justify-content:center;padding:0 12px;font-weight:750;color:#344054}
+.btn.primary{border-color:var(--blue);background:var(--blue);color:#fff}
+.content{max-width:1120px;margin:0 auto;padding:24px 28px 44px}
+.eyebrow{color:var(--faint);font-size:12px;margin-bottom:8px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.record{padding:22px}
+.record-id{color:var(--faint);font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+h1{font-size:34px;line-height:1.1;letter-spacing:-.03em;margin-top:8px}
+.lead{color:var(--muted);font-size:16px;max-width:760px;margin-top:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;background:var(--soft);padding:6px 10px;color:#405168;font-size:12px;font-weight:750}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.side{padding:18px}
+.side h2{font-size:15px;margin-bottom:12px}
+.info{display:grid;gap:10px}
+.row{display:grid;grid-template-columns:86px 1fr;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0;padding-bottom:0}
+.label{color:var(--faint);font-size:12px}
+.value{font-weight:750;color:#2d3748;overflow-wrap:anywhere}
+.available{margin-top:14px;padding:12px;border:1px solid #c8e8d3;border-radius:8px;background:var(--green-soft);color:#42624d;font-size:12px}
+.available strong{display:block;color:var(--green);font-size:13px}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.metric{padding:16px}
+.metric strong{display:block;font-size:28px;line-height:1;color:#111827;letter-spacing:-.03em}
+.metric span{display:block;color:var(--muted);font-size:13px;margin-top:6px}
+.section{margin-top:24px}
+.section-head{margin-bottom:12px}
+.section-head h2{font-size:20px;letter-spacing:-.01em}
+.section-head p{color:var(--muted);max-width:720px;margin-top:4px}
+.impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.impact-card{padding:16px}
+.impact-card strong{display:block;font-size:20px;color:#111827;letter-spacing:-.02em}
+.impact-card span{display:block;color:var(--muted);font-size:13px;margin-top:7px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{padding:17px}
+.card-kicker{color:var(--blue);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.card h3{font-size:16px;margin-top:7px}
+.card p{color:var(--muted);font-size:13px;margin-top:7px}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tag{font-size:11px;font-weight:800;color:#405168;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:5px 8px}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.timeline{display:grid;gap:12px}
+.job{padding:16px}
+.job-date{color:var(--blue);font-size:12px;font-weight:800}
+.job h3{font-size:15px;margin-top:5px}
+.job p{color:var(--muted);font-size:13px;margin-top:5px}
+.skill-cloud{padding:16px}
+.skill-cloud .tag{background:#fff}
+.cta{display:flex;justify-content:space-between;gap:18px;align-items:center;padding:20px;background:linear-gradient(135deg,#fff,#f8fbff)}
+.cta h2{font-size:20px}
+.cta p{color:var(--muted);margin-top:4px}
+.footer{display:flex;justify-content:space-between;gap:12px;padding-top:22px;color:var(--faint);font-size:12px}
+@media(max-width:980px){
+  .hero,.split{grid-template-columns:1fr}
+  .impact-grid{grid-template-columns:1fr 1fr}
+  .cards{grid-template-columns:1fr 1fr}
 }
-@media(max-width:600px){
-  nav{grid-template-columns:minmax(0,1fr) auto auto}
-  .projects-grid{grid-template-columns:1fr}
-  .services-grid{grid-template-columns:1fr}
-  .process-grid{grid-template-columns:1fr}
-  .exp-card{grid-template-columns:1fr;gap:.5rem}
-  .exp-meta{text-align:left}
-  .exp-spine{display:none}
-  .edu-grid{grid-template-columns:1fr}
-  .metrics-grid{grid-template-columns:repeat(2,1fr)}
-  .hero-name{font-size:clamp(2.2rem,12vw,3.2rem)}
-  .hero-desc{font-size:.88rem;line-height:1.65;padding-left:.9rem}
-  .btn-primary,.btn-outline{width:100%;justify-content:center}
-  .metric-num{font-size:2.25rem}
-  .contact-grid{gap:.8rem}
-  .cta-banner{flex-direction:column;align-items:flex-start;padding:1.2rem}
+@media(max-width:760px){
+  .app{display:block;width:100%;overflow:hidden}
+  .sidebar,.main,.content,section,.hero,.panel,.topbar{width:100%;max-width:100%;min-width:0}
+  .sidebar{position:static;height:auto;overflow:hidden}
+  .brand{padding:14px 16px}
+  .nav{display:flex;gap:6px;max-width:100%;overflow-x:auto;padding:10px 12px}
+  .nav-label,.mini-profile{display:none}
+  .nav a{white-space:nowrap}
+  .topbar{position:static;height:auto;flex-wrap:wrap;padding:12px}
+  .search{min-width:0}
+  .actions{width:100%;justify-content:flex-end}
+  .content{padding:18px 14px 36px}
+  h1{font-size:28px}
+  .metrics{grid-template-columns:1fr}
+  .impact-grid{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  .cta{flex-direction:column;align-items:flex-start}
 }
-@media(max-width:420px){
-  nav{padding:.65rem .75rem;column-gap:.35rem}
-  nav.scrolled{padding:.65rem .75rem}
-  .nav-logo{font-size:.66rem;letter-spacing:.03em}
-  .menu-toggle,.theme-toggle{width:28px;height:28px}
-}
-@media (pointer:coarse),(hover:none){
-  body{cursor:auto}
-  #cursor,#cursor-ring,#cursor-gradient{display:none}
-  .btn-primary,.btn-outline,.proj-card,.contact-pill,.theme-toggle,.menu-toggle{cursor:pointer}
+@media(max-width:460px){
+  .hero-actions,.actions{flex-direction:column}
+  .btn{width:100%}
+  .row{grid-template-columns:1fr}
+  .footer{flex-direction:column}
 }
 </style>
 </head>
 <body>
-
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
-<canvas id="canvas-bg"></canvas>
-<div id="cursor-gradient"></div>
-
-<!-- NAV -->
-<nav id="navbar">
-  <div class="nav-logo">UNMESH <span>// CRM LAB</span></div>
-  <ul class="nav-links">
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="education_contact.html#contact">Contact</a></li>
-  </ul>
-  <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
-  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Switch theme">☀</button>
-  <div class="nav-avail"><div class="nav-dot"></div>Open to opportunities</div>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-left fade-in visible">
-    <div class="hero-tag"><span class="hero-tag-dot"></span>CRM Engineer · Automation Architect · Mumbai</div>
-    <h1 class="hero-name">Un<span class="accent">mesh</span><span class="line2">Desai.</span></h1>
-    <div class="hero-typewriter"><span id="typed-text"></span><span class="cursor-blink"></span></div>
-    <p class="hero-desc">5+ years engineering enterprise CRM systems, automation pipelines, and REST API integrations. I turn complex business workflows into clean, scalable solutions on the Zoho ecosystem and beyond.</p>
-    <div class="hero-ctas">
-      <a href="#projects" class="btn-primary">▸ View My Work</a>
-      <a href="education_contact.html#contact" class="btn-outline">Get In Touch</a>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div><strong>Unmesh CRM</strong><span>Portfolio profile</span></div>
     </div>
-  </div>
+    <nav class="nav" aria-label="Portfolio sections">
+      <div class="nav-label">Modules</div>
+      <a class="active" href="#profile"><i>P</i>Profile</a>
+      <a href="#work"><i>W</i>Work</a>
+      <a href="#skills"><i>S</i>Skills</a>
+      <a href="#experience"><i>E</i>Experience</a>
+      <a href="education_contact.html#contact"><i>C</i>Contact</a>
+    </nav>
+    <div class="mini-profile">
+      <div class="avatar">UD</div>
+      <div><strong>Unmesh Desai</strong><span>Zoho CRM Engineer</span></div>
+    </div>
+  </aside>
 
-  <div class="hero-right fade-in visible" style="transition-delay:.2s">
-    <div class="terminal">
-      <div class="terminal-bar">
-        <div class="t-dot r"></div><div class="t-dot y"></div><div class="t-dot g"></div>
-        <div class="terminal-title">unmesh_profile.json</div>
+  <main class="main">
+    <header class="topbar">
+      <label class="search" aria-label="Search portfolio">
+        <span>Search</span>
+        <input type="search" placeholder="CRM, automation, dashboards">
+      </label>
+      <div class="actions">
+        <a class="btn" href="Unmesh_Desai_Resume.html">Resume</a>
+        <a class="btn primary" href="education_contact.html#contact">Contact</a>
       </div>
-      <div class="terminal-body">
-<span class="t-line"><span class="td">{</span></span>
-<span class="t-line">  <span class="tc">"name"</span><span class="td">:</span> <span class="tg">"Unmesh Desai"</span><span class="td">,</span></span>
-<span class="t-line">  <span class="tc">"role"</span><span class="td">:</span> <span class="tg">"CRM Engineer &amp; Automation Architect"</span><span class="td">,</span></span>
-<span class="t-line">  <span class="tc">"location"</span><span class="td">:</span> <span class="tg">"Mumbai, Maharashtra 🇮🇳"</span><span class="td">,</span></span>
-<span class="t-line">  <span class="tc">"experience"</span><span class="td">:</span> <span class="tg">"5+ years"</span><span class="td">,</span></span>
-<span class="t-line">  <span class="tc">"specialization"</span><span class="td">: [</span></span>
-<span class="t-line">    <span class="tg">"Zoho Suite"</span><span class="td">,</span></span>
-<span class="t-line">    <span class="tg">"REST API Integration"</span><span class="td">,</span></span>
-<span class="t-line">    <span class="tg">"Deluge Scripting"</span><span class="td">,</span></span>
-<span class="t-line">    <span class="tg">"Workflow Automation"</span></span>
-<span class="t-line">  <span class="td">],</span></span>
-<span class="t-line">  <span class="tc">"stats"</span><span class="td">: {</span></span>
-<span class="t-line">    <span class="tc">"scripts_deployed"</span><span class="td">:</span> <span class="to">100</span><span class="td">,</span></span>
-<span class="t-line">    <span class="tc">"lead_gen_increase"</span><span class="td">:</span> <span class="tg">"30%"</span><span class="td">,</span></span>
-<span class="t-line">    <span class="tc">"projects_delivered"</span><span class="td">:</span> <span class="to">6</span></span>
-<span class="t-line">  <span class="td">},</span></span>
-<span class="t-line">  <span class="tc">"status"</span><span class="td">:</span> <span class="tg">"open_to_work"</span> <span class="tm">// 🟢 available</span></span>
-<span class="t-line"><span class="td">}</span></span>
-      </div>
-    </div>
-  </div>
-</section>
+    </header>
 
-<div class="glow-line"></div>
+    <div class="content">
+      <section id="profile">
+        <div class="eyebrow">Automation Studio / Profile Record</div>
+        <div class="hero">
+          <article class="panel record">
+            <div class="record-id">PROFILE-0001</div>
+            <h1>Zoho CRM Engineer for complex sales and operations workflows.</h1>
+            <p class="lead">I design CRM systems, Deluge automations, API integrations, migrations, and dashboards for teams that need clean data, regional visibility, and less manual follow-up.</p>
+            <div class="chips">
+              <span class="chip"><span class="dot"></span>Open to roles & projects</span>
+              <span class="chip">Mumbai, Maharashtra</span>
+              <span class="chip">5+ years experience</span>
+            </div>
+            <div class="hero-actions">
+              <a class="btn primary" href="#work">View work</a>
+              <a class="btn" href="education_contact.html#contact">Discuss a project</a>
+            </div>
+          </article>
 
-<!-- METRICS -->
-<div id="metrics">
-  <div class="metrics-grid">
-    <div class="metric-cell">
-      <div class="metric-num" data-target="5"><span class="count">0</span><span class="metric-suf">+</span></div>
-      <div class="metric-label">Years Experience</div>
+          <aside class="panel side">
+            <h2>Record Information</h2>
+            <div class="info">
+              <div class="row"><div class="label">Owner</div><div class="value">Unmesh Desai</div></div>
+              <div class="row"><div class="label">Role</div><div class="value">Zoho CRM Engineer</div></div>
+              <div class="row"><div class="label">Focus</div><div class="value">CRM automation & integrations</div></div>
+              <div class="row"><div class="label">Email</div><div class="value">unnmeshdesai98@gmail.com</div></div>
+            </div>
+            <div class="available"><strong>Status: Available</strong>Open for CRM roles, Zoho ecosystem projects, and automation consulting.</div>
+          </aside>
+        </div>
+
+        <div class="metrics">
+          <div class="panel metric"><strong>60+</strong><span>CRM users supported across 4 regions</span></div>
+          <div class="panel metric"><strong>15K+</strong><span>accounts structured into a single CRM view</span></div>
+          <div class="panel metric"><strong>100+</strong><span>automations, scripts, and CRM improvements</span></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Impact snapshot from documented CRM work</h2>
+          <p>Highlights selected from the PRDs, impact report, CRM workbook, integration docs, and NIVID discovery files.</p>
+        </div>
+        <div class="impact-grid">
+          <article class="panel impact-card">
+            <strong>4-region rollout</strong>
+            <span>CRM deployed across India, Dubai, Antwerp, and New York with structured permissions and regional sales visibility.</span>
+          </article>
+          <article class="panel impact-card">
+            <strong>3,900+ contacts</strong>
+            <span>Customer and contact data moved into a cleaner source of truth for sales ownership, handover, and follow-up.</span>
+          </article>
+          <article class="panel impact-card">
+            <strong>>81% win-rate view</strong>
+            <span>Deal dashboards helped leadership compare win/loss trends by quarter, region, source, and reason.</span>
+          </article>
+          <article class="panel impact-card">
+            <strong>7,400+ bid records</strong>
+            <span>Online bidding visibility gave sales teams better access to bid activity, buyer behavior, and inventory demand signals.</span>
+          </article>
+        </div>
+      </section>
+
+      <section id="work" class="section">
+        <div class="section-head">
+          <h2>Selected work</h2>
+          <p>Three representative builds from KGK/NIVID documentation, simplified for public portfolio use.</p>
+        </div>
+        <div class="cards">
+          <article class="panel card">
+            <div class="card-kicker">Global CRM Rollout</div>
+            <h3>KGK Zoho CRM Operating System</h3>
+            <p>Rolled out a structured CRM across four regions with role-based access, account segmentation, lead/KYC flows, sales handover controls, and cleaner ownership.</p>
+            <div class="tag-row"><span class="tag">Zoho CRM</span><span class="tag">60+ users</span><span class="tag">15K+ accounts</span></div>
+          </article>
+          <article class="panel card">
+            <div class="card-kicker">Sales Intelligence</div>
+            <h3>Dashboards & Revenue Visibility</h3>
+            <p>Built dashboard requirements and reporting logic for sales, outstanding memos, packs, regional performance, lead conversion, bid activity, and salesperson profitability.</p>
+            <div class="tag-row"><span class="tag">Analytics</span><span class="tag">Dashboards</span><span class="tag">KPIs</span></div>
+          </article>
+          <article class="panel card">
+            <div class="card-kicker">NIVID Integration</div>
+            <h3>Inventory, Payments & Reverse Sync</h3>
+            <p>Documented and scoped CRM-to-NIVID flows for receivables, inventory UI cleanup, reverse sync, volume discount tagging, and global reporting accuracy.</p>
+            <div class="tag-row"><span class="tag">REST API</span><span class="tag">Sync</span><span class="tag">NIVID</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Project artifacts I owned</h2>
+          <p>The folder shows business-analysis work across requirements, scope, acceptance criteria, process design, and implementation reference docs.</p>
+        </div>
+        <div class="cards">
+          <article class="panel card">
+            <div class="card-kicker">PRD + Blueprint</div>
+            <h3>Lead and KYC journey</h3>
+            <p>Mapped the lead path from new lead to SDR vetting, assignment, qualification, and conversion with required deal data and KYC automation.</p>
+            <div class="tag-row"><span class="tag">SDR Flow</span><span class="tag">KYC</span><span class="tag">Blueprint</span></div>
+          </article>
+          <article class="panel card">
+            <div class="card-kicker">Governance</div>
+            <h3>Segmentation and field cleanup</h3>
+            <p>Defined global account segmentation, mandatory classification, Push/Pull customer logic, and field-bloat cleanup to improve CRM data quality.</p>
+            <div class="tag-row"><span class="tag">Accounts</span><span class="tag">Validation</span><span class="tag">Data Quality</span></div>
+          </article>
+          <article class="panel card">
+            <div class="card-kicker">ERP Discovery</div>
+            <h3>NIVID process review</h3>
+            <p>Reviewed ERP module gaps, integration pain points, manufacturing/commercial flows, and questionnaire feedback to support CRM-ERP planning.</p>
+            <div class="tag-row"><span class="tag">ERP Review</span><span class="tag">Process Mapping</span><span class="tag">Requirements</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="skills" class="section">
+        <div class="section-head">
+          <h2>What I can help with</h2>
+          <p>A focused service view instead of a long skill list.</p>
+        </div>
+        <div class="cards">
+          <article class="panel card">
+            <div class="card-kicker">Build</div>
+            <h3>CRM setup & customization</h3>
+            <p>Modules, fields, layouts, permissions, account segmentation, Blueprints, validation rules, and governance-ready data models.</p>
+          </article>
+          <article class="panel card">
+            <div class="card-kicker">Automate</div>
+            <h3>Deluge & workflows</h3>
+            <p>Scheduled functions, lead routing, KYC status updates, webhooks, alerts, approvals, follow-ups, and repetitive task automation.</p>
+          </article>
+          <article class="panel card">
+            <div class="card-kicker">Connect</div>
+            <h3>APIs & dashboards</h3>
+            <p>Website, ERP, payment receivable, inventory, portal, Kafka/webhook, and database integrations with dashboards for decision-making.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="experience" class="section">
+        <div class="split">
+          <div>
+            <div class="section-head">
+              <h2>Experience</h2>
+              <p>Recent roles most relevant to CRM engineering.</p>
+            </div>
+            <div class="timeline">
+              <article class="panel job">
+                <div class="job-date">Jan 2025 - Present</div>
+                <h3>CRM Administrator - KGK InfoTech LLP</h3>
+                <p>Zoho CRM architecture for multi-region sales operations, lead/KYC workflows, account governance, NIVID integration planning, and analytics dashboards.</p>
+              </article>
+              <article class="panel job">
+                <div class="job-date">Oct 2020 - Dec 2024</div>
+                <h3>Software Developer - Vedika Web Solutions</h3>
+                <p>100+ Deluge scripts, Zoho Creator apps, Shopify and Stripe integrations, migrations, and client training.</p>
+              </article>
+            </div>
+          </div>
+          <div>
+            <div class="section-head">
+              <h2>Core stack</h2>
+              <p>The tools and practices I use most often.</p>
+            </div>
+            <div class="panel skill-cloud">
+              <div class="tag-row">
+                <span class="tag">Zoho CRM</span>
+                <span class="tag">Zoho Creator</span>
+                <span class="tag">Zoho Analytics</span>
+                <span class="tag">Deluge</span>
+                <span class="tag">REST APIs</span>
+                <span class="tag">Blueprints</span>
+                <span class="tag">KYC Workflows</span>
+                <span class="tag">Payment Receivables</span>
+                <span class="tag">Reverse Sync</span>
+                <span class="tag">Inventory UI</span>
+                <span class="tag">Workflow Rules</span>
+                <span class="tag">Data Migration</span>
+                <span class="tag">MySQL</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Dashboards</span>
+                <span class="tag">Client Training</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="panel cta">
+          <div>
+            <h2>Need a CRM your team can actually use?</h2>
+            <p>Share your current CRM problem and I will help identify the simplest next step.</p>
+          </div>
+          <a class="btn primary" href="education_contact.html#contact">Create request</a>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>Unmesh CRM / Portfolio profile</span>
+        <span>&copy; 2026 Unmesh Desai</span>
+      </footer>
     </div>
-    <div class="metric-cell">
-      <div class="metric-num" data-target="100"><span class="count">0</span><span class="metric-suf">+</span></div>
-      <div class="metric-label">Deluge Scripts</div>
-    </div>
-    <div class="metric-cell">
-      <div class="metric-num" data-target="30"><span class="count">0</span><span class="metric-suf">%</span></div>
-      <div class="metric-label">Lead Gen Increase</div>
-    </div>
-    <div class="metric-cell">
-      <div class="metric-num" data-target="6"><span class="count">0</span><span class="metric-suf"></span></div>
-      <div class="metric-label">Major Projects</div>
-    </div>
-  </div>
+  </main>
 </div>
-
-<div class="glow-line"></div>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="container">
-    <div class="s-eye"><div class="s-line"></div><span class="s-lbl">Tech Stack</span></div>
-    <h2 class="s-title fade-in">Skills &amp; <em>Expertise</em></h2>
-    <div class="skills-wrapper">
-      <div class="fade-in">
-        <div class="sg-title">// CRM Platforms</div>
-        <div class="skill-list">
-          <div class="skill-row">
-            <div class="skill-meta"><span class="sn">Zoho Suite</span><span class="sp">95%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-w="95"></div></div>
-            <div class="skill-tags"><span class="stag">CRM</span><span class="stag">Creator</span><span class="stag">Analytics</span><span class="stag">Desk</span><span class="stag">Books</span></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-meta"><span class="sn">Salesforce Lightning</span><span class="sp">75%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-w="75"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-meta"><span class="sn">HubSpot CRM</span><span class="sp">80%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-w="80"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-meta"><span class="sn">NetSuite</span><span class="sp">65%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-w="65"></div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="fade-in" style="transition-delay:.15s">
-        <div class="sg-title">// Development &amp; Automation</div>
-        <div class="skill-list">
-          <div class="skill-row">
-            <div class="skill-meta"><span class="sn">Deluge Scripting</span><span class="sp">95%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-w="95"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-meta"><span class="sn">REST API Integration</span><span class="sp">90%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-w="90"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-meta"><span class="sn">Workflow Automation</span><span class="sp">95%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-w="95"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-meta"><span class="sn">HTML · CSS · JavaScript</span><span class="sp">80%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-w="80"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-meta"><span class="sn">MySQL</span><span class="sp">75%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-w="75"></div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="fade-in" style="transition-delay:.3s">
-        <div class="sg-title">// Data &amp; Analytics</div>
-        <div class="skill-list">
-          <div class="skill-row">
-            <div class="skill-meta"><span class="sn">BI Dashboards</span><span class="sp">88%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-w="88"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-meta"><span class="sn">Data Migration &amp; Cleansing</span><span class="sp">90%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-w="90"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-meta"><span class="sn">CRM Data Modeling</span><span class="sp">85%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-w="85"></div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="fade-in" style="transition-delay:.45s">
-        <div class="sg-title">// Business &amp; Leadership</div>
-        <div class="skill-list">
-          <div class="skill-row">
-            <div class="skill-meta"><span class="sn">Requirement Gathering</span><span class="sp">90%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-w="90"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-meta"><span class="sn">Client Training &amp; Onboarding</span><span class="sp">92%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-w="92"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-meta"><span class="sn">Stakeholder Engagement</span><span class="sp">88%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-w="88"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-meta"><span class="sn">Business Process Optimization</span><span class="sp">90%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-w="90"></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="glow-line"></div>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="container">
-    <div class="s-eye"><div class="s-line"></div><span class="s-lbl">Career Timeline</span></div>
-    <h2 class="s-title fade-in">Work <em>Experience</em></h2>
-    <div class="exp-track">
-
-      <div class="exp-card">
-        <div class="exp-meta">
-          <div class="exp-period">Jan 2025<br>Present</div>
-          <div class="exp-dur">Current</div>
-        </div>
-        <div class="exp-spine"></div>
-        <div class="exp-body">
-          <div class="exp-role">CRM Administrator</div>
-          <div class="exp-company">KGK InfoTech LLP</div>
-          <div class="exp-loc">Mumbai, India</div>
-          <ul class="exp-bullets">
-            <li>Architected Zoho CRM customizations — custom modules, widgets, and multi-stage Blueprint automation aligned with enterprise diamond-trading workflows.</li>
-            <li>Built REST API integrations connecting the company website and internal databases to CRM, enabling real-time, bidirectional data flow.</li>
-            <li>Engineered Scheduled Functions, Blueprints, and Workflow rules that reduced manual operational tasks significantly.</li>
-            <li>Implemented field validations, role hierarchies, and data governance policies to enforce CRM data quality and security at scale.</li>
-            <li>Designed live executive dashboards in Zoho CRM and Zoho Analytics giving leadership real-time visibility into sales pipeline and operational KPIs.</li>
-          </ul>
-          <div class="exp-badges">
-            <span class="ebadge ec">Zoho CRM</span>
-            <span class="ebadge ec">REST APIs</span>
-            <span class="ebadge ec">Blueprints</span>
-            <span class="ebadge eg">Zoho Analytics</span>
-            <span class="ebadge eg">Automation</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="exp-card">
-        <div class="exp-meta">
-          <div class="exp-period">Oct 2020<br>Dec 2024</div>
-          <div class="exp-dur">4+ Years</div>
-        </div>
-        <div class="exp-spine"></div>
-        <div class="exp-body">
-          <div class="exp-role">Software Developer</div>
-          <div class="exp-company">Vedika Web Solutions</div>
-          <div class="exp-loc">Pune, India</div>
-          <ul class="exp-bullets">
-            <li>Developed and shipped <strong style="color:var(--cyan)">100+ custom Deluge scripts</strong> automating business-critical tasks across Zoho CRM, Creator, Desk, and Books.</li>
-            <li>Designed tailored CRM solutions for lead management, sales forecasting, client onboarding, and customer support workflows across multiple industries.</li>
-            <li>Integrated Zoho ecosystem with Shopify, Stripe, insurance portals, and other third-party platforms via REST APIs.</li>
-            <li>Built scalable low-code applications in Zoho Creator serving Real Estate and Education sectors.</li>
-            <li>Ran stakeholder process analysis workshops to surface workflow bottlenecks and engineer targeted automation solutions.</li>
-            <li>Contributed to campaigns driving a <strong style="color:var(--green)">30% increase in lead generation</strong> through CRM-powered outreach automation.</li>
-            <li>Delivered client training programs achieving high Zoho platform adoption across teams.</li>
-          </ul>
-          <div class="exp-badges">
-            <span class="ebadge eg">▲ 30% Lead Growth</span>
-            <span class="ebadge ec">100+ Scripts</span>
-            <span class="ebadge eo">Zoho Creator</span>
-            <span class="ebadge eo">Deluge</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="exp-card">
-        <div class="exp-meta">
-          <div class="exp-period">Mar 2020<br>May 2020</div>
-        </div>
-        <div class="exp-spine"></div>
-        <div class="exp-body">
-          <div class="exp-role">Business Associate</div>
-          <div class="exp-company">The Pioneer Organization</div>
-          <div class="exp-loc">Mumbai Metropolitan Region, India</div>
-          <ul class="exp-bullets">
-            <li>Generated new business pipelines for major Indian brands, driving brand reach and market growth.</li>
-            <li>Developed client growth strategies — hands-on business acumen that now informs better CRM architecture decisions.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="exp-card">
-        <div class="exp-meta">
-          <div class="exp-period">Aug 2019<br>Dec 2019</div>
-        </div>
-        <div class="exp-spine"></div>
-        <div class="exp-body">
-          <div class="exp-role">Customer Service Representative</div>
-          <div class="exp-company">Teleperformance</div>
-          <div class="exp-loc">Goregaon, India</div>
-          <ul class="exp-bullets">
-            <li>Delivered omnichannel customer care and technical support for global enterprise brands, building deep empathy for end-user CX — a foundation I apply to every CRM I design today.</li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<div class="glow-line"></div>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="container">
-    <div class="s-eye"><div class="s-line"></div><span class="s-lbl">Selected Work</span></div>
-    <h2 class="s-title fade-in">Featured <em>Projects</em></h2>
-    <div class="projects-grid">
-
-      <div class="proj-card">
-        <div class="proj-num">// 01</div>
-        <div class="proj-icon">💎</div>
-        <div class="proj-title">Zoho CRM — KGK Diamonds</div>
-        <div class="proj-desc">Full CRM implementation for a diamond trading company. Custom modules, multi-stage Blueprints, advanced automation, and user-specific leadership dashboards. Integrated with internal databases for real-time operational visibility.</div>
-        <div class="proj-tags"><span class="ptag">Zoho CRM</span><span class="ptag">Blueprints</span><span class="ptag">REST API</span><span class="ptag">Dashboards</span></div>
-      </div>
-
-      <div class="proj-card">
-        <div class="proj-num">// 02</div>
-        <div class="proj-icon">📦</div>
-        <div class="proj-title">Equipment Rental Management System</div>
-        <div class="proj-desc">Custom Zoho Creator app managing 1,500+ interpretation equipment pieces across two warehouses — inventory tracking, booking workflows, in/out logs, and automated real-time availability checks.</div>
-        <div class="proj-tags"><span class="ptag">Zoho Creator</span><span class="ptag">Deluge</span><span class="ptag">Inventory</span><span class="ptag">Automation</span></div>
-      </div>
-
-      <div class="proj-card">
-        <div class="proj-num">// 03</div>
-        <div class="proj-icon">🔄</div>
-        <div class="proj-title">HubSpot → Zoho CRM Migration</div>
-        <div class="proj-desc">End-to-end CRM migration preserving all contacts, deals, and workflow logic. Rebuilt automation natively in Zoho, maintained 100% data integrity, and minimized operational downtime throughout cutover.</div>
-        <div class="proj-tags"><span class="ptag">Data Migration</span><span class="ptag">HubSpot</span><span class="ptag">Zoho CRM</span><span class="ptag">Data Integrity</span></div>
-      </div>
-
-      <div class="proj-card">
-        <div class="proj-num">// 04</div>
-        <div class="proj-icon">🛍️</div>
-        <div class="proj-title">Shopify + Zoho E-commerce Automation</div>
-        <div class="proj-desc">Integrated a Shopify store with Zoho CRM and Books to automate order processing, inventory sync, customer lifecycle tracking, and Stripe payment reconciliation — end to end.</div>
-        <div class="proj-tags"><span class="ptag">Shopify</span><span class="ptag">Zoho Books</span><span class="ptag">Stripe</span><span class="ptag">REST API</span></div>
-      </div>
-
-      <div class="proj-card">
-        <div class="proj-num">// 05</div>
-        <div class="proj-icon">🏢</div>
-        <div class="proj-title">Real Estate Analytics Dashboard</div>
-        <div class="proj-desc">Built real-time BI dashboards in Zoho Analytics for a real estate agency — lead conversion funnels, pipeline health metrics, and agent performance scorecards driving data-led decisions.</div>
-        <div class="proj-tags"><span class="ptag">Zoho Analytics</span><span class="ptag">Real Estate</span><span class="ptag">BI</span><span class="ptag">KPIs</span></div>
-      </div>
-
-      <div class="proj-card">
-        <div class="proj-num">// 06</div>
-        <div class="proj-icon">🔐</div>
-        <div class="proj-title">Insurance Agency CRM Integration</div>
-        <div class="proj-desc">REST API integration between Zoho CRM and external insurance portals — automated policy import, real-time claim tracking, and notification workflows, eliminating hours of daily manual data entry.</div>
-        <div class="proj-tags"><span class="ptag">REST API</span><span class="ptag">Insurance</span><span class="ptag">Zoho CRM</span><span class="ptag">Workflow</span></div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<div class="glow-line"></div>
-
-<!-- SERVICES -->
-<section id="services">
-  <div class="container">
-    <div class="s-eye"><div class="s-line"></div><span class="s-lbl">What I Offer</span></div>
-    <h2 class="s-title fade-in">Core <em>Services</em></h2>
-    <div class="services-grid">
-      <div class="service-card fade-in">
-        <div class="service-icon">⚙️</div>
-        <div class="service-title">CRM Implementation</div>
-        <div class="service-desc">End-to-end setup of Zoho CRM modules, fields, layouts, blueprints, and role structures tailored to your business model.</div>
-      </div>
-      <div class="service-card fade-in" style="transition-delay:.06s">
-        <div class="service-icon">🔌</div>
-        <div class="service-title">API Integrations</div>
-        <div class="service-desc">Secure integrations between CRM and websites, ERPs, payment gateways, and third-party business tools.</div>
-      </div>
-      <div class="service-card fade-in" style="transition-delay:.12s">
-        <div class="service-icon">🤖</div>
-        <div class="service-title">Workflow Automation</div>
-        <div class="service-desc">Automated lead assignment, follow-ups, alerts, and scheduled operations that reduce manual effort.</div>
-      </div>
-      <div class="service-card fade-in" style="transition-delay:.18s">
-        <div class="service-icon">📊</div>
-        <div class="service-title">Dashboards & Insights</div>
-        <div class="service-desc">Actionable KPI dashboards for leadership visibility across pipeline, revenue, and performance.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="glow-line"></div>
-
-<!-- PROCESS -->
-<section id="process">
-  <div class="container">
-    <div class="s-eye"><div class="s-line"></div><span class="s-lbl">How I Work</span></div>
-    <h2 class="s-title fade-in">Delivery <em>Process</em></h2>
-    <div class="process-grid">
-      <div class="process-card fade-in">
-        <div class="process-step">STEP 01</div>
-        <div class="process-title">Discover</div>
-        <div class="process-desc">Understand your current processes, friction points, and business goals.</div>
-      </div>
-      <div class="process-card fade-in" style="transition-delay:.06s">
-        <div class="process-step">STEP 02</div>
-        <div class="process-title">Architect</div>
-        <div class="process-desc">Design data models, automations, and integration flows with scalability in mind.</div>
-      </div>
-      <div class="process-card fade-in" style="transition-delay:.12s">
-        <div class="process-step">STEP 03</div>
-        <div class="process-title">Build & Integrate</div>
-        <div class="process-desc">Implement CRM customizations, Deluge scripts, and APIs with end-to-end testing.</div>
-      </div>
-      <div class="process-card fade-in" style="transition-delay:.18s">
-        <div class="process-step">STEP 04</div>
-        <div class="process-title">Optimize</div>
-        <div class="process-desc">Train teams, track adoption, and continuously improve the system performance.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="glow-line"></div>
-
-<!-- CTA -->
-<section id="cta">
-  <div class="container">
-    <div class="cta-banner fade-in">
-      <div class="cta-copy">
-        <h3>Need a CRM that actually drives outcomes?</h3>
-        <p>Let us design and automate your workflows so your team can focus on revenue instead of repetitive manual tasks.</p>
-      </div>
-      <a href="education_contact.html#contact" class="btn-primary">Start a Project</a>
-    </div>
-  </div>
-</section>
-
-<div class="glow-line"></div>
-
-<!-- EDUCATION -->
-<section id="education">
-  <div class="container">
-    <div class="s-eye"><div class="s-line"></div><span class="s-lbl">Academic Background</span></div>
-    <h2 class="s-title fade-in"><em>Education</em></h2>
-    <div class="edu-grid">
-      <div class="edu-card">
-        <div class="edu-yr">Dec 2019</div>
-        <div><div class="edu-deg">Web Development — Computer Programming</div><div class="edu-inst">Aptech Learning</div></div>
-      </div>
-      <div class="edu-card">
-        <div class="edu-yr">Jan 2019</div>
-        <div><div class="edu-deg">Bachelor of Management Studies — Marketing</div><div class="edu-inst">Patkar College of Commerce and Economics</div></div>
-      </div>
-      <div class="edu-card">
-        <div class="edu-yr">Jan 2015</div>
-        <div><div class="edu-deg">Higher Secondary Certificate — Business &amp; Commerce</div><div class="edu-inst">State Board of Maharashtra</div></div>
-      </div>
-      <div class="edu-card">
-        <div class="edu-yr">Jan 2013</div>
-        <div><div class="edu-deg">Secondary School Certificate (SSC)</div><div class="edu-inst">St. Xavier's High School, India</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="glow-line"></div>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">UNMESH <span>// AUTOMATION STUDIO</span> <span style="color:var(--text-muted)">Thanks for visiting</span></div>
-  <div class="footer-copy">© 2025 Unmesh Desai — Built with precision</div>
-</footer>
-
-
-<script>
-/* CURSOR */
-const cursor=document.getElementById('cursor');
-const ring=document.getElementById('cursor-ring');
-const gradientGlow=document.getElementById('cursor-gradient');
-const isTouchDevice=window.matchMedia('(pointer:coarse)').matches||('ontouchstart' in window);
-let mx=0,my=0,rx=0,ry=0;
-function updatePointer(x,y){
-  mx=x;my=y;
-  cursor.style.left=mx+'px';
-  cursor.style.top=my+'px';
-}
-function snapPointer(x,y){
-  rx=x;ry=y;
-  ring.style.left=rx+'px';
-  ring.style.top=ry+'px';
-  gradientGlow.style.left=rx+'px';
-  gradientGlow.style.top=ry+'px';
-}
-updatePointer(window.innerWidth/2,window.innerHeight/2);
-snapPointer(window.innerWidth/2,window.innerHeight/2);
-document.addEventListener('mousemove',e=>updatePointer(e.clientX,e.clientY));
-document.addEventListener('pointermove',e=>updatePointer(e.clientX,e.clientY));
-document.addEventListener('touchstart',e=>{
-  if(e.touches&&e.touches[0]){
-    const x=e.touches[0].clientX,y=e.touches[0].clientY;
-    updatePointer(x,y);
-    snapPointer(x,y);
-  }
-},{passive:true});
-document.addEventListener('touchmove',e=>{
-  if(e.touches&&e.touches[0]){
-    const x=e.touches[0].clientX,y=e.touches[0].clientY;
-    updatePointer(x,y);
-    snapPointer(x,y);
-  }
-},{passive:true});
-(function anim(){
-  const ease=isTouchDevice ? 0.45 : 0.18;
-  rx+=(mx-rx)*ease;
-  ry+=(my-ry)*ease;
-  ring.style.left=rx+'px';
-  ring.style.top=ry+'px';
-  gradientGlow.style.left=rx+'px';
-  gradientGlow.style.top=ry+'px';
-  requestAnimationFrame(anim);
-})();
-document.querySelectorAll('a,button,.proj-card,.contact-pill').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cursor.style.width='20px';cursor.style.height='20px';ring.style.width='50px';ring.style.height='50px';ring.style.borderColor='var(--cyan)'});
-  el.addEventListener('mouseleave',()=>{cursor.style.width='12px';cursor.style.height='12px';ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='var(--cursor-ring)'});
-});
-
-/* THEME TOGGLE */
-const root=document.documentElement;
-const themeToggle=document.getElementById('theme-toggle');
-const menuToggle=document.getElementById('menu-toggle');
-const navLinks=document.querySelector('.nav-links');
-const themeKey='portfolio-theme';
-function setTheme(theme){
-  root.setAttribute('data-theme',theme);
-  themeToggle.textContent=theme==='light'?'🌙':'☀';
-  themeToggle.setAttribute('aria-label',`Switch to ${theme==='light'?'dark':'light'} theme`);
-  themeToggle.setAttribute('title',`Switch to ${theme==='light'?'dark':'light'} theme`);
-}
-const savedTheme=localStorage.getItem(themeKey);
-const initialTheme=savedTheme||'light';
-setTheme(initialTheme);
-themeToggle.addEventListener('click',()=>{
-  const current=root.getAttribute('data-theme')||'dark';
-  const next=current==='dark'?'light':'dark';
-  setTheme(next);
-  localStorage.setItem(themeKey,next);
-});
-menuToggle.addEventListener('click',()=>{
-  const isOpen=navLinks.classList.toggle('open');
-  menuToggle.setAttribute('aria-expanded',isOpen?'true':'false');
-  menuToggle.textContent=isOpen?'✕':'☰';
-});
-navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
-  if(window.innerWidth<=900){
-    navLinks.classList.remove('open');
-    menuToggle.setAttribute('aria-expanded','false');
-    menuToggle.textContent='☰';
-  }
-}));
-window.addEventListener('resize',()=>{
-  if(window.innerWidth>900){
-    navLinks.classList.remove('open');
-    menuToggle.setAttribute('aria-expanded','false');
-    menuToggle.textContent='☰';
-  }
-});
-
-/* PARTICLE CANVAS */
-const canvas=document.getElementById('canvas-bg');
-const ctx=canvas.getContext('2d');
-let W,H,particles=[];
-function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
-resize();
-window.addEventListener('resize',resize);
-class P{
-  constructor(){this.reset()}
-  reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.r=Math.random()*1.4+.3;this.a=Math.random()*.45+.1}
-  update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset()}
-  draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(0,212,255,${this.a})`;ctx.fill()}
-}
-for(let i=0;i<80;i++)particles.push(new P());
-function drawLines(){
-  for(let i=0;i<particles.length;i++){
-    for(let j=i+1;j<particles.length;j++){
-      const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,d=Math.sqrt(dx*dx+dy*dy);
-      if(d<130){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=`rgba(0,212,255,${.1*(1-d/130)})`;ctx.lineWidth=.5;ctx.stroke()}
-    }
-  }
-}
-(function ac(){ctx.clearRect(0,0,W,H);particles.forEach(p=>{p.update();p.draw()});drawLines();requestAnimationFrame(ac)})();
-
-/* TYPEWRITER */
-const phrases=['Zoho CRM Engineer','REST API Integrator','Automation Architect','Deluge Scripter','BI Dashboard Builder','CRM Data Modeler'];
-let pi=0,ci=0,del=false;
-const tel=document.getElementById('typed-text');
-function type(){
-  const ph=phrases[pi];
-  if(!del){tel.textContent=ph.slice(0,++ci);if(ci===ph.length){del=true;setTimeout(type,1800);return}}
-  else{tel.textContent=ph.slice(0,--ci);if(ci===0){del=false;pi=(pi+1)%phrases.length}}
-  setTimeout(type,del?45:85);
-}
-type();
-
-/* SCROLL OBSERVER */
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add('visible');
-      const kids=e.target.querySelectorAll('.exp-card,.edu-card,.proj-card');
-      kids.forEach((c,i)=>setTimeout(()=>c.classList.add('visible'),i*100));
-      io.unobserve(e.target);
-    }
-  });
-},{threshold:.07});
-document.querySelectorAll('.fade-in,.exp-card,.edu-card,.proj-card').forEach(el=>io.observe(el));
-document.querySelectorAll('.proj-card').forEach(card=>{
-  card.addEventListener('mouseenter',()=>card.classList.add('lifted'));
-  card.addEventListener('mouseleave',()=>card.classList.remove('lifted'));
-});
-
-/* SKILL BARS */
-const sio=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.querySelectorAll('.skill-fill').forEach(b=>{const w=b.dataset.w;b.style.width='0';requestAnimationFrame(()=>setTimeout(()=>b.style.width=w+'%',100))});
-      sio.unobserve(e.target);
-    }
-  });
-},{threshold:.15});
-document.querySelectorAll('#skills').forEach(s=>sio.observe(s));
-
-/* COUNTERS */
-const cio=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.querySelectorAll('.metric-num').forEach(n=>{
-        const target=+n.dataset.target,el2=n.querySelector('.count');
-        let cur=0;const step=target/60;
-        const t=setInterval(()=>{cur=Math.min(cur+step,target);el2.textContent=Math.floor(cur);if(cur>=target)clearInterval(t)},20);
-      });
-      cio.unobserve(e.target);
-    }
-  });
-},{threshold:.3});
-document.querySelectorAll('#metrics').forEach(m=>cio.observe(m));
-
-/* NAV */
-window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>60));
-</script>
 </body>
 </html>

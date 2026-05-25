@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const mysql = require("mysql2/promise");
+const path = require("path");
 
 dotenv.config();
 
@@ -10,6 +11,18 @@ const port = Number(process.env.PORT || 3000);
 
 app.use(cors());
 app.use(express.json());
+
+app.get(["/", "/index.html"], (_req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+app.get("/education_contact.html", (_req, res) => {
+  res.sendFile(path.join(__dirname, "education_contact.html"));
+});
+
+app.get("/Unmesh_Desai_Resume.html", (_req, res) => {
+  res.sendFile(path.join(__dirname, "Unmesh_Desai_Resume.html"));
+});
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST || "localhost",
