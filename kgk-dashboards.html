@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="KGK CRM analytics dashboards: integration metrics and delivery KPIs from documented Zoho work.">
+<title>KGK Dashboards | Unmesh Desai</title>
+<link rel="stylesheet" href="assets/css/zoho-theme.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div><strong>Unmesh CRM</strong><span>KGK dashboards</span></div>
+    </div>
+    <nav class="nav" aria-label="Portfolio navigation">
+      <div class="nav-label">Portfolio</div>
+      <a href="index.html"><i>P</i>Profile</a>
+      <div class="nav-group-title">KGK Project</div>
+      <div class="nav-sub">
+        <a href="kgk.html"><i>O</i>Overview</a>
+        <a class="active" href="kgk-dashboards.html"><i>D</i>Dashboards</a>
+        <a href="kgk-reports.html"><i>R</i>Reports</a>
+      </div>
+      <div class="nav-divider"></div>
+      <a href="index.html#work"><i>W</i>Work</a>
+      <a href="skills.html"><i>S</i>Skills</a>
+      <a href="index.html#experience"><i>E</i>Experience</a>
+      <a href="education_contact.html#contact"><i>C</i>Contact</a>
+    </nav>
+    <div class="mini-profile">
+      <div class="avatar">UD</div>
+      <div><strong>Unmesh Desai</strong><span>Zoho CRM Engineer</span></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="breadcrumb"><span>KGK</span> <span>/</span> <strong>Dashboards</strong></div>
+      <label class="search" aria-label="Search dashboards">
+        <span>⌕</span>
+        <input type="search" placeholder="KPIs, schemas, workstreams…">
+      </label>
+      <div class="actions">
+        <a class="btn" href="kgk-reports.html">Reports</a>
+        <a class="btn primary" href="kgk.html">Overview</a>
+      </div>
+    </header>
+
+    <div class="content">
+      <header class="page-header">
+        <div class="eyebrow">KGK / Analytics dashboards</div>
+        <h1 class="page-title">KGK delivery dashboard</h1>
+        <p class="page-desc">Analytics for the KGK CRM program—schema coverage, workstream deliverables, skills distribution, and delivery timeline. Metrics reflect BA research artifacts, not live production feeds.</p>
+      </header>
+
+      <div class="kpi-grid" id="dashboard-kpis"></div>
+
+      <div class="chart-grid">
+        <article class="panel chart-panel">
+          <h3>Kafka schema coverage</h3>
+          <p>Documented event contracts in Symphony Sync</p>
+          <div class="chart-wrap"><canvas id="chart-schemas" aria-label="Kafka schemas chart"></canvas></div>
+        </article>
+        <article class="panel chart-panel">
+          <h3>Skills distribution</h3>
+          <p>Weighted capabilities from KGK CRM BA deliverables</p>
+          <div class="chart-wrap"><canvas id="chart-skills" aria-label="Skills chart"></canvas></div>
+        </article>
+      </div>
+
+      <div class="chart-grid">
+        <article class="panel chart-panel">
+          <h3>Deliverables vs modules</h3>
+          <p>Per workstream documentation depth</p>
+          <div class="chart-wrap tall"><canvas id="chart-projects" aria-label="Workstream metrics chart"></canvas></div>
+        </article>
+        <article class="panel chart-panel">
+          <h3>Delivery timeline</h3>
+          <p>KGK workstreams by period</p>
+          <div class="chart-wrap tall"><canvas id="chart-timeline" aria-label="Timeline chart"></canvas></div>
+        </article>
+      </div>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>At-a-glance metrics</h2>
+          <p>Key figures from Symphony Sync, NIVID Connect, and Subform documentation.</p>
+        </div>
+        <div class="impact-grid" id="dash-highlights"></div>
+      </section>
+
+      <footer class="footer">
+        <span>Charts: Chart.js · Data: crm-portfolio-data.js (KGK scoped)</span>
+        <span>&copy; 2026 Unmesh Desai</span>
+      </footer>
+    </div>
+  </main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="assets/js/crm-portfolio-data.js"></script>
+<script src="assets/js/analytics-charts.js"></script>
+<script>
+(function () {
+  const p = window.CRM_PORTFOLIO_DATA.project;
+  const kpiRoot = document.getElementById("dashboard-kpis");
+  kpiRoot.innerHTML = p.dashboards.kpis.map(function (k) {
+    return '<article class="panel kpi ' + (k.tone || "") + '"><div class="kpi-label">' + k.label + '</div><div class="kpi-value">' + k.value + '</div><div class="kpi-foot">' + k.foot + '</div></article>';
+  }).join("");
+
+  document.getElementById("dash-highlights").innerHTML = p.dashboards.highlights.map(function (h) {
+    return '<article class="panel impact-card"><strong>' + h.title + '</strong><span>' + h.desc + '</span></article>';
+  }).join("");
+})();
+</script>
+</body>
+</html>

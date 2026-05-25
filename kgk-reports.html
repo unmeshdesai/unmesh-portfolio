@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="KGK CRM reports: integration coverage, regional APIs, widget governance from documented research.">
+<title>KGK Reports | Unmesh Desai</title>
+<link rel="stylesheet" href="assets/css/zoho-theme.css">
+<style>
+.report-detail{display:none;margin-top:14px}
+.report-detail.active{display:block}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div><strong>Unmesh CRM</strong><span>KGK reports</span></div>
+    </div>
+    <nav class="nav" aria-label="Portfolio navigation">
+      <div class="nav-label">Portfolio</div>
+      <a href="index.html"><i>P</i>Profile</a>
+      <div class="nav-group-title">KGK Project</div>
+      <div class="nav-sub">
+        <a href="kgk.html"><i>O</i>Overview</a>
+        <a href="kgk-dashboards.html"><i>D</i>Dashboards</a>
+        <a class="active" href="kgk-reports.html"><i>R</i>Reports</a>
+      </div>
+      <div class="nav-divider"></div>
+      <a href="skills.html"><i>S</i>Skills</a>
+      <a href="index.html#experience"><i>E</i>Experience</a>
+      <a href="education_contact.html#contact"><i>C</i>Contact</a>
+    </nav>
+    <div class="mini-profile">
+      <div class="avatar">UD</div>
+      <div><strong>Unmesh Desai</strong><span>Zoho CRM Engineer</span></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="breadcrumb"><span>KGK</span> <span>/</span> <strong>Reports</strong></div>
+      <div class="actions">
+        <a class="btn" href="kgk-dashboards.html">Dashboards</a>
+        <a class="btn primary" href="kgk.html">Overview</a>
+      </div>
+    </header>
+
+    <div class="content">
+      <header class="page-header">
+        <div class="eyebrow">KGK / Reports</div>
+        <h1 class="page-title">KGK research reports</h1>
+        <p class="page-desc">Reports generated from CRM BA Research for the KGK program—KPI summary at top, report catalog, and detail tables from portfolio data. No filter bars.</p>
+      </header>
+
+      <div class="kpi-grid" id="report-kpis"></div>
+
+      <div class="report-cards" id="report-cards"></div>
+
+      <section class="section report-detail panel" id="report-detail">
+        <div class="kpi-grid" id="report-detail-kpis" style="margin:14px 16px 0"></div>
+        <div style="padding:14px 16px 18px" id="report-body"></div>
+      </section>
+
+      <footer class="footer">
+        <span>Select a report card to view detail tables</span>
+        <span>&copy; 2026 Unmesh Desai</span>
+      </footer>
+    </div>
+  </main>
+</div>
+<script src="assets/js/crm-portfolio-data.js"></script>
+<script src="assets/js/reports-renderer.js"></script>
+</body>
+</html>

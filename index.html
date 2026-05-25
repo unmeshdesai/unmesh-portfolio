@@ -5,146 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Unmesh Desai - Zoho CRM Engineer and Automation Architect portfolio.">
 <title>Unmesh Desai | Zoho CRM Engineer</title>
-<style>
-:root{
-  --bg:#f4f6fb;
-  --panel:#fff;
-  --soft:#f8fafd;
-  --line:#dfe5ef;
-  --strong-line:#cbd5e1;
-  --text:#172033;
-  --muted:#667085;
-  --faint:#8a94a6;
-  --blue:#2868e8;
-  --blue-soft:#eaf1ff;
-  --green:#178a4a;
-  --green-soft:#e8f7ee;
-  --orange:#b66a00;
-  --orange-soft:#fff4df;
-  --shadow:0 12px 28px rgba(24,39,75,.07);
-  --radius:10px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{min-height:100vh;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;font-size:14px;line-height:1.55}
-a{color:inherit;text-decoration:none}
-.app{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:100vh}
-.sidebar{position:sticky;top:0;height:100vh;background:#fbfcff;border-right:1px solid var(--line);display:flex;flex-direction:column}
-.brand{display:flex;align-items:center;gap:10px;padding:18px;border-bottom:1px solid var(--line)}
-.brand-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#e23d3d 0 24%,#f6b728 24% 50%,#2f73e8 50% 74%,#18a85f 74%);box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
-.brand strong{display:block;font-size:14px}
-.brand span{display:block;color:var(--faint);font-size:12px}
-.nav{padding:14px 10px}
-.nav-label{padding:8px 10px;color:var(--faint);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
-.nav a{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;color:#344054;font-weight:650}
-.nav a:hover,.nav a.active{background:var(--blue-soft);color:var(--blue)}
-.nav i{width:22px;height:22px;border:1px solid var(--line);border-radius:6px;background:var(--panel);display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:800;color:var(--blue)}
-.mini-profile{margin-top:auto;padding:14px;border-top:1px solid var(--line);display:flex;gap:10px;align-items:center}
-.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#172033;color:#fff;font-size:12px;font-weight:800}
-.mini-profile strong{display:block;font-size:13px}
-.mini-profile span{display:block;color:var(--faint);font-size:12px}
-.main{min-width:0}
-.topbar{position:sticky;top:0;z-index:10;height:62px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:0 24px}
-.search{flex:1;height:38px;border:1px solid var(--line);border-radius:8px;background:var(--soft);display:flex;align-items:center;gap:9px;padding:0 12px;color:var(--faint)}
-.search input{width:100%;border:0;background:transparent;outline:0;color:var(--text);font:inherit}
-.actions{display:flex;gap:8px}
-.btn{height:36px;border:1px solid var(--line);border-radius:7px;background:var(--panel);display:inline-flex;align-items:center;justify-content:center;padding:0 12px;font-weight:750;color:#344054}
-.btn.primary{border-color:var(--blue);background:var(--blue);color:#fff}
-.content{max-width:1120px;margin:0 auto;padding:24px 28px 44px}
-.eyebrow{color:var(--faint);font-size:12px;margin-bottom:8px}
-.hero{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-.record{padding:22px}
-.record-id{color:var(--faint);font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
-h1{font-size:34px;line-height:1.1;letter-spacing:-.03em;margin-top:8px}
-.lead{color:var(--muted);font-size:16px;max-width:760px;margin-top:10px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;background:var(--soft);padding:6px 10px;color:#405168;font-size:12px;font-weight:750}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
-.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
-.side{padding:18px}
-.side h2{font-size:15px;margin-bottom:12px}
-.info{display:grid;gap:10px}
-.row{display:grid;grid-template-columns:86px 1fr;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--line)}
-.row:last-child{border-bottom:0;padding-bottom:0}
-.label{color:var(--faint);font-size:12px}
-.value{font-weight:750;color:#2d3748;overflow-wrap:anywhere}
-.available{margin-top:14px;padding:12px;border:1px solid #c8e8d3;border-radius:8px;background:var(--green-soft);color:#42624d;font-size:12px}
-.available strong{display:block;color:var(--green);font-size:13px}
-.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
-.metric{padding:16px}
-.metric strong{display:block;font-size:28px;line-height:1;color:#111827;letter-spacing:-.03em}
-.metric span{display:block;color:var(--muted);font-size:13px;margin-top:6px}
-.section{margin-top:24px}
-.section-head{margin-bottom:12px}
-.section-head h2{font-size:20px;letter-spacing:-.01em}
-.section-head p{color:var(--muted);max-width:720px;margin-top:4px}
-.impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.impact-card{padding:16px}
-.impact-card strong{display:block;font-size:20px;color:#111827;letter-spacing:-.02em}
-.impact-card span{display:block;color:var(--muted);font-size:13px;margin-top:7px}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.card{padding:17px}
-.card-kicker{color:var(--blue);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
-.card h3{font-size:16px;margin-top:7px}
-.card p{color:var(--muted);font-size:13px;margin-top:7px}
-.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-.tag{font-size:11px;font-weight:800;color:#405168;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:5px 8px}
-.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
-.timeline{display:grid;gap:12px}
-.job{padding:16px}
-.job-date{color:var(--blue);font-size:12px;font-weight:800}
-.job h3{font-size:15px;margin-top:5px}
-.job p{color:var(--muted);font-size:13px;margin-top:5px}
-.skill-cloud{padding:16px}
-.skill-cloud .tag{background:#fff}
-.cta{display:flex;justify-content:space-between;gap:18px;align-items:center;padding:20px;background:linear-gradient(135deg,#fff,#f8fbff)}
-.cta h2{font-size:20px}
-.cta p{color:var(--muted);margin-top:4px}
-.footer{display:flex;justify-content:space-between;gap:12px;padding-top:22px;color:var(--faint);font-size:12px}
-@media(max-width:980px){
-  .hero,.split{grid-template-columns:1fr}
-  .impact-grid{grid-template-columns:1fr 1fr}
-  .cards{grid-template-columns:1fr 1fr}
-}
-@media(max-width:760px){
-  .app{display:block;width:100%;overflow:hidden}
-  .sidebar,.main,.content,section,.hero,.panel,.topbar{width:100%;max-width:100%;min-width:0}
-  .sidebar{position:static;height:auto;overflow:hidden}
-  .brand{padding:14px 16px}
-  .nav{display:flex;gap:6px;max-width:100%;overflow-x:auto;padding:10px 12px}
-  .nav-label,.mini-profile{display:none}
-  .nav a{white-space:nowrap}
-  .topbar{position:static;height:auto;flex-wrap:wrap;padding:12px}
-  .search{min-width:0}
-  .actions{width:100%;justify-content:flex-end}
-  .content{padding:18px 14px 36px}
-  h1{font-size:28px}
-  .metrics{grid-template-columns:1fr}
-  .impact-grid{grid-template-columns:1fr}
-  .cards{grid-template-columns:1fr}
-  .cta{flex-direction:column;align-items:flex-start}
-}
-@media(max-width:460px){
-  .hero-actions,.actions{flex-direction:column}
-  .btn{width:100%}
-  .row{grid-template-columns:1fr}
-  .footer{flex-direction:column}
-}
-</style>
+<link rel="stylesheet" href="assets/css/zoho-theme.css">
+<style>.metrics{grid-template-columns:repeat(3,1fr)}</style>
 </head>
 <body>
 <div class="app">
   <aside class="sidebar">
     <div class="brand">
       <div class="brand-mark" aria-hidden="true"></div>
-      <div><strong>Unmesh CRM</strong><span>Portfolio profile</span></div>
+      <div><strong>Unmesh CRM</strong><span>Portfolio workspace</span></div>
     </div>
     <nav class="nav" aria-label="Portfolio sections">
-      <div class="nav-label">Modules</div>
+      <div class="nav-label">Portfolio</div>
       <a class="active" href="#profile"><i>P</i>Profile</a>
+      <div class="nav-group-title">KGK Project</div>
+      <div class="nav-sub">
+        <a href="kgk.html"><i>O</i>Overview</a>
+        <a href="kgk-dashboards.html"><i>D</i>Dashboards</a>
+        <a href="kgk-reports.html"><i>R</i>Reports</a>
+      </div>
+      <div class="nav-divider"></div>
       <a href="#work"><i>W</i>Work</a>
-      <a href="#skills"><i>S</i>Skills</a>
+      <a href="skills.html"><i>S</i>Skills</a>
       <a href="#experience"><i>E</i>Experience</a>
       <a href="education_contact.html#contact"><i>C</i>Contact</a>
     </nav>
@@ -156,11 +38,13 @@ h1{font-size:34px;line-height:1.1;letter-spacing:-.03em;margin-top:8px}
 
   <main class="main">
     <header class="topbar">
+      <div class="breadcrumb"><span>CRM</span> <span>/</span> <strong>Profile</strong></div>
       <label class="search" aria-label="Search portfolio">
-        <span>Search</span>
+        <span>⌕</span>
         <input type="search" placeholder="CRM, automation, dashboards">
       </label>
       <div class="actions">
+        <a class="btn" href="kgk-dashboards.html">KGK dashboards</a>
         <a class="btn" href="Unmesh_Desai_Resume.html">Resume</a>
         <a class="btn primary" href="education_contact.html#contact">Contact</a>
       </div>
@@ -180,7 +64,8 @@ h1{font-size:34px;line-height:1.1;letter-spacing:-.03em;margin-top:8px}
               <span class="chip">5+ years experience</span>
             </div>
             <div class="hero-actions">
-              <a class="btn primary" href="#work">View work</a>
+              <a class="btn primary" href="kgk.html">KGK project</a>
+              <a class="btn" href="kgk-dashboards.html">Dashboards</a>
               <a class="btn" href="education_contact.html#contact">Discuss a project</a>
             </div>
           </article>
@@ -207,7 +92,8 @@ h1{font-size:34px;line-height:1.1;letter-spacing:-.03em;margin-top:8px}
       <section class="section">
         <div class="section-head">
           <h2>Impact snapshot from documented CRM work</h2>
-          <p>Highlights selected from the PRDs, impact report, CRM workbook, integration docs, and NIVID discovery files.</p>
+          <p>Highlights from CRM BA Research for the KGK program—integration, ERP APIs, and CRM widgets as one engagement.</p>
+          <a class="link" href="kgk-reports.html">KGK reports →</a>
         </div>
         <div class="impact-grid">
           <article class="panel impact-card">
@@ -223,8 +109,8 @@ h1{font-size:34px;line-height:1.1;letter-spacing:-.03em;margin-top:8px}
             <span>Deal dashboards helped leadership compare win/loss trends by quarter, region, source, and reason.</span>
           </article>
           <article class="panel impact-card">
-            <strong>7,400+ bid records</strong>
-            <span>Online bidding visibility gave sales teams better access to bid activity, buyer behavior, and inventory demand signals.</span>
+            <strong>10 Kafka schemas</strong>
+            <span>Symphony Sync documents orders, leads, KYC, appointments, carts, inventory, and multi-purpose events into Zoho CRM.</span>
           </article>
         </div>
       </section>
@@ -232,77 +118,74 @@ h1{font-size:34px;line-height:1.1;letter-spacing:-.03em;margin-top:8px}
       <section id="work" class="section">
         <div class="section-head">
           <h2>Selected work</h2>
-          <p>Three representative builds from KGK/NIVID documentation, simplified for public portfolio use.</p>
+          <p>KGK CRM program at KGK InfoTech LLP—one documented engagement with three workstreams from CRM BA Research.</p>
+          <a class="link" href="kgk.html">KGK overview →</a>
         </div>
-        <div class="cards">
+        <div class="cards" style="grid-template-columns:1fr">
           <article class="panel card">
-            <div class="card-kicker">Global CRM Rollout</div>
-            <h3>KGK Zoho CRM Operating System</h3>
-            <p>Rolled out a structured CRM across four regions with role-based access, account segmentation, lead/KYC flows, sales handover controls, and cleaner ownership.</p>
-            <div class="tag-row"><span class="tag">Zoho CRM</span><span class="tag">60+ users</span><span class="tag">15K+ accounts</span></div>
-          </article>
-          <article class="panel card">
-            <div class="card-kicker">Sales Intelligence</div>
-            <h3>Dashboards & Revenue Visibility</h3>
-            <p>Built dashboard requirements and reporting logic for sales, outstanding memos, packs, regional performance, lead conversion, bid activity, and salesperson profitability.</p>
-            <div class="tag-row"><span class="tag">Analytics</span><span class="tag">Dashboards</span><span class="tag">KPIs</span></div>
-          </article>
-          <article class="panel card">
-            <div class="card-kicker">NIVID Integration</div>
-            <h3>Inventory, Payments & Reverse Sync</h3>
-            <p>Documented and scoped CRM-to-NIVID flows for receivables, inventory UI cleanup, reverse sync, volume discount tagging, and global reporting accuracy.</p>
-            <div class="tag-row"><span class="tag">REST API</span><span class="tag">Sync</span><span class="tag">NIVID</span></div>
+            <div class="card-kicker">KGK InfoTech LLP</div>
+            <h3>KGK CRM Program</h3>
+            <p>Multi-region Zoho CRM engineering: Symphony Sync (Kafka → CRM webhooks), NIVID Connect (Oracle APIs & RFID), and Subform widgets (AG Grid deal operations)—documented as modules within one program.</p>
+            <div class="tag-row">
+              <span class="tag">Symphony Sync</span>
+              <span class="tag">NIVID Connect</span>
+              <span class="tag">Subform</span>
+              <span class="tag">10 Kafka schemas</span>
+              <span class="tag">4 regions</span>
+            </div>
+            <p style="margin-top:12px"><a class="link" href="kgk-dashboards.html">Dashboards</a> · <a class="link" href="kgk-reports.html">Reports</a></p>
           </article>
         </div>
       </section>
 
       <section class="section">
         <div class="section-head">
-          <h2>Project artifacts I owned</h2>
-          <p>The folder shows business-analysis work across requirements, scope, acceptance criteria, process design, and implementation reference docs.</p>
+          <h2>Documentation deliverables</h2>
+          <p>Artifacts cataloged under KGK CRM-Documentation: symphonysync, nivid-connect, and subform workstreams.</p>
         </div>
         <div class="cards">
           <article class="panel card">
-            <div class="card-kicker">PRD + Blueprint</div>
-            <h3>Lead and KYC journey</h3>
-            <p>Mapped the lead path from new lead to SDR vetting, assignment, qualification, and conversion with required deal data and KYC automation.</p>
-            <div class="tag-row"><span class="tag">SDR Flow</span><span class="tag">KYC</span><span class="tag">Blueprint</span></div>
+            <div class="card-kicker">Symphony Sync</div>
+            <h3>MasterDocs &amp; DataFlow</h3>
+            <p>Architecture, webhook routes, Kafka→CRM mappings, rate limits, retries, and security (OAuth2, API keys, JWT RBAC).</p>
+            <div class="tag-row"><span class="tag">MasterDocs</span><span class="tag">webhook.md</span><span class="tag">Models&amp;Schema</span></div>
           </article>
           <article class="panel card">
-            <div class="card-kicker">Governance</div>
-            <h3>Segmentation and field cleanup</h3>
-            <p>Defined global account segmentation, mandatory classification, Push/Pull customer logic, and field-bloat cleanup to improve CRM data quality.</p>
-            <div class="tag-row"><span class="tag">Accounts</span><span class="tag">Validation</span><span class="tag">Data Quality</span></div>
+            <div class="card-kicker">NIVID</div>
+            <h3>API &amp; connector reference</h3>
+            <p>Stone operations, KYC, consignment, pack/unpack endpoints; kafka-connect regional JDBC configs and connector management.</p>
+            <div class="tag-row"><span class="tag">nivid-apis</span><span class="tag">spacecode</span><span class="tag">Kafka Connect</span></div>
           </article>
           <article class="panel card">
-            <div class="card-kicker">ERP Discovery</div>
-            <h3>NIVID process review</h3>
-            <p>Reviewed ERP module gaps, integration pain points, manufacturing/commercial flows, and questionnaire feedback to support CRM-ERP planning.</p>
-            <div class="tag-row"><span class="tag">ERP Review</span><span class="tag">Process Mapping</span><span class="tag">Requirements</span></div>
+            <div class="card-kicker">Subform</div>
+            <h3>Widget governance guide</h3>
+            <p>Action availability matrix by pipeline, lead source, department codes, and location—plus AG Grid and dynamic form patterns.</p>
+            <div class="tag-row"><span class="tag">deal_widget</span><span class="tag">Validation rules</span><span class="tag">BA spec</span></div>
           </article>
         </div>
       </section>
 
-      <section id="skills" class="section">
+      <section class="section">
         <div class="section-head">
-          <h2>What I can help with</h2>
-          <p>A focused service view instead of a long skill list.</p>
+          <h2>Skills module</h2>
+          <p>Weighted proficiency, Zoho modules, and tools from documented CRM BA work.</p>
+          <a class="link" href="skills.html">Open skills module →</a>
         </div>
         <div class="cards">
           <article class="panel card">
-            <div class="card-kicker">Build</div>
-            <h3>CRM setup & customization</h3>
-            <p>Modules, fields, layouts, permissions, account segmentation, Blueprints, validation rules, and governance-ready data models.</p>
+            <div class="card-kicker">Platform</div>
+            <h3>Zoho CRM &amp; Deluge</h3>
+            <p>Architecture, Blueprints, KYC workflows, and multi-region module design.</p>
           </article>
           <article class="panel card">
-            <div class="card-kicker">Automate</div>
-            <h3>Deluge & workflows</h3>
-            <p>Scheduled functions, lead routing, KYC status updates, webhooks, alerts, approvals, follow-ups, and repetitive task automation.</p>
+            <div class="card-kicker">Integrations</div>
+            <h3>Kafka &amp; APIs</h3>
+            <p>Symphony Sync webhooks, NIVID regional APIs, OAuth2, and event schema mapping.</p>
           </article>
           <article class="panel card">
-            <div class="card-kicker">Connect</div>
-            <h3>APIs & dashboards</h3>
-            <p>Website, ERP, payment receivable, inventory, portal, Kafka/webhook, and database integrations with dashboards for decision-making.</p>
+            <div class="card-kicker">CRM UI</div>
+            <h3>Widgets &amp; AG Grid</h3>
+            <p>Subform deal operations with pipeline-aware bulk actions and middleware hooks.</p>
           </article>
         </div>
       </section>

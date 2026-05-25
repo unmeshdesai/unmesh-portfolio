@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="CRM skills module: Zoho platform, integrations, widgets, and proficiency from documented enterprise work.">
+<title>Skills | Unmesh Desai</title>
+<link rel="stylesheet" href="assets/css/zoho-theme.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div><strong>Unmesh CRM</strong><span>Skills module</span></div>
+    </div>
+    <nav class="nav" aria-label="Portfolio navigation">
+      <div class="nav-label">Portfolio</div>
+      <a href="index.html"><i>P</i>Profile</a>
+      <div class="nav-group-title">KGK Project</div>
+      <div class="nav-sub">
+        <a href="kgk.html"><i>O</i>Overview</a>
+        <a href="kgk-dashboards.html"><i>D</i>Dashboards</a>
+        <a href="kgk-reports.html"><i>R</i>Reports</a>
+      </div>
+      <div class="nav-divider"></div>
+      <a href="index.html#work"><i>W</i>Work</a>
+      <a class="active" href="skills.html"><i>S</i>Skills</a>
+      <a href="index.html#experience"><i>E</i>Experience</a>
+      <a href="education_contact.html#contact"><i>C</i>Contact</a>
+    </nav>
+    <div class="mini-profile">
+      <div class="avatar">UD</div>
+      <div><strong>Unmesh Desai</strong><span>Zoho CRM Engineer</span></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="breadcrumb"><span>CRM</span> <span>/</span> <strong>Skills</strong></div>
+      <div class="actions">
+        <a class="btn" href="kgk-reports.html#skills-distribution">Skills report</a>
+        <a class="btn primary" href="education_contact.html#contact">Contact</a>
+      </div>
+    </header>
+
+    <div class="content">
+      <header class="page-header">
+        <div class="eyebrow">CRM / Skills module</div>
+        <h1 class="page-title">Delivery skills catalog</h1>
+        <p class="page-desc">Skill categories, Zoho modules, tools, and weighted proficiency from CRM BA research—Symphony Sync, NIVID Connect, and Subform documentation.</p>
+      </header>
+
+      <div class="kpi-grid" id="skills-kpis"></div>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Skill categories</h2>
+          <p>Grouped by platform, integration, and CRM UI workstreams.</p>
+        </div>
+        <div class="module-list" id="skill-categories"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Proficiency matrix</h2>
+          <p>Weighted skills used in analytics and reports.</p>
+          <a class="link" href="kgk-dashboards.html">KGK dashboards →</a>
+        </div>
+        <div class="panel table-wrap">
+          <table class="crm-table" id="skills-table">
+            <thead>
+              <tr>
+                <th>Skill</th>
+                <th>Weight</th>
+                <th>Tier</th>
+                <th>Category</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>Data: crm-portfolio-data.js · Sources: CRM BA Research</span>
+        <span>&copy; 2026 Unmesh Desai</span>
+      </footer>
+    </div>
+  </main>
+</div>
+<script src="assets/js/crm-portfolio-data.js"></script>
+<script>
+(function () {
+  const d = window.CRM_PORTFOLIO_DATA;
+  function tier(w) {
+    if (w >= 90) return "Core";
+    if (w >= 82) return "Strong";
+    return "Supporting";
+  }
+  function skillCategory(name) {
+    for (var i = 0; i < d.skillCategories.length; i++) {
+      var c = d.skillCategories[i];
+      if (c.skills.indexOf(name) >= 0) return c.name;
+    }
+    return "General";
+  }
+  var core = d.skills.filter(function (s) { return s.weight >= 90; }).length;
+  document.getElementById("skills-kpis").innerHTML = [
+    { label: "Skills tracked", value: d.skills.length, foot: "Weighted proficiency" },
+    { label: "Categories", value: d.skillCategories.length, foot: "Platform · integration · UI" },
+    { label: "Core tier", value: core, foot: "90%+ weight" },
+    { label: "Zoho modules cited", value: 20, foot: "Across category records", tone: "ok" },
+  ].map(function (k) {
+    return '<article class="panel kpi ' + (k.tone || "") + '"><div class="kpi-label">' + k.label + '</div><div class="kpi-value">' + k.value + '</div><div class="kpi-foot">' + k.foot + '</div></article>';
+  }).join("");
+
+  document.getElementById("skill-categories").innerHTML = d.skillCategories.map(function (cat) {
+    var mods = cat.zohoModules.map(function (m) { return '<span class="tag">' + m + '</span>'; }).join("");
+    var tools = cat.tools.map(function (t) { return '<span class="tag">' + t + '</span>'; }).join("");
+    var skillTags = cat.skills.map(function (s) { return '<li>' + s + '</li>'; }).join("");
+    return '<article class="panel module-item">' +
+      '<div><span class="status-pill live">' + cat.proficiency + '</span>' +
+      '<h3 style="margin-top:8px">' + cat.name + '</h3>' +
+      '<p>' + cat.summary + '</p>' +
+      '<p style="margin-top:10px;font-size:11px;color:var(--faint);font-weight:700">ZOHO MODULES</p>' +
+      '<div class="tag-row" style="margin-top:6px">' + mods + '</div>' +
+      '<p style="margin-top:10px;font-size:11px;color:var(--faint);font-weight:700">TOOLS</p>' +
+      '<div class="tag-row" style="margin-top:6px">' + tools + '</div></div>' +
+      '<div><p style="font-size:11px;color:var(--faint);font-weight:700">LINKED SKILLS</p>' +
+      '<ul class="deliverable-grid">' + skillTags + '</ul></div></article>';
+  }).join("");
+
+  document.querySelector("#skills-table tbody").innerHTML = d.skills.map(function (s) {
+    return '<tr><td><strong>' + s.skill + '</strong></td><td>' + s.weight + '%</td><td>' + tier(s.weight) + '</td><td>' + skillCategory(s.skill) + '</td></tr>';
+  }).join("");
+})();
+</script>
+</body>
+</html>
