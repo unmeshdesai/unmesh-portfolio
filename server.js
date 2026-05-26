@@ -56,8 +56,6 @@ const htmlPages = [
 
 const legacyRedirects = {
 
-  "crm-projects.html": "/kgk.html",
-
   "analytics-dashboard.html": "/kgk-dashboards.html",
 
   "reports.html": "/kgk-reports.html",

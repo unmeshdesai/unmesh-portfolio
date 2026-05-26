@@ -24,43 +24,47 @@
 
   const chartDefaults = {
 
-    responsive: true,
+  responsive:true,
 
-    maintainAspectRatio: false,
+  maintainAspectRatio:false,
 
-    plugins: {
+  resizeDelay:300,
 
-      legend: {
+  animation:false,
 
-        labels: { boxWidth: 10, font: { size: 11 }, color: "#5A5A72" },
+  plugins:{
+    legend:{
+      labels:{
+        color:'#cbd5e1',
+        font:{
+          size:12,
+          family:'Inter'
+        },
+        padding:20
+      }
+    }
+  },
 
+  scales:{
+    x:{
+      ticks:{
+        color:'#94a3b8'
       },
-
+      grid:{
+        color:'rgba(255,255,255,.05)'
+      }
     },
 
-    scales: {
-
-      x: {
-
-        ticks: { font: { size: 11 }, color: muted },
-
-        grid: { color: "#E2E4EF" },
-
+    y:{
+      ticks:{
+        color:'#94a3b8'
       },
-
-      y: {
-
-        ticks: { font: { size: 11 }, color: muted },
-
-        grid: { color: "#E2E4EF" },
-
-        beginAtZero: true,
-
-      },
-
-    },
-
-  };
+      grid:{
+        color:'rgba(255,255,255,.05)'
+      }
+    }
+  }
+};
 
 
 

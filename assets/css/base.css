@@ -1,0 +1,50 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+  scrollbar-gutter:stable;
+  overflow-y:scroll;
+}
+
+body{
+  background:
+    radial-gradient(circle at top left,#172554 0%,transparent 30%),
+    radial-gradient(circle at bottom right,#0f766e 0%,transparent 25%),
+    var(--bg);
+  color:var(--text);
+  font-family:var(--font);
+  min-height:100vh;
+  /* `overflow-x: hidden` here would break position:sticky on .sidebar.
+     Horizontal overflow is already prevented at the .main level. */
+  overflow-x:clip;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+  color:inherit;
+}
+
+::-webkit-scrollbar{
+  width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+  background:#334155;
+  border-radius:999px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background:#475569;
+}

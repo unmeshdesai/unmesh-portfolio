@@ -1,0 +1,47 @@
+/* Explicit fade-in for sections/heroes/panels marked .fade-up */
+.fade-up{
+  opacity:0;
+  transform:translateY(40px);
+  animation:fadeUp 1s ease forwards;
+}
+
+@keyframes fadeUp{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* Subtle on-load animation for layout elements that aren't already opting in via .fade-up.
+   :not(.fade-up) prevents a cascade conflict where pageFade (no forwards) would override
+   fadeUp on combined classes and leave elements stuck at opacity:0 after .7s. */
+.page-header,
+.hero,
+.section:not(.fade-up),
+.panel:not(.fade-up){
+  animation:pageFade .7s ease both;
+}
+
+@keyframes pageFade{
+  from{
+    opacity:0;
+    transform:translateY(18px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .fade-up,
+  .page-header,
+  .hero,
+  .section,
+  .panel{
+    animation:none;
+    opacity:1;
+    transform:none;
+  }
+}

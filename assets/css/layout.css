@@ -1,0 +1,751 @@
+/* APP SHELL */
+.app{
+  display:grid;
+  grid-template-columns:var(--sidebar-w) 1fr;
+  min-height:100vh;
+  transition:grid-template-columns .3s ease;
+}
+
+body.nav-collapsed .app{
+  grid-template-columns:72px 1fr;
+}
+
+.main{
+  padding:32px;
+  min-width:0;
+  overflow-x:hidden;
+}
+
+.content{
+  max-width:1280px;
+  margin:0 auto;
+  width:100%;
+}
+
+/* SIDEBAR */
+.sidebar{
+  position:sticky;
+  top:0;
+  height:100vh;
+  background:rgba(15,23,42,.7);
+  backdrop-filter:var(--blur);
+  border-right:1px solid var(--line);
+  padding:20px 14px;
+  z-index:100;
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+  overflow:hidden;
+  transition:transform .3s ease, opacity .25s ease;
+}
+
+/* RAIL MODE — Claude-style smooth fade collapse.
+   Base styles below have transitions; collapsed state animates max-width/opacity. */
+
+body.nav-collapsed .sidebar{
+  padding:18px 10px;
+}
+
+body.nav-collapsed .sidebar-header{
+  justify-content:center;
+  padding:0 0 14px;
+  position:relative;
+}
+
+body.nav-collapsed .brand{
+  justify-content:center;
+  gap:0;
+}
+
+body.nav-collapsed .brand > div:last-child{
+  max-width:0;
+  opacity:0;
+  margin-left:-8px;
+}
+
+/* Search → in rail mode, collapses to a clickable icon button (not hidden).
+   Click expands the sidebar and focuses the input (handled in ui-effects.js). */
+body.nav-collapsed .sidebar > .search{
+  width:44px;
+  margin:0 auto 4px;
+  padding:0;
+  gap:0;
+  justify-content:center;
+  cursor:pointer;
+}
+
+body.nav-collapsed .sidebar > .search input{
+  max-width:0;
+  opacity:0;
+  padding:0;
+  pointer-events:none;
+}
+
+body.nav-collapsed .nav-label,
+body.nav-collapsed .nav-group-title{
+  max-height:0;
+  opacity:0;
+  padding-top:0;
+  padding-bottom:0;
+}
+
+body.nav-collapsed .nav-divider{
+  max-height:0;
+  opacity:0;
+  margin-top:0;
+  margin-bottom:0;
+}
+
+body.nav-collapsed .nav-sub,
+body.nav-collapsed .nav-project[open] > .nav-sub{
+  max-height:0;
+  opacity:0;
+  padding-top:0;
+  padding-bottom:0;
+  margin:0;
+}
+
+/* Nav rows: shrink to a centered 44x44 square — icon stays the same size as expanded */
+body.nav-collapsed .nav{
+  gap:4px;
+  align-items:center;
+}
+
+body.nav-collapsed .nav a,
+body.nav-collapsed .nav-project > summary{
+  width:44px;
+  margin:0 auto;
+  padding:9px;
+  gap:0;
+  justify-content:center;
+}
+
+body.nav-collapsed .nav-project > summary::after{
+  opacity:0;
+  width:0;
+  margin-left:0;
+}
+
+/* Close button: hidden by default in rail mode, reveal on hover of header (logo area) */
+body.nav-collapsed .menu-close{
+  position:absolute;
+  inset:-4px;
+  width:auto;
+  height:auto;
+  border-radius:8px;
+  background:rgba(15,23,42,.92);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s ease;
+  z-index:5;
+}
+
+body.nav-collapsed .sidebar-header:hover .menu-close,
+body.nav-collapsed .menu-close:focus-visible{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* Sidebar always visible on desktop in rail mode → hide topbar reopen button */
+@media(min-width:901px){
+  body.nav-collapsed .mobile-toggle{
+    display:none;
+  }
+}
+
+.sidebar-header{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:0 4px 16px;
+  margin-bottom:8px;
+  border-bottom:1px solid var(--line);
+  flex-shrink:0;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex:1;
+  min-width:0;
+  color:inherit;
+  text-decoration:none;
+  transition:opacity .2s ease;
+  padding:2px;
+  border-radius:8px;
+}
+
+a.brand:hover{
+  opacity:.85;
+}
+
+.brand > div:last-child{
+  min-width:0;
+  overflow:hidden;
+  max-width:200px;
+  transition:max-width .25s ease, opacity .2s ease, margin .25s ease;
+}
+
+.brand strong{
+  display:block;
+  font-size:14px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* SIDEBAR CLOSE BUTTON */
+.menu-close{
+  width:32px;
+  height:32px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:rgba(255,255,255,.03);
+  color:var(--muted);
+  cursor:pointer;
+  flex-shrink:0;
+  transition:background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.menu-close:hover{
+  background:rgba(255,255,255,.06);
+  border-color:var(--line-strong);
+  color:var(--text);
+}
+
+.menu-close svg{
+  width:18px;
+  height:18px;
+}
+
+/* TOOLTIP (used by .menu-close and .mobile-toggle) */
+[data-tooltip]{
+  position:relative;
+}
+
+[data-tooltip]::after{
+  content:attr(data-tooltip);
+  position:absolute;
+  top:50%;
+  left:calc(100% + 10px);
+  transform:translateY(-50%);
+  padding:6px 10px;
+  background:rgba(15,23,42,.96);
+  border:1px solid var(--line-strong);
+  color:white;
+  font-size:11px;
+  font-weight:600;
+  border-radius:6px;
+  white-space:nowrap;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .2s ease;
+  z-index:300;
+  box-shadow:0 8px 20px rgba(0,0,0,.4);
+}
+
+[data-tooltip]:hover::after{
+  opacity:1;
+}
+
+/* Tooltip on topbar button drops down instead of going right */
+.mobile-toggle[data-tooltip]::after{
+  top:calc(100% + 8px);
+  left:50%;
+  right:auto;
+  transform:translateX(-50%);
+}
+
+/* Nav items use data-tooltip too (auto-populated by JS) but tooltips
+   should only appear when the sidebar is collapsed — otherwise the
+   text label is already visible. */
+.nav a[data-tooltip]::after,
+.nav-project > summary[data-tooltip]::after{
+  display:none;
+}
+
+body.nav-collapsed .nav a[data-tooltip]:hover::after,
+body.nav-collapsed .nav-project > summary[data-tooltip]:hover::after{
+  display:block;
+  opacity:1;
+}
+
+.brand-mark{
+  width:38px;
+  height:38px;
+  border-radius:10px;
+  background:linear-gradient(135deg,#3b82f6,#06b6d4,#8b5cf6);
+  box-shadow:0 0 24px rgba(59,130,246,.35);
+  flex-shrink:0;
+  display:grid;
+  place-items:center;
+  color:white;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.04em;
+  font-family:var(--font);
+}
+
+.brand strong{
+  display:block;
+  font-size:15px;
+}
+
+.brand span{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  margin-top:2px;
+}
+
+/* NAV */
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  flex:1;
+  min-width:0;
+  min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding-right:4px;
+  scrollbar-width:thin;
+  scrollbar-color:#334155 transparent;
+}
+
+.nav::-webkit-scrollbar{
+  width:6px;
+}
+
+.nav::-webkit-scrollbar-thumb{
+  background:#334155;
+  border-radius:999px;
+}
+
+.nav-label{
+  padding:14px 10px 4px;
+  color:var(--faint);
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  max-height:40px;
+  overflow:hidden;
+  transition:max-height .25s ease, opacity .2s ease, padding .25s ease;
+}
+
+.nav-label:first-child{
+  padding-top:4px;
+}
+
+.nav-group-title{
+  padding:12px 10px 4px;
+  color:var(--faint);
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  max-height:40px;
+  overflow:hidden;
+  transition:max-height .25s ease, opacity .2s ease, padding .25s ease;
+}
+
+.nav-sub{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  padding-left:8px;
+  margin-top:2px;
+  max-height:300px;
+  overflow:hidden;
+  transition:max-height .25s ease, opacity .2s ease, padding .25s ease, margin .25s ease;
+}
+
+.nav-sub a{
+  font-size:12px;
+  padding:8px 12px;
+}
+
+.nav-divider{
+  height:1px;
+  background:var(--line);
+  margin:8px 4px;
+  max-height:1px;
+  overflow:hidden;
+  transition:max-height .25s ease, opacity .2s ease, margin .25s ease;
+}
+
+.nav a,
+.nav-project > summary{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:9px 12px;
+  border-radius:10px;
+  color:var(--muted);
+  font-size:13px;
+  font-weight:500;
+  transition:background .2s ease, color .2s ease, border-color .2s ease,
+             gap .25s ease, padding .25s ease, width .25s ease, margin .25s ease;
+  border:1px solid transparent;
+  position:relative;
+  overflow:hidden;
+  white-space:nowrap;
+  height:44px;
+}
+
+/* Animated text inside nav items — horizontal fade, never vertical */
+.nav-text{
+  display:inline-block;
+  white-space:nowrap;
+  overflow:hidden;
+  max-width:220px;
+  opacity:1;
+  transition:max-width .28s ease, opacity .18s ease .08s;
+}
+
+body.nav-collapsed .nav-text{
+  max-width:0;
+  opacity:0;
+  transition:max-width .28s ease, opacity .12s ease 0s;
+}
+
+.nav a:hover,
+.nav-project > summary:hover{
+  background:rgba(255,255,255,.05);
+  color:white;
+}
+
+.nav a.active{
+  background:linear-gradient(135deg,rgba(59,130,246,.16),rgba(6,182,212,.1));
+  border-color:rgba(59,130,246,.3);
+  color:white;
+  box-shadow:0 0 16px rgba(59,130,246,.12);
+}
+
+.nav i{
+  width:26px;
+  height:26px;
+  display:grid;
+  place-items:center;
+  border-radius:7px;
+  background:rgba(255,255,255,.04);
+  font-style:normal;
+  color:#93c5fd;
+  flex-shrink:0;
+}
+
+.nav i svg{
+  width:15px;
+  height:15px;
+  stroke-width:2;
+}
+
+.nav a.active i,
+.nav-project.has-active > summary i{
+  background:rgba(59,130,246,.18);
+  color:#bfdbfe;
+}
+
+/* EXPANDABLE PROJECT GROUPS */
+.nav-project{
+  display:block;
+}
+
+.nav-project > summary{
+  cursor:pointer;
+  list-style:none;
+  user-select:none;
+}
+
+.nav-project > summary::-webkit-details-marker{
+  display:none;
+}
+
+.nav-project > summary::after{
+  content:'';
+  margin-left:auto;
+  width:6px;
+  height:6px;
+  border-right:1.5px solid currentColor;
+  border-bottom:1.5px solid currentColor;
+  transform:rotate(-45deg);
+  opacity:.6;
+  transition:transform .2s ease, opacity .2s ease, width .25s ease, margin .25s ease;
+}
+
+.nav-project[open] > summary::after{
+  transform:rotate(45deg);
+}
+
+.nav-project[open] > summary{
+  color:white;
+}
+
+.nav-project.has-active > summary{
+  color:white;
+  background:rgba(59,130,246,.08);
+}
+
+.mini-profile{
+  display:none;
+}
+
+.avatar{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+  color:white;
+  font-size:13px;
+  font-weight:700;
+  flex-shrink:0;
+}
+
+.mini-profile strong{
+  display:block;
+  font-size:13px;
+}
+
+.mini-profile span{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* TOPBAR — only used as a host for the mobile toggle on mobile.
+   Hidden on desktop since action buttons + breadcrumb were removed. */
+.topbar{
+  display:none;
+  justify-content:flex-start;
+  align-items:center;
+  gap:24px;
+  flex-wrap:nowrap;
+  max-width:1280px;
+  width:100%;
+  margin:0 auto 16px;
+  padding:8px 0;
+}
+
+@media(max-width:900px){
+  .topbar{
+    display:flex;
+  }
+}
+
+.topbar > .breadcrumb,
+.topbar > .actions{
+  flex-shrink:0;
+}
+
+@media(max-width:900px){
+  .topbar{
+    flex-wrap:wrap;
+  }
+}
+
+.breadcrumb{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 14px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.03);
+  color:var(--muted);
+  font-size:12px;
+  font-weight:600;
+}
+
+.breadcrumb strong{
+  color:var(--text);
+  font-weight:700;
+}
+
+.breadcrumb span{
+  color:var(--faint);
+}
+
+
+.search{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:0 12px;
+  height:38px;
+  max-height:38px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:rgba(255,255,255,.04);
+  color:var(--muted);
+  position:relative;
+  transition:border-color .2s ease, background .2s ease, max-height .25s ease, opacity .2s ease, margin .25s ease, padding .25s ease;
+  font-size:12px;
+  flex-shrink:0;
+}
+
+.search:focus-within{
+  border-color:var(--blue-border);
+  background:rgba(255,255,255,.06);
+}
+
+.search input{
+  flex:1;
+  min-width:0;
+  border:0;
+  background:transparent;
+  outline:0;
+  color:var(--text);
+  font-size:12px;
+  max-width:200px;
+  opacity:1;
+  transition:max-width .28s ease, opacity .18s ease .08s, padding .25s ease;
+}
+
+.search input::placeholder{
+  color:var(--faint);
+}
+
+/* Sidebar variant: full width within sidebar, dropdown extends into main area */
+.sidebar .search{
+  margin-bottom:10px;
+  flex-shrink:0;
+}
+
+.sidebar .search-dropdown{
+  left:0;
+  width:340px;
+  max-width:calc(100vw - 32px);
+}
+
+.search-dropdown{
+  position:absolute;
+  top:calc(100% + 8px);
+  left:0;
+  right:0;
+  background:rgba(15,23,42,.96);
+  backdrop-filter:blur(20px);
+  border:1px solid var(--line-strong);
+  border-radius:14px;
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+  max-height:340px;
+  overflow-y:auto;
+  z-index:200;
+  display:none;
+  padding:6px;
+}
+
+.search-open .search-dropdown{
+  display:block;
+}
+
+.search-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 12px;
+  border-radius:8px;
+  color:var(--text);
+  font-size:13px;
+  cursor:pointer;
+  transition:background .15s ease;
+}
+
+.search-item:hover,
+.search-item.active{
+  background:rgba(59,130,246,.18);
+}
+
+.search-item-title{
+  font-weight:600;
+}
+
+.search-item-group{
+  color:var(--faint);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  flex-shrink:0;
+}
+
+.search-empty{
+  padding:14px 12px;
+  color:var(--faint);
+  font-size:13px;
+  text-align:center;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+/* FOOTER */
+.footer{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:24px 4px 4px;
+  margin-top:40px;
+  border-top:1px solid var(--line);
+  color:var(--faint);
+  font-size:12px;
+}
+
+/* TOPBAR "SHOW MENU" BUTTON
+   Hidden on desktop by default (close button lives inside sidebar).
+   Appears when sidebar is collapsed so user can reopen it.
+   Always visible on mobile. */
+.mobile-toggle{
+  width:38px;
+  height:38px;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:rgba(255,255,255,.03);
+  color:var(--muted);
+  cursor:pointer;
+  flex-shrink:0;
+  transition:background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.mobile-toggle:hover{
+  background:rgba(255,255,255,.06);
+  border-color:var(--line-strong);
+  color:var(--text);
+}
+
+.mobile-toggle svg{
+  width:18px;
+  height:18px;
+}
+
+@media(max-width:900px){
+  .mobile-toggle{ display:flex; }
+}
+
+.mobile-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(4px);
+  opacity:0;
+  visibility:hidden;
+  transition:.3s ease;
+  z-index:90;
+}
+
+.mobile-overlay.active{
+  opacity:1;
+  visibility:visible;
+}

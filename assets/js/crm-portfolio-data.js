@@ -26,7 +26,7 @@ window.CRM_PORTFOLIO_DATA = {
 
     id: "kgk",
 
-    name: "KGK CRM Program",
+    name: "KGK Group Zoho Implementation",
 
     kicker: "KGK InfoTech LLP",
 
