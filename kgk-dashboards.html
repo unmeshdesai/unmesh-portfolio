@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="assets/css/responsive.css">
 <script src="assets/js/ui-effects.js" defer></script>
 <script src="assets/js/quick-nav.js" defer></script>
+<script src="assets/js/home-animations.js" defer></script>
 </head>
 <body>
 <script>(function(){try{if(matchMedia('(min-width:901px)').matches&&localStorage.getItem('navCollapsed')==='1'){document.body.classList.add('nav-collapsed')}}catch(e){}})();</script>
@@ -87,7 +88,7 @@
 
   <div class="hero-actions" style="margin-top:30px;">
 
-    <a class="btn primary" href="kgk.html">
+    <a class="btn primary magnetic" href="kgk.html">
       Project Overview
     </a>
 
@@ -98,7 +99,7 @@
   </div>
 
 </header>
-<section class="analytics-banner fade-up">
+<section class="analytics-banner reveal">
 
   <div class="analytics-content">
 
@@ -124,10 +125,10 @@
 
 </section>
 
-      <div class="kpi-grid" id="dashboard-kpis"></div>
-<section class="executive-grid fade-up">
+      <div class="kpi-grid reveal-stagger" id="dashboard-kpis"></div>
+<section class="executive-grid reveal-stagger">
 
-  <div class="panel executive-card">
+  <div class="panel executive-card tilt">
     <div class="exec-icon">⚡</div>
 
     <h3>Kafka Integrations</h3>
@@ -138,7 +139,7 @@
     </p>
   </div>
 
-  <div class="panel executive-card">
+  <div class="panel executive-card tilt">
     <div class="exec-icon">🌍</div>
 
     <h3>Global Operations</h3>
@@ -149,7 +150,7 @@
     </p>
   </div>
 
-  <div class="panel executive-card">
+  <div class="panel executive-card tilt">
     <div class="exec-icon">📊</div>
 
     <h3>Operational Intelligence</h3>
@@ -211,7 +212,7 @@
   const p = window.CRM_PORTFOLIO_DATA.project;
   const kpiRoot = document.getElementById("dashboard-kpis");
   kpiRoot.innerHTML = p.dashboards.kpis.map(function (k) {
-    return '<article class="panel kpi ' + (k.tone || "") + '"><div class="kpi-label">' + k.label + '</div><div class="kpi-value">' + k.value + '</div><div class="kpi-foot">' + k.foot + '</div></article>';
+    return '<article class="panel kpi tilt ' + (k.tone || "") + '"><div class="kpi-label">' + k.label + '</div><div class="kpi-value" data-counter>' + k.value + '</div><div class="kpi-foot">' + k.foot + '</div></article>';
   }).join("");
 
   document.getElementById("dash-highlights").innerHTML = p.dashboards.highlights.map(function (h) {

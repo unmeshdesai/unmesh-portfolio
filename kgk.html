@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="assets/css/responsive.css">
 <script src="assets/js/ui-effects.js" defer></script>
 <script src="assets/js/quick-nav.js" defer></script>
+<script src="assets/js/home-animations.js" defer></script>
 </head>
 <body>
 <script>(function(){try{if(matchMedia('(min-width:901px)').matches&&localStorage.getItem('navCollapsed')==='1'){document.body.classList.add('nav-collapsed')}}catch(e){}})();</script>
@@ -88,7 +89,7 @@
 
   <div class="hero-actions" style="margin-top:30px;">
 
-    <a class="btn primary" href="kgk-dashboards.html">
+    <a class="btn primary magnetic" href="kgk-dashboards.html">
       Open Dashboards
     </a>
 
@@ -100,8 +101,8 @@
 
 </header>
 
-      <div class="kpi-grid" id="project-kpis"></div>
-      <section class="section fade-up">
+      <div class="kpi-grid reveal-stagger" id="project-kpis"></div>
+      <section class="section reveal">
 
   <div class="section-head">
 
@@ -115,9 +116,9 @@
 
   </div>
 
-  <div class="architecture-grid">
+  <div class="architecture-grid reveal-stagger">
 
-    <div class="panel architecture-card">
+    <div class="panel architecture-card tilt">
       <div class="arch-icon">⚡</div>
 
       <h3>Kafka Event Streams</h3>
@@ -129,7 +130,7 @@
       </p>
     </div>
 
-    <div class="panel architecture-card">
+    <div class="panel architecture-card tilt">
       <div class="arch-icon">🔗</div>
 
       <h3>Oracle NIVID APIs</h3>
@@ -141,7 +142,7 @@
       </p>
     </div>
 
-    <div class="panel architecture-card">
+    <div class="panel architecture-card tilt">
       <div class="arch-icon">📊</div>
 
       <h3>Analytics Dashboards</h3>
@@ -183,7 +184,7 @@
           </table>
         </div>
       </section>
-      <section class="section fade-up">
+      <section class="section reveal">
 
   <div class="section-head">
     <h2>Project Delivery Timeline</h2>
@@ -194,7 +195,7 @@
     </p>
   </div>
 
-  <div class="timeline">
+  <div class="timeline reveal-stagger">
 
     <div class="timeline-item">
       <div class="timeline-dot"></div>
@@ -260,7 +261,7 @@
     { label: "Deliverables", value: p.workstreams.reduce(function (n, w) { return n + w.deliverables.length; }, 0), foot: "Documented in BA research" },
   ];
   kpiRoot.innerHTML = totals.map(function (k) {
-    return '<article class="panel kpi"><div class="kpi-label">' + k.label + '</div><div class="kpi-value">' + k.value + '</div><div class="kpi-foot">' + k.foot + '</div></article>';
+    return '<article class="panel kpi tilt"><div class="kpi-label">' + k.label + '</div><div class="kpi-value" data-counter>' + k.value + '</div><div class="kpi-foot">' + k.foot + '</div></article>';
   }).join("");
 
   document.getElementById("workstream-list").innerHTML = p.workstreams.map(function (w) {

@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="assets/css/responsive.css">
 <script src="assets/js/ui-effects.js" defer></script>
 <script src="assets/js/quick-nav.js" defer></script>
+<script src="assets/js/home-animations.js" defer></script>
 </head>
 <body>
 <script>(function(){try{if(matchMedia('(min-width:901px)').matches&&localStorage.getItem('navCollapsed')==='1'){document.body.classList.add('nav-collapsed')}}catch(e){}})();</script>
@@ -88,7 +89,7 @@
 
   <div class="hero-actions" style="margin-top:30px;">
 
-    <a class="btn primary" href="Unmesh_Desai_Resume.html">
+    <a class="btn primary magnetic" href="Unmesh_Desai_Resume.html">
       View Full Resume
     </a>
 
@@ -100,7 +101,7 @@
 
 </header>
 
-<section class="analytics-banner fade-up">
+<section class="analytics-banner reveal">
 
   <div class="analytics-content">
 
@@ -128,10 +129,10 @@
 
 </section>
 
-      <div class="kpi-grid" id="skills-kpis"></div>
-<section class="executive-grid fade-up">
+      <div class="kpi-grid reveal-stagger" id="skills-kpis"></div>
+<section class="executive-grid reveal-stagger">
 
-  <div class="panel executive-card">
+  <div class="panel executive-card tilt">
     <div class="exec-icon">🛠</div>
     <h3>Zoho Ecosystem</h3>
     <p>
@@ -141,7 +142,7 @@
     </p>
   </div>
 
-  <div class="panel executive-card">
+  <div class="panel executive-card tilt">
     <div class="exec-icon">⚡</div>
     <h3>CRM Automation</h3>
     <p>
@@ -151,7 +152,7 @@
     </p>
   </div>
 
-  <div class="panel executive-card">
+  <div class="panel executive-card tilt">
     <div class="exec-icon">🔗</div>
     <h3>Development & Integrations</h3>
     <p>
@@ -161,7 +162,7 @@
     </p>
   </div>
 
-  <div class="panel executive-card">
+  <div class="panel executive-card tilt">
     <div class="exec-icon">📊</div>
     <h3>Data Engineering & Reporting</h3>
     <p>
@@ -199,14 +200,14 @@
           </table>
         </div>
       </section>
-<section class="section fade-up">
+<section class="section reveal">
 
   <div class="section-head">
     <h2>Capability Evolution</h2>
     <p>How my skill set has grown across roles, industries, and platforms.</p>
   </div>
 
-  <div class="timeline">
+  <div class="timeline reveal-stagger">
 
     <div class="timeline-item">
       <div class="timeline-dot"></div>
@@ -307,7 +308,7 @@
     { label: "Industries served", value: "5", foot: "Diamonds, Real Estate, Insurance, E-commerce, Services" },
     { label: "Engineering skills", value: d.skills.length, foot: "Across automation, integrations & analytics" },
   ].map(function (k) {
-    return '<article class="panel kpi"><div class="kpi-label">' + k.label + '</div><div class="kpi-value">' + k.value + '</div><div class="kpi-foot">' + k.foot + '</div></article>';
+    return '<article class="panel kpi tilt"><div class="kpi-label">' + k.label + '</div><div class="kpi-value" data-counter>' + k.value + '</div><div class="kpi-foot">' + k.foot + '</div></article>';
   }).join("");
 
   document.getElementById("skill-categories").innerHTML = d.skillCategories.map(function (cat) {

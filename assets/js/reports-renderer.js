@@ -136,7 +136,7 @@
 
         return (
 
-          '<article class="panel kpi ' +
+          '<article class="panel kpi tilt ' +
 
           (k.tone || "") +
 
@@ -144,7 +144,7 @@
 
           escapeHtml(k.label) +
 
-          '</div><div class="kpi-value">' +
+          '</div><div class="kpi-value" data-counter>' +
 
           escapeHtml(k.value) +
 

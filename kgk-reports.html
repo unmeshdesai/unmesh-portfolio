@@ -20,6 +20,7 @@
 </style>
 <script src="assets/js/ui-effects.js" defer></script>
 <script src="assets/js/quick-nav.js" defer></script>
+<script src="assets/js/home-animations.js" defer></script>
 </head>
 <body>
 <script>(function(){try{if(matchMedia('(min-width:901px)').matches&&localStorage.getItem('navCollapsed')==='1'){document.body.classList.add('nav-collapsed')}}catch(e){}})();</script>
@@ -91,7 +92,7 @@
 
   <div class="hero-actions" style="margin-top:30px;">
 
-    <a class="btn primary" href="kgk-dashboards.html">
+    <a class="btn primary magnetic" href="kgk-dashboards.html">
       Open Dashboards
     </a>
 
@@ -103,7 +104,7 @@
 
 </header>
 
-<section class="reports-banner fade-up">
+<section class="reports-banner reveal">
 
   <div class="reports-banner-content">
 
@@ -129,8 +130,8 @@
 
 </section>
 
-      <div class="kpi-grid" id="report-kpis"></div>
-<section class="section fade-up">
+      <div class="kpi-grid reveal-stagger" id="report-kpis"></div>
+<section class="section reveal">
 
   <div class="section-head">
 
@@ -144,9 +145,9 @@
 
   </div>
 
-  <div class="executive-grid">
+  <div class="executive-grid reveal-stagger">
 
-    <div class="panel executive-card">
+    <div class="panel executive-card tilt">
 
       <div class="exec-icon">⚙️</div>
 
@@ -160,7 +161,7 @@
 
     </div>
 
-    <div class="panel executive-card">
+    <div class="panel executive-card tilt">
 
       <div class="exec-icon">📦</div>
 
@@ -174,7 +175,7 @@
 
     </div>
 
-    <div class="panel executive-card">
+    <div class="panel executive-card tilt">
 
       <div class="exec-icon">📈</div>
 

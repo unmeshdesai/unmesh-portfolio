@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="assets/css/responsive.css">
 <script src="assets/js/ui-effects.js" defer></script>
 <script src="assets/js/quick-nav.js" defer></script>
+<script src="assets/js/home-animations.js" defer></script>
 </head>
 <body>
 <script>(function(){try{if(matchMedia('(min-width:901px)').matches&&localStorage.getItem('navCollapsed')==='1'){document.body.classList.add('nav-collapsed')}}catch(e){}})();</script>
@@ -70,10 +71,10 @@
         </p>
       </header>
 
-      <section class="section fade-up">
-        <div class="cards">
+      <section class="section reveal">
+        <div class="cards reveal-stagger">
 
-          <article class="panel card">
+          <article class="panel card tilt">
             <div class="card-kicker">KGK InfoTech LLP</div>
             <h3>KGK Group Zoho Implementation</h3>
             <p>Multi-region Zoho CRM engineering: Symphony Sync (Kafka → CRM webhooks), NIVID Connect (Oracle APIs &amp; RFID), and Subform widgets (AG Grid deal operations).</p>
@@ -84,13 +85,13 @@
               <span class="tag">4 regions</span>
             </div>
             <div class="hero-actions" style="margin-top:18px">
-              <a href="kgk.html" class="btn primary">Overview</a>
+              <a href="kgk.html" class="btn primary magnetic">Overview</a>
               <a href="kgk-dashboards.html" class="btn">Dashboards</a>
               <a href="kgk-reports.html" class="btn">Reports</a>
             </div>
           </article>
 
-          <article class="panel card">
+          <article class="panel card tilt">
             <div class="card-kicker">Rental &amp; Inventory</div>
             <h3>Inventory Rental System</h3>
             <p>Zoho Creator app for rental equipment management — movement tracking, availability calendars, warehouse operations, and stock reports.</p>
@@ -104,7 +105,7 @@
             </div>
           </article>
 
-          <article class="panel card">
+          <article class="panel card tilt">
             <div class="card-kicker">Retail Operations</div>
             <h3>Custom POS System</h3>
             <p>Web-optimized POS with cart management, invoice generation, product sync, and workflow automation on Zoho Creator + JavaScript widgets.</p>
@@ -118,7 +119,7 @@
             </div>
           </article>
 
-          <article class="panel card">
+          <article class="panel card tilt">
             <div class="card-kicker">Analytics</div>
             <h3>Zoho Analytics Reporting</h3>
             <p>Funnel tracking, retention reporting, KPI dashboards, and operational reporting systems built on Zoho Analytics.</p>
