@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="KGK CRM program case study: Symphony Sync, NIVID Connect, and Subform workstreams documented from enterprise Zoho work.">
+<meta name="description" content="KGK Group Zoho Implementation: Symphony Sync, NIVID Connect, and Subform workstreams across enterprise CRM, integrations and analytics.">
 <title>KGK Project | Unmesh Desai</title>
 <link rel="stylesheet" href="assets/css/theme.css">
 <link rel="stylesheet" href="assets/css/base.css">
@@ -168,7 +168,7 @@
       <section class="section">
         <div class="section-head">
           <h2>Kafka → CRM schema map</h2>
-          <p>Event contracts documented in Symphony Sync DataFlow and Models&amp;Schema references.</p>
+          <p>Event contracts powering the Symphony Sync pipeline from Kafka into Zoho CRM.</p>
           <a class="link" href="kgk-reports.html#integration-coverage">View integration report →</a>
         </div>
         <div class="panel table-wrap">
@@ -240,7 +240,7 @@
 
 </section>
       <footer class="footer">
-        <span>Source: CRM BA Research — CRM-Documentation (KGK only)</span>
+        <span>KGK Group Zoho Implementation</span>
         <span>&copy; 2026 Unmesh Desai</span>
       </footer>
     </div>
@@ -250,15 +250,13 @@
 <script>
 (function () {
   const p = window.CRM_PORTFOLIO_DATA.project;
-  document.getElementById("kgk-title").textContent = p.name;
-  document.getElementById("kgk-summary").textContent = p.summary;
 
   const kpiRoot = document.getElementById("project-kpis");
   const totals = [
     { label: "Workstreams", value: p.workstreams.length, foot: "Under single KGK program" },
     { label: "Kafka schemas", value: p.kafkaSchemas.length, foot: "Symphony Sync event contracts" },
     { label: "Regions", value: CRM_PORTFOLIO_DATA.meta.regions.length, foot: CRM_PORTFOLIO_DATA.meta.regions.join(" · ") },
-    { label: "Deliverables", value: p.workstreams.reduce(function (n, w) { return n + w.deliverables.length; }, 0), foot: "Documented in BA research" },
+    { label: "Deliverables", value: p.workstreams.reduce(function (n, w) { return n + w.deliverables.length; }, 0), foot: "Shipped across CRM workstreams" },
   ];
   kpiRoot.innerHTML = totals.map(function (k) {
     return '<article class="panel kpi tilt"><div class="kpi-label">' + k.label + '</div><div class="kpi-value" data-counter>' + k.value + '</div><div class="kpi-foot">' + k.foot + '</div></article>';
