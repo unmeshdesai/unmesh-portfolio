@@ -12,7 +12,7 @@ window.CRM_PORTFOLIO_DATA = {
 
     owner: "Unmesh Desai",
 
-    role: "Zoho CRM Engineer & Solutions Architect",
+    role: "Zoho & Automation Expert",
 
     client: "KGK InfoTech LLP",
 
@@ -614,23 +614,31 @@ window.CRM_PORTFOLIO_DATA = {
 
     { skill: "Zoho CRM Architecture", weight: 95 },
 
-    { skill: "Deluge & Blueprints", weight: 88 },
+    { skill: "Deluge Scripting", weight: 92 },
 
-    { skill: "REST / Webhook Integrations", weight: 92 },
+    { skill: "Blueprint & Workflow Design", weight: 90 },
 
-    { skill: "Kafka Event Design", weight: 85 },
+    { skill: "Zoho Creator Apps", weight: 88 },
 
-    { skill: "FastAPI / Python Services", weight: 80 },
+    { skill: "Zoho Analytics & Dashboards", weight: 85 },
 
-    { skill: "CRM Widgets (JS + AG Grid)", weight: 86 },
+    { skill: "REST API Integrations", weight: 90 },
 
-    { skill: "Data Modeling & Validation", weight: 90 },
+    { skill: "JavaScript & CRM Widgets", weight: 85 },
 
-    { skill: "Zoho Analytics / Dashboards", weight: 82 },
+    { skill: "Kafka & Event Pipelines", weight: 82 },
 
-    { skill: "ERP Discovery (NIVID)", weight: 78 },
+    { skill: "SQL (PostgreSQL, MySQL, Oracle)", weight: 80 },
 
-    { skill: "Technical Documentation", weight: 88 },
+    { skill: "Python & Node.js Services", weight: 78 },
+
+    { skill: "Business Process Analysis", weight: 88 },
+
+    { skill: "CRM Migration (HubSpot → Zoho)", weight: 85 },
+
+    { skill: "Technical Documentation", weight: 82 },
+
+    { skill: "Client Training & Onboarding", weight: 80 },
 
   ],
 
@@ -638,55 +646,73 @@ window.CRM_PORTFOLIO_DATA = {
 
     {
 
-      id: "zoho-platform",
+      id: "zoho-ecosystem",
 
-      name: "Zoho CRM & Platform",
+      name: "Zoho Ecosystem",
 
       proficiency: "Expert",
 
-      summary: "Multi-region CRM architecture, Blueprints, layouts, and governance from KGK and client rollouts.",
+      summary: "End-to-end Zoho One implementation across CRM, Creator, Analytics, Books, Desk and the wider product suite — from architecture to deployment.",
 
-      zohoModules: ["Leads", "Contacts", "Accounts", "Deals", "Tasks", "Products", "Inventory", "Custom modules (KYC, UTM)"],
+      zohoModules: ["Zoho CRM", "Zoho Creator", "Zoho Analytics", "Zoho Desk", "Zoho Books", "Zoho One", "Zoho Catalyst", "Zoho HRMS", "Zoho Mail"],
 
-      tools: ["Zoho CRM", "Zoho Creator", "Zoho Analytics", "Deluge", "Blueprints", "Workflow rules", "Validation rules"],
+      tools: ["Custom modules", "Layouts", "Role hierarchy", "Field-level security", "Audit & governance"],
 
-      skills: ["Zoho CRM Architecture", "Deluge & Blueprints", "Data Modeling & Validation", "Zoho Analytics / Dashboards"],
-
-    },
-
-    {
-
-      id: "integrations",
-
-      name: "Integrations & Event Design",
-
-      proficiency: "Advanced",
-
-      summary: "Kafka → Zoho pipelines, FastAPI webhooks, OAuth2, and ERP/API bridges documented in Symphony Sync and NIVID.",
-
-      zohoModules: ["Deals_X_Inventory", "Webhook functions", "Org variables", "External signals"],
-
-      tools: ["REST APIs", "Kafka", "FastAPI", "OAuth2", "JWT", "MySQL", "Kafka Connect JDBC"],
-
-      skills: ["REST / Webhook Integrations", "Kafka Event Design", "FastAPI / Python Services", "ERP Discovery (NIVID)"],
+      skills: ["Zoho CRM Architecture", "Zoho Creator Apps", "Zoho Analytics & Dashboards"],
 
     },
 
     {
 
-      id: "crm-ui",
+      id: "automation",
 
-      name: "CRM UI & Widgets",
+      name: "CRM Automation & Workflows",
+
+      proficiency: "Expert",
+
+      summary: "Deluge scripting, Blueprint-driven workflows, scheduled functions, and bulk processing systems that have automated thousands of operational hours.",
+
+      zohoModules: ["Workflow rules", "Blueprints", "Schedules", "Validation rules", "Scoring rules", "Approval flows"],
+
+      tools: ["Deluge", "Custom Functions", "Webhooks", "Scheduled Functions", "Bulk Edit APIs"],
+
+      skills: ["Deluge Scripting", "Blueprint & Workflow Design", "Business Process Analysis"],
+
+    },
+
+    {
+
+      id: "development",
+
+      name: "Development & Integrations",
 
       proficiency: "Advanced",
 
-      summary: "AG Grid subform widgets with pipeline-aware bulk actions and NIVID middleware from Subform documentation.",
+      summary: "REST APIs, webhooks, custom JS widgets, and integrations with Shopify, Stripe, Oracle NIVID, and Kafka pipelines across multiple client systems.",
 
-      zohoModules: ["Deal subforms", "Transaction widgets", "Stone list", "Bid2Buy", "Dispatch"],
+      zohoModules: ["Webhook functions", "Connections", "Org variables", "External signals", "API Console"],
 
-      tools: ["JavaScript", "AG Grid", "Zoho JS SDK", "dynamic-form.js", "zoho-functions.js"],
+      tools: ["REST APIs", "JavaScript", "Node.js", "Python", "FastAPI", "AG Grid", "Webhooks", "OAuth2"],
 
-      skills: ["CRM Widgets (JS + AG Grid)", "Technical Documentation"],
+      skills: ["REST API Integrations", "JavaScript & CRM Widgets", "Python & Node.js Services", "CRM Migration (HubSpot → Zoho)"],
+
+    },
+
+    {
+
+      id: "data",
+
+      name: "Data Engineering & Reporting",
+
+      proficiency: "Advanced",
+
+      summary: "Multi-database integrations, ETL pipelines, and executive dashboards across PostgreSQL, MySQL, Oracle, and Kafka — feeding real-time operational analytics.",
+
+      zohoModules: ["Zoho Analytics datasets", "SQL workspaces", "Custom queries", "KPI widgets", "Forecasting models"],
+
+      tools: ["PostgreSQL", "MySQL", "Oracle", "Kafka Connect JDBC", "ETL Pipelines", "Executive Dashboards"],
+
+      skills: ["SQL (PostgreSQL, MySQL, Oracle)", "Kafka & Event Pipelines", "Zoho Analytics & Dashboards", "Technical Documentation", "Client Training & Onboarding"],
 
     },
 
