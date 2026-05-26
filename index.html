@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="assets/css/responsive.css">
 <script src="assets/js/ui-effects.js" defer></script>
 <script src="assets/js/quick-nav.js" defer></script>
+<script src="assets/js/home-animations.js" defer></script>
 </head>
 <body>
 <script>(function(){try{if(matchMedia('(min-width:901px)').matches&&localStorage.getItem('navCollapsed')==='1'){document.body.classList.add('nav-collapsed')}}catch(e){}})();</script>
@@ -36,7 +37,7 @@
     </label>
     <nav class="nav" aria-label="Portfolio sections">
       <div class="nav-label">Portfolio</div>
-      <a class="active" href="#profile"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></i>Profile</a>
+      <a class="active" href="#profile"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></i>Home</a>
 
       <div class="nav-label">Projects</div>
       <details class="nav-project">
@@ -72,13 +73,17 @@
 
   <div class="hero">
 
-    <article class="panel record">
+    <div class="hero-backdrop" aria-hidden="true">
+      <div class="hero-particles"></div>
+    </div>
 
-      <div class="record-id">
+    <article class="panel record" data-spotlight>
+
+      <div class="record-id" data-roles='["Enterprise CRM Architect","Zoho & Automation Expert","Integration Engineer","Solutions Architect"]'>
         Enterprise CRM Architect
       </div>
 
-      <h1>
+      <h1 data-split-words>
         Building scalable CRM systems,
         integrations & analytics platforms.
       </h1>
@@ -92,7 +97,7 @@
 
       <div class="hero-actions">
 
-        <a class="btn primary" href="#work">
+        <a class="btn primary magnetic" href="#work">
           Explore Projects
         </a>
 
@@ -114,17 +119,17 @@
       <div class="preview-metrics">
 
         <div class="mini-metric">
-          <strong>50+</strong>
+          <strong data-counter>50+</strong>
           <span>CRM implementations</span>
         </div>
 
         <div class="mini-metric">
-          <strong>1000+</strong>
+          <strong data-counter>1000+</strong>
           <span>Deluge scripts</span>
         </div>
 
         <div class="mini-metric">
-          <strong>20+</strong>
+          <strong data-counter>20+</strong>
           <span>Clients served</span>
         </div>
 
@@ -144,39 +149,64 @@
 
   </div>
 
-  <div class="metrics fade-up">
+  <div class="metrics reveal-stagger">
 
     <div class="panel metric">
-      <strong>50+</strong>
+      <strong data-counter>50+</strong>
       <span>CRM implementations delivered across industries</span>
     </div>
 
     <div class="panel metric">
-      <strong>1000+</strong>
+      <strong data-counter>1000+</strong>
       <span>Deluge scripts powering workflows &amp; integrations</span>
     </div>
 
     <div class="panel metric">
-      <strong>100+</strong>
+      <strong data-counter>100+</strong>
       <span>Zoho users onboarded and trained globally</span>
     </div>
 
     <div class="panel metric">
-      <strong>20+</strong>
+      <strong data-counter>20+</strong>
       <span>Clients served from SMB to enterprise</span>
     </div>
 
   </div>
 
+  <div class="marquee" aria-label="Technology stack">
+    <div class="marquee-track">
+      <span class="marquee-item">Zoho CRM</span>
+      <span class="marquee-item">Deluge Scripting</span>
+      <span class="marquee-item">Zoho Creator</span>
+      <span class="marquee-item">Zoho Analytics</span>
+      <span class="marquee-item">REST APIs</span>
+      <span class="marquee-item">Kafka</span>
+      <span class="marquee-item">OAuth2</span>
+      <span class="marquee-item">Webhooks</span>
+      <span class="marquee-item">PostgreSQL</span>
+      <span class="marquee-item">MySQL</span>
+      <span class="marquee-item">JavaScript</span>
+      <span class="marquee-item">Node.js</span>
+      <span class="marquee-item">Python</span>
+      <span class="marquee-item">Oracle APIs</span>
+      <span class="marquee-item">AG Grid</span>
+      <span class="marquee-item">Blueprints</span>
+      <span class="marquee-item">Workflow Rules</span>
+      <span class="marquee-item">KYC Workflows</span>
+      <span class="marquee-item">Data Migration</span>
+      <span class="marquee-item">Custom Widgets</span>
+    </div>
+  </div>
+
 </section>
 
-      <section id="work" class="section fade-up">
+      <section id="work" class="section reveal">
         <div class="section-head">
           <h2>Featured projects</h2>
           <p>Selected case studies from CRM engineering, automation, and analytics work. More projects added as they're documented.</p>
         </div>
-        <div class="cards">
-          <article class="panel card">
+        <div class="cards reveal-stagger">
+          <article class="panel card tilt">
             <div class="card-kicker">KGK InfoTech LLP</div>
             <h3>KGK Group Zoho Implementation</h3>
             <p>Multi-region Zoho CRM engineering: Symphony Sync (Kafka → CRM webhooks), NIVID Connect (Oracle APIs &amp; RFID), and Subform widgets (AG Grid deal operations).</p>
@@ -188,7 +218,7 @@
             </div>
             <p style="margin-top:14px"><a class="link" href="kgk.html">Overview</a> · <a class="link" href="kgk-dashboards.html">Dashboards</a> · <a class="link" href="kgk-reports.html">Reports</a></p>
           </article>
-          <article class="panel card">
+          <article class="panel card tilt">
             <div class="card-kicker">Rental &amp; Inventory</div>
             <h3>Inventory Rental System</h3>
             <p>Zoho Creator app for rental equipment management — movement tracking, availability calendars, and warehouse operations.</p>
@@ -199,7 +229,7 @@
             </div>
             <p style="margin-top:14px"><span class="link" style="opacity:.5">Case study coming soon</span></p>
           </article>
-          <article class="panel card">
+          <article class="panel card tilt">
             <div class="card-kicker">Retail Operations</div>
             <h3>Custom POS System</h3>
             <p>Web-optimized POS with cart management, invoice generation, product sync, and workflow automation on Zoho Creator.</p>
@@ -213,24 +243,24 @@
         </div>
       </section>
 
-      <section class="section fade-up">
+      <section class="section reveal">
         <div class="section-head">
           <h2>Core capabilities</h2>
           <p>A snapshot of where I spend the most time — full breakdown on the skills page.</p>
           <a class="link" href="skills.html">Open skills module →</a>
         </div>
-        <div class="cards">
-          <article class="panel card">
+        <div class="cards reveal-stagger">
+          <article class="panel card tilt">
             <div class="card-kicker">Platform</div>
             <h3>Zoho CRM &amp; Deluge</h3>
             <p>Architecture, Blueprints, KYC workflows, Creator apps, and module design across Zoho One.</p>
           </article>
-          <article class="panel card">
+          <article class="panel card tilt">
             <div class="card-kicker">Integrations</div>
             <h3>APIs &amp; data pipelines</h3>
             <p>REST APIs, Kafka, webhooks, OAuth2, Shopify/Stripe connectors, and event schema mapping.</p>
           </article>
-          <article class="panel card">
+          <article class="panel card tilt">
             <div class="card-kicker">CRM UI</div>
             <h3>Widgets &amp; dashboards</h3>
             <p>Custom widgets, AG Grid deal interfaces, analytics dashboards, and operational reports.</p>
@@ -238,14 +268,14 @@
         </div>
       </section>
 
-      <section id="experience" class="section">
+      <section id="experience" class="section reveal">
         <div class="split">
           <div>
             <div class="section-head">
               <h2>Experience</h2>
               <p>Recent roles most relevant to CRM engineering.</p>
             </div>
-            <div class="timeline">
+            <div class="timeline reveal-stagger">
               <article class="panel job">
                 <div class="job-date">Jan 2025 - Present</div>
                 <h3>CRM Administrator - KGK InfoTech LLP</h3>
@@ -287,13 +317,13 @@
         </div>
       </section>
 
-      <section class="section fade-up">
+      <section class="section reveal">
         <div class="panel cta">
           <div>
             <h2>Need a CRM your team can actually use?</h2>
             <p>Share your current CRM problem and I will help identify the simplest next step.</p>
           </div>
-          <a class="btn primary" href="education_contact.html#contact">Create request</a>
+          <a class="btn primary magnetic" href="education_contact.html#contact">Create request</a>
         </div>
       </section>
 

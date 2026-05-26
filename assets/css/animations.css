@@ -1,3 +1,7 @@
+/* =========================================================
+   ENTRY ANIMATIONS
+   ========================================================= */
+
 /* Explicit fade-in for sections/heroes/panels marked .fade-up */
 .fade-up{
   opacity:0;
@@ -17,8 +21,8 @@
    fadeUp on combined classes and leave elements stuck at opacity:0 after .7s. */
 .page-header,
 .hero,
-.section:not(.fade-up),
-.panel:not(.fade-up){
+.section:not(.fade-up):not(.reveal),
+.panel:not(.fade-up):not(.reveal){
   animation:pageFade .7s ease both;
 }
 
@@ -33,15 +37,545 @@
   }
 }
 
-/* Respect users who prefer reduced motion */
+/* =========================================================
+   SCROLL-TRIGGERED REVEAL (JS toggles .is-visible)
+   ========================================================= */
+
+.reveal{
+  animation:none !important;
+  opacity:0;
+  transform:translateY(32px);
+  transition:
+    opacity .8s ease,
+    transform .8s cubic-bezier(.2,.7,.2,1);
+}
+.reveal.is-visible{
+  opacity:1;
+  transform:none;
+}
+
+/* Staggered children — apply to a grid/list parent.
+   !important defeats the pageFade rule that targets bare .panel children. */
+.reveal-stagger > *{
+  animation:none !important;
+  opacity:0;
+  transform:translateY(28px);
+  transition:
+    opacity .7s ease,
+    transform .7s cubic-bezier(.2,.7,.2,1);
+}
+.reveal-stagger.is-visible > *{
+  opacity:1;
+  transform:none;
+}
+.reveal-stagger.is-visible > *:nth-child(1){ transition-delay:.05s; }
+.reveal-stagger.is-visible > *:nth-child(2){ transition-delay:.15s; }
+.reveal-stagger.is-visible > *:nth-child(3){ transition-delay:.25s; }
+.reveal-stagger.is-visible > *:nth-child(4){ transition-delay:.35s; }
+.reveal-stagger.is-visible > *:nth-child(5){ transition-delay:.45s; }
+.reveal-stagger.is-visible > *:nth-child(6){ transition-delay:.55s; }
+
+/* =========================================================
+   HERO AMBIENT BACKGROUND
+   ========================================================= */
+
+.hero{
+  position:relative;
+  isolation:isolate;
+}
+
+.hero::before,
+.hero::after{
+  content:'';
+  position:absolute;
+  z-index:-1;
+  border-radius:50%;
+  filter:blur(80px);
+  pointer-events:none;
+}
+
+.hero::before{
+  width:380px;
+  height:380px;
+  background:radial-gradient(circle, rgba(59,130,246,.32), transparent 70%);
+  top:-80px;
+  left:-100px;
+  opacity:.6;
+  animation:blobFloat1 16s ease-in-out infinite;
+}
+
+.hero::after{
+  width:420px;
+  height:420px;
+  background:radial-gradient(circle, rgba(6,182,212,.26), transparent 70%);
+  bottom:-120px;
+  right:-80px;
+  opacity:.55;
+  animation:blobFloat2 20s ease-in-out infinite;
+}
+
+@keyframes blobFloat1{
+  0%,100%{ transform:translate(0,0) scale(1); }
+  50%{ transform:translate(60px,40px) scale(1.12); }
+}
+
+@keyframes blobFloat2{
+  0%,100%{ transform:translate(0,0) scale(1); }
+  50%{ transform:translate(-50px,-30px) scale(1.08); }
+}
+
+/* =========================================================
+   ANIMATED GRADIENT TITLE
+   ========================================================= */
+
+.gradient-title,
+.record h1.animated-gradient{
+  background:linear-gradient(90deg,#60a5fa,#22d3ee,#8b5cf6,#22d3ee,#60a5fa);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:gradientShift 10s linear infinite;
+}
+
+@keyframes gradientShift{
+  0%{ background-position:0% center; }
+  100%{ background-position:200% center; }
+}
+
+/* =========================================================
+   HERO SIDE PANEL — gentle float
+   ========================================================= */
+
+.dashboard-preview{
+  animation:gentleFloat 7s ease-in-out infinite;
+}
+
+@keyframes gentleFloat{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-8px); }
+}
+
+/* =========================================================
+   CHART BARS — continuous staggered pulse
+   ========================================================= */
+
+.chart-bars span{
+  animation:barsPulse 2.8s ease-in-out infinite alternate;
+  transform-origin:bottom;
+}
+
+.chart-bars span:nth-child(1){ animation-delay:0s; }
+.chart-bars span:nth-child(2){ animation-delay:.25s; }
+.chart-bars span:nth-child(3){ animation-delay:.5s; }
+.chart-bars span:nth-child(4){ animation-delay:.75s; }
+.chart-bars span:nth-child(5){ animation-delay:1s; }
+
+@keyframes barsPulse{
+  0%{ opacity:.6; transform:scaleY(.85); }
+  100%{ opacity:1;  transform:scaleY(1); }
+}
+
+/* =========================================================
+   CARD HOVER LIFT
+   ========================================================= */
+
+.card{
+  transition:
+    transform .35s cubic-bezier(.2,.7,.2,1),
+    border-color .3s ease,
+    box-shadow .3s ease;
+}
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 24px 48px rgba(59,130,246,.18);
+}
+
+/* =========================================================
+   TAG HOVER
+   ========================================================= */
+
+.tag{
+  transition:
+    transform .2s ease,
+    background .2s ease,
+    border-color .2s ease,
+    color .2s ease;
+  cursor:default;
+}
+.tag:hover{
+  transform:translateY(-2px) scale(1.04);
+  background:rgba(59,130,246,.18);
+  border-color:rgba(59,130,246,.36);
+  color:#dbeafe;
+}
+
+/* =========================================================
+   METRIC HOVER ZOOM
+   ========================================================= */
+
+.metric strong,
+.mini-metric strong{
+  transition:transform .35s cubic-bezier(.2,.7,.2,1);
+}
+.metric:hover strong,
+.mini-metric:hover strong{
+  transform:scale(1.08);
+}
+
+/* =========================================================
+   SECTION HEAD — animated underline accent
+   ========================================================= */
+
+.section-head h2{
+  position:relative;
+  padding-bottom:10px;
+}
+.section-head h2::after{
+  content:'';
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:0;
+  height:3px;
+  border-radius:2px;
+  background:linear-gradient(90deg,#3b82f6,#06b6d4);
+  transition:width 1s cubic-bezier(.2,.7,.2,1) .2s;
+}
+.section-head.is-visible h2::after,
+.is-visible .section-head h2::after,
+.section.is-visible .section-head h2::after{
+  width:64px;
+}
+
+/* =========================================================
+   LIVE DOT — pulsing ring
+   ========================================================= */
+
+.live-dot{
+  position:relative;
+}
+.live-dot::after{
+  content:'';
+  position:absolute;
+  inset:-5px;
+  border-radius:50%;
+  border:2px solid var(--success);
+  opacity:0;
+  animation:liveRing 2s ease-out infinite;
+}
+@keyframes liveRing{
+  0%{ transform:scale(.6); opacity:.7; }
+  100%{ transform:scale(2.2); opacity:0; }
+}
+
+/* =========================================================
+   BUTTON SHIMMER on primary
+   ========================================================= */
+
+.btn.primary{
+  position:relative;
+  overflow:hidden;
+}
+.btn.primary::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:-120%;
+  width:60%;
+  height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
+  transform:skewX(-20deg);
+  transition:left .6s ease;
+}
+.btn.primary:hover::before{
+  left:140%;
+}
+
+/* =========================================================
+   HERO BACKDROP — animated grid + particle field
+   ========================================================= */
+
+.hero-backdrop{
+  position:absolute;
+  inset:-40px -40px;
+  z-index:-1;
+  pointer-events:none;
+  overflow:hidden;
+  border-radius:32px;
+}
+
+.hero-backdrop::before{
+  content:'';
+  position:absolute;
+  inset:-2px;
+  background-image:
+    linear-gradient(rgba(96,165,250,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(96,165,250,.08) 1px, transparent 1px);
+  background-size:48px 48px;
+  -webkit-mask-image:radial-gradient(ellipse at center, black 30%, transparent 80%);
+  mask-image:radial-gradient(ellipse at center, black 30%, transparent 80%);
+  animation:gridDrift 28s linear infinite;
+}
+
+@keyframes gridDrift{
+  from{ background-position:0 0, 0 0; }
+  to{   background-position:48px 48px, 48px 48px; }
+}
+
+.hero-particles{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+
+.hero-particles span{
+  position:absolute;
+  bottom:-10px;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(96,165,250,.95), rgba(96,165,250,.1) 60%, transparent 70%);
+  filter:blur(.4px);
+  animation:floatParticle 15s linear infinite;
+  opacity:0;
+}
+
+@keyframes floatParticle{
+  0%{   transform:translate(0,0) scale(.6); opacity:0; }
+  12%{  opacity:.85; }
+  85%{  opacity:.45; }
+  100%{ transform:translate(60px,-520px) scale(1); opacity:0; }
+}
+
+.hero-particles span:nth-child(1)  { left:5%;  animation-delay:0s;   }
+.hero-particles span:nth-child(2)  { left:12%; animation-delay:1.6s; background:radial-gradient(circle, rgba(34,211,238,.9), transparent 70%); }
+.hero-particles span:nth-child(3)  { left:22%; animation-delay:3.1s; }
+.hero-particles span:nth-child(4)  { left:32%; animation-delay:4.4s; }
+.hero-particles span:nth-child(5)  { left:42%; animation-delay:6.2s; background:radial-gradient(circle, rgba(139,92,246,.85), transparent 70%); }
+.hero-particles span:nth-child(6)  { left:52%; animation-delay:7.8s; }
+.hero-particles span:nth-child(7)  { left:62%; animation-delay:9.4s; }
+.hero-particles span:nth-child(8)  { left:72%; animation-delay:10.9s; background:radial-gradient(circle, rgba(34,211,238,.9), transparent 70%); }
+.hero-particles span:nth-child(9)  { left:82%; animation-delay:12.4s; }
+.hero-particles span:nth-child(10) { left:90%; animation-delay:2.5s;  }
+.hero-particles span:nth-child(11) { left:18%; animation-delay:11.2s; background:radial-gradient(circle, rgba(139,92,246,.85), transparent 70%); }
+.hero-particles span:nth-child(12) { left:65%; animation-delay:5.5s;  }
+
+/* =========================================================
+   WORD-BY-WORD HERO TITLE REVEAL
+   ========================================================= */
+
+.record h1 .word{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(40px);
+  filter:blur(8px);
+  animation:wordIn 1s cubic-bezier(.2,.7,.2,1) forwards;
+}
+
+@keyframes wordIn{
+  to{
+    opacity:1;
+    transform:none;
+    filter:blur(0);
+  }
+}
+
+/* =========================================================
+   ROTATING ROLE PILL — fade-swap on text change
+   ========================================================= */
+
+.record-id{
+  transition:opacity .25s ease;
+}
+.record-id[data-roles]{
+  min-width:220px;
+  justify-content:center;
+}
+
+/* =========================================================
+   3D CARD TILT + SHINE
+   ========================================================= */
+
+.tilt{
+  position:relative;
+  transform-style:preserve-3d;
+  transition:transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease;
+  will-change:transform;
+}
+
+.tilt::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  border-radius:inherit;
+  background:radial-gradient(
+    circle at var(--mx,50%) var(--my,50%),
+    rgba(255,255,255,.12),
+    transparent 40%
+  );
+  opacity:0;
+  transition:opacity .3s ease;
+}
+
+.tilt:hover::after{
+  opacity:1;
+}
+
+.tilt.tilt-active{
+  box-shadow:0 30px 60px rgba(59,130,246,.22);
+}
+
+/* =========================================================
+   MAGNETIC BUTTON
+   ========================================================= */
+
+.btn.magnetic{
+  transition:
+    transform .35s cubic-bezier(.2,.7,.2,1),
+    border-color .3s ease,
+    box-shadow .3s ease;
+  will-change:transform;
+}
+
+/* =========================================================
+   HERO SPOTLIGHT — radial glow follows cursor
+   ========================================================= */
+
+.record{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+.record::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:radial-gradient(
+    560px circle at var(--mx,50%) var(--my,30%),
+    rgba(96,165,250,.16),
+    transparent 45%
+  );
+  opacity:0;
+  transition:opacity .35s ease;
+  z-index:0;
+}
+
+.record:hover::before{
+  opacity:1;
+}
+
+.record > *{
+  position:relative;
+  z-index:1;
+}
+
+/* =========================================================
+   MARQUEE TECH STRIP
+   ========================================================= */
+
+.marquee{
+  position:relative;
+  overflow:hidden;
+  margin-top:36px;
+  padding:18px 0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(90deg,rgba(59,130,246,.04),rgba(6,182,212,.04));
+  -webkit-mask-image:linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  mask-image:linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+
+.marquee-track{
+  display:flex;
+  gap:48px;
+  width:max-content;
+  animation:marqueeScroll 45s linear infinite;
+}
+
+.marquee:hover .marquee-track{
+  animation-play-state:paused;
+}
+
+.marquee-item{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  color:#cbd5e1;
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:.02em;
+  white-space:nowrap;
+}
+
+.marquee-item::before{
+  content:'';
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#3b82f6,#06b6d4);
+  box-shadow:0 0 10px rgba(59,130,246,.5);
+}
+
+@keyframes marqueeScroll{
+  to{ transform:translateX(-50%); }
+}
+
+/* =========================================================
+   PERFORMANCE/MOBILE — disable heavy effects below 900px
+   ========================================================= */
+
+@media(max-width:900px){
+  .hero-backdrop::before,
+  .hero-particles{
+    display:none;
+  }
+  .tilt,
+  .btn.magnetic{
+    transform:none !important;
+  }
+  .record::before{
+    display:none;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
 @media (prefers-reduced-motion: reduce){
   .fade-up,
   .page-header,
   .hero,
   .section,
-  .panel{
-    animation:none;
-    opacity:1;
-    transform:none;
+  .panel,
+  .hero::before,
+  .hero::after,
+  .dashboard-preview,
+  .chart-bars span,
+  .gradient-title,
+  .record h1.animated-gradient,
+  .record h1 .word,
+  .live-dot::after,
+  .btn.primary::before,
+  .hero-backdrop::before,
+  .hero-particles span,
+  .marquee-track{
+    animation:none !important;
+    transition:none !important;
+  }
+  .reveal,
+  .reveal-stagger > *,
+  .record h1 .word{
+    opacity:1 !important;
+    transform:none !important;
+    filter:none !important;
+  }
+  .tilt,
+  .btn.magnetic{
+    transform:none !important;
   }
 }

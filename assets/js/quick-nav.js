@@ -3,7 +3,7 @@
    in addition to title/group, so a search for "kafka" surfaces KGK Reports. */
 
 const INDEX = [
-  { title: 'Profile',          group: 'Portfolio', url: 'index.html',                    tags: ['home', 'profile', 'about', 'overview'] },
+  { title: 'Home',             group: 'Portfolio', url: 'index.html',                    tags: ['home', 'profile', 'about', 'overview'] },
   { title: 'KGK Group Zoho Implementation',  group: 'Projects',  url: 'kgk.html',                      tags: ['kgk', 'crm', 'zoho', 'project', 'group', 'implementation'] },
   { title: 'KGK Dashboards',   group: 'Projects',  url: 'kgk-dashboards.html',           tags: ['kgk', 'dashboards', 'kpi', 'charts', 'analytics'] },
   { title: 'KGK Reports',      group: 'Projects',  url: 'kgk-reports.html',              tags: ['kgk', 'reports', 'symphony', 'nivid', 'subform', 'kafka'] },

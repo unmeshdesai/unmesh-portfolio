@@ -13,7 +13,10 @@ body.nav-collapsed .app{
 .main{
   padding:32px;
   min-width:0;
-  overflow-x:hidden;
+  /* overflow-x:clip (not hidden) so position:sticky on the topbar still
+     anchors to the viewport — overflow-x:hidden computes overflow-y to
+     auto which would create a scroll container and break sticky. */
+  overflow-x:clip;
 }
 
 .content{
