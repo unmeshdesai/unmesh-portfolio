@@ -163,38 +163,51 @@
 
 </section>
 
-      <div class="chart-grid">
-        <article class="panel chart-panel">
-          <h3>Kafka schema coverage</h3>
-          <p>Event contracts running through Symphony Sync</p>
-          <div class="chart-wrap"><canvas id="chart-schemas" aria-label="Kafka schemas chart"></canvas></div>
+      <div class="chart-grid reveal-stagger">
+        <article class="panel chart-panel tilt tone-blue">
+          <h3>Schemas by CRM destination</h3>
+          <p>How the 10 Symphony Sync schemas distribute across Zoho CRM modules</p>
+          <div class="chart-wrap"><canvas id="chart-schemas" aria-label="Schemas by CRM destination chart"></canvas></div>
         </article>
-        <article class="panel chart-panel">
+        <article class="panel chart-panel tilt tone-violet">
           <h3>Skills distribution</h3>
           <p>Weighted capabilities across the KGK CRM program</p>
           <div class="chart-wrap"><canvas id="chart-skills" aria-label="Skills chart"></canvas></div>
         </article>
       </div>
 
-      <div class="chart-grid">
-        <article class="panel chart-panel">
+      <div class="chart-grid reveal-stagger">
+        <article class="panel chart-panel tilt tone-cyan">
           <h3>Deliverables vs modules</h3>
           <p>Deliverable depth per workstream</p>
           <div class="chart-wrap tall"><canvas id="chart-projects" aria-label="Workstream metrics chart"></canvas></div>
         </article>
-        <article class="panel chart-panel">
+        <article class="panel chart-panel tilt tone-pink">
           <h3>Delivery timeline</h3>
           <p>KGK workstreams by period</p>
           <div class="chart-wrap tall"><canvas id="chart-timeline" aria-label="Timeline chart"></canvas></div>
         </article>
       </div>
 
-      <section class="section">
+      <div class="chart-grid reveal-stagger">
+        <article class="panel chart-panel tilt tone-amber">
+          <h3>Regional API coverage</h3>
+          <p>NIVID endpoint footprint across operational regions</p>
+          <div class="chart-wrap tall"><canvas id="chart-regional" aria-label="Regional coverage chart"></canvas></div>
+        </article>
+        <article class="panel chart-panel tilt tone-green">
+          <h3>Workstream capability mix</h3>
+          <p>Symphony Sync, NIVID Connect, and Subform compared</p>
+          <div class="chart-wrap tall"><canvas id="chart-radar" aria-label="Workstream radar chart"></canvas></div>
+        </article>
+      </div>
+
+      <section class="section reveal">
         <div class="section-head">
           <h2>At-a-glance metrics</h2>
           <p>Key figures across Symphony Sync, NIVID Connect, and Subform workstreams.</p>
         </div>
-        <div class="impact-grid" id="dash-highlights"></div>
+        <div class="impact-grid reveal-stagger" id="dash-highlights"></div>
       </section>
 
       <footer class="footer">
@@ -216,7 +229,7 @@
   }).join("");
 
   document.getElementById("dash-highlights").innerHTML = p.dashboards.highlights.map(function (h) {
-    return '<article class="panel impact-card"><strong>' + h.title + '</strong><span>' + h.desc + '</span></article>';
+    return '<article class="panel impact-card tilt"><strong>' + h.title + '</strong><span>' + h.desc + '</span></article>';
   }).join("");
 })();
 </script>

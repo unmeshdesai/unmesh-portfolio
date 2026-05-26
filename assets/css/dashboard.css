@@ -168,10 +168,51 @@
   position:absolute;
   top:-100px;
   right:-100px;
-  width:240px;
-  height:240px;
+  width:260px;
+  height:260px;
   border-radius:50%;
   background:radial-gradient(circle,rgba(59,130,246,.18),transparent 70%);
+  pointer-events:none;
+  transition:transform .5s ease, opacity .3s ease;
+}
+
+.chart-panel:hover::before{
+  transform:scale(1.15);
+  opacity:.85;
+}
+
+/* Color tone variants — each chart panel gets a different glow */
+.chart-panel.tone-blue::before   { background:radial-gradient(circle, rgba(59,130,246,.22),  transparent 70%); }
+.chart-panel.tone-cyan::before   { background:radial-gradient(circle, rgba(6,182,212,.22),   transparent 70%); }
+.chart-panel.tone-violet::before { background:radial-gradient(circle, rgba(139,92,246,.22),  transparent 70%); }
+.chart-panel.tone-pink::before   { background:radial-gradient(circle, rgba(236,72,153,.22),  transparent 70%); }
+.chart-panel.tone-green::before  { background:radial-gradient(circle, rgba(16,185,129,.22),  transparent 70%); }
+.chart-panel.tone-amber::before  { background:radial-gradient(circle, rgba(245,158,11,.22),  transparent 70%); }
+.chart-panel.tone-red::before    { background:radial-gradient(circle, rgba(239,68,68,.22),   transparent 70%); }
+
+/* Accent border-top stripe for each tone */
+.chart-panel{
+  border-top:3px solid transparent;
+}
+.chart-panel.tone-blue   { border-top-color:rgba(59,130,246,.55); }
+.chart-panel.tone-cyan   { border-top-color:rgba(6,182,212,.55); }
+.chart-panel.tone-violet { border-top-color:rgba(139,92,246,.55); }
+.chart-panel.tone-pink   { border-top-color:rgba(236,72,153,.55); }
+.chart-panel.tone-green  { border-top-color:rgba(16,185,129,.55); }
+.chart-panel.tone-amber  { border-top-color:rgba(245,158,11,.55); }
+.chart-panel.tone-red    { border-top-color:rgba(239,68,68,.55); }
+
+.chart-panel h3{
+  position:relative;
+  z-index:1;
+}
+.chart-panel p{
+  position:relative;
+  z-index:1;
+}
+.chart-panel .chart-wrap{
+  position:relative;
+  z-index:1;
 }
 
 .chart-panel h3{
