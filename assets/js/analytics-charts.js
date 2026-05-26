@@ -3,6 +3,9 @@
   const project = data && data.project;
   if (!project || typeof Chart === "undefined") return;
 
+  const charts = project.dashboards && project.dashboards.charts;
+  if (!charts) return;
+
   /* Vibrant palette */
   const C = {
     blue:    "#3b82f6",
@@ -17,19 +20,6 @@
     rose:    "#f43f5e"
   };
 
-  const SOFT = {
-    blue:    "rgba(59,130,246,.5)",
-    cyan:    "rgba(6,182,212,.5)",
-    violet:  "rgba(139,92,246,.5)",
-    pink:    "rgba(236,72,153,.5)",
-    green:   "rgba(16,185,129,.5)",
-    amber:   "rgba(245,158,11,.5)",
-    red:     "rgba(239,68,68,.5)",
-    teal:    "rgba(20,184,166,.5)",
-    indigo:  "rgba(99,102,241,.5)",
-    rose:    "rgba(244,63,94,.5)"
-  };
-
   Chart.defaults.color = "#cbd5e1";
   Chart.defaults.font.family = "Inter, system-ui, sans-serif";
   Chart.defaults.font.size = 11;
@@ -38,10 +28,7 @@
     responsive: true,
     maintainAspectRatio: false,
     resizeDelay: 250,
-    animation: {
-      duration: 1400,
-      easing: "easeOutQuart"
-    },
+    animation: { duration: 1400, easing: "easeOutQuart" },
     plugins: {
       legend: {
         labels: {
@@ -65,20 +52,11 @@
       }
     },
     scales: {
-      x: {
-        ticks: { color: "#94a3b8" },
-        grid:  { color: "rgba(148,163,184,.08)" },
-        border:{ color: "rgba(148,163,184,.15)" }
-      },
-      y: {
-        ticks: { color: "#94a3b8" },
-        grid:  { color: "rgba(148,163,184,.08)" },
-        border:{ color: "rgba(148,163,184,.15)" }
-      }
+      x: { ticks: { color: "#94a3b8" }, grid: { color: "rgba(148,163,184,.08)" }, border: { color: "rgba(148,163,184,.15)" } },
+      y: { ticks: { color: "#94a3b8" }, grid: { color: "rgba(148,163,184,.08)" }, border: { color: "rgba(148,163,184,.15)" } }
     }
   };
 
-  /* Helper: create vertical gradient for bar/line fills */
   function gradient(ctx, top, bottom) {
     const g = ctx.createLinearGradient(0, 0, 0, 320);
     g.addColorStop(0, top);
@@ -86,107 +64,24 @@
     return g;
   }
 
-  /* ───────────────────────────────────────────────────────────
-     1. KAFKA SCHEMAS → CRM MODULES — categorized doughnut
-        Groups the 10 Kafka schemas by what they create in CRM,
-        which actually communicates something (vs. equal-height bars).
-     ─────────────────────────────────────────────────────────── */
+  /* ─────────────────────────────────────────────────────────
+     1. ROLES — doughnut · Roles & hierarchy across 61 active users
+     ───────────────────────────────────────────────────────── */
   const schemaEl = document.getElementById("chart-schemas");
-  if (schemaEl && project.kafkaSchemas) {
-
-    /* Map each schema name → CRM target group */
-    const CRM_TARGET = {
-      "Orders":       "Deals & Pipeline",
-      "Leads":        "Leads & Attribution",
-      "KYC Status":   "KYC & Compliance",
-      "KYC Create":   "KYC & Compliance",
-      "Appointments": "Tasks & Activity",
-      "Carts":        "Carts & Stone Links",
-      "Contact":      "Contacts & Onboarding",
-      "Inventory":    "Inventory & Products",
-      "KAM":          "User Assignments",
-      "Multi-purpose":"Demand & Bidding"
-    };
-
-    /* Aggregate schemas by CRM target */
-    const groups = {};
-    project.kafkaSchemas.forEach(function (s) {
-      const key = CRM_TARGET[s.name] || s.name;
-      if (!groups[key]) groups[key] = [];
-      groups[key].push(s.name);
-    });
-
-    const labels = Object.keys(groups);
-    const counts = labels.map(function (k) { return groups[k].length; });
-    const schemaLists = labels.map(function (k) { return groups[k].join(", "); });
-
-    const colorPool = [C.cyan, C.violet, C.pink, C.amber, C.green, C.blue, C.teal, C.indigo, C.rose, C.red];
-    const colors = labels.map(function (_, i) { return colorPool[i % colorPool.length]; });
-
+  const rolesData = charts.roles || charts.schemas;
+  if (schemaEl && rolesData) {
+    const palette = [C.blue, C.cyan, C.violet, C.pink, C.amber, C.green, C.teal, C.indigo];
     new Chart(schemaEl, {
       type: "doughnut",
       data: {
-        labels: labels,
+        labels: rolesData.labels,
         datasets: [{
-          data: counts,
-          backgroundColor: colors,
+          data: rolesData.values,
+          backgroundColor: rolesData.labels.map(function (_, i) { return palette[i % palette.length]; }),
           borderColor: "rgba(15,23,42,.6)",
           borderWidth: 2,
           hoverOffset: 16,
-          hoverBorderColor: "rgba(255,255,255,.2)"
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: "55%",
-        animation: { duration: 1400, easing: "easeOutQuart", animateRotate: true, animateScale: true },
-        plugins: {
-          legend: {
-            position: "right",
-            labels: {
-              color: "#cbd5e1",
-              boxWidth: 10,
-              padding: 9,
-              font: { size: 11 },
-              usePointStyle: true,
-              pointStyle: "circle"
-            }
-          },
-          tooltip: {
-            ...chartDefaults.plugins.tooltip,
-            callbacks: {
-              label: function (ctx) {
-                const i = ctx.dataIndex;
-                const n = ctx.parsed;
-                return " " + n + " schema" + (n === 1 ? "" : "s") + " · " + schemaLists[i];
-              }
-            }
-          }
-        }
-      }
-    });
-  }
-
-  /* ───────────────────────────────────────────────────────────
-     2. SKILLS DISTRIBUTION — vibrant doughnut
-     ─────────────────────────────────────────────────────────── */
-  const skillsEl = document.getElementById("chart-skills");
-  if (skillsEl && data.skills) {
-    const sorted = [...data.skills].sort(function (a, b) { return b.weight - a.weight; }).slice(0, 8);
-    const colors = [C.blue, C.cyan, C.violet, C.pink, C.green, C.amber, C.indigo, C.teal];
-
-    new Chart(skillsEl, {
-      type: "doughnut",
-      data: {
-        labels: sorted.map(function (s) { return s.skill; }),
-        datasets: [{
-          data: sorted.map(function (s) { return s.weight; }),
-          backgroundColor: colors,
-          borderColor: "rgba(15,23,42,.6)",
-          borderWidth: 2,
-          hoverOffset: 14,
-          hoverBorderColor: "rgba(255,255,255,.2)"
+          hoverBorderColor: "rgba(255,255,255,.25)"
         }]
       },
       options: {
@@ -197,160 +92,173 @@
         plugins: {
           legend: {
             position: "right",
-            labels: {
-              color: "#cbd5e1",
-              boxWidth: 10,
-              padding: 8,
-              font: { size: 10 },
-              usePointStyle: true,
-              pointStyle: "circle"
-            }
+            labels: { color: "#cbd5e1", boxWidth: 10, padding: 10, font: { size: 11 }, usePointStyle: true, pointStyle: "circle" }
           },
-          tooltip: chartDefaults.plugins.tooltip
+          tooltip: {
+            ...chartDefaults.plugins.tooltip,
+            callbacks: {
+              label: function (ctx) {
+                const n = ctx.parsed;
+                return " " + n + " user" + (n === 1 ? "" : "s") + " · " + ctx.label;
+              }
+            }
+          }
         }
       }
     });
   }
 
-  /* ───────────────────────────────────────────────────────────
-     3. DELIVERABLES VS MODULES — cyan+violet grouped bars
-     ─────────────────────────────────────────────────────────── */
+  /* ─────────────────────────────────────────────────────────
+     2. SKILLS — horizontal bar · capability proficiency
+     ───────────────────────────────────────────────────────── */
+  const skillsEl = document.getElementById("chart-skills");
+  if (skillsEl && charts.skills) {
+    const palette = [C.blue, C.cyan, C.violet, C.pink, C.green, C.amber, C.indigo, C.teal, C.rose, C.red];
+    new Chart(skillsEl, {
+      type: "bar",
+      data: {
+        labels: charts.skills.labels,
+        datasets: [{
+          label: "Proficiency",
+          data: charts.skills.values,
+          backgroundColor: charts.skills.labels.map(function (_, i) { return palette[i % palette.length]; }),
+          borderRadius: 8,
+          borderSkipped: false,
+          maxBarThickness: 24
+        }]
+      },
+      options: {
+        ...chartDefaults,
+        indexAxis: "y",
+        plugins: { ...chartDefaults.plugins, legend: { display: false } },
+        scales: {
+          x: { ...chartDefaults.scales.x, beginAtZero: true, max: 100, ticks: { ...chartDefaults.scales.x.ticks, stepSize: 25 } },
+          y: { ...chartDefaults.scales.y, ticks: { color: "#e2e8f0", font: { size: 11, weight: "600" } }, grid: { display: false } }
+        }
+      }
+    });
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     3. PROJECTS — horizontal bar · Automation functions by module
+     ───────────────────────────────────────────────────────── */
   const projectEl = document.getElementById("chart-projects");
-  if (projectEl) {
+  if (projectEl && charts.projects) {
+    const palette = [C.blue, C.cyan, C.violet, C.pink, C.amber, C.green, C.teal, C.indigo, C.rose, C.red];
     new Chart(projectEl, {
       type: "bar",
       data: {
-        labels: project.workstreams.map(function (w) { return w.name; }),
+        labels: charts.projects.labels,
+        datasets: [{
+          label: "Active functions",
+          data: charts.projects.values,
+          backgroundColor: charts.projects.labels.map(function (_, i) { return palette[i % palette.length]; }),
+          borderRadius: 8,
+          borderSkipped: false,
+          maxBarThickness: 26
+        }]
+      },
+      options: {
+        ...chartDefaults,
+        indexAxis: "y",
+        plugins: { ...chartDefaults.plugins, legend: { display: false } },
+        scales: {
+          x: { ...chartDefaults.scales.x, ticks: { ...chartDefaults.scales.x.ticks, stepSize: 2 }, beginAtZero: true },
+          y: { ...chartDefaults.scales.y, ticks: { color: "#e2e8f0", font: { size: 11, weight: "600" } }, grid: { display: false } }
+        }
+      }
+    });
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     4. TIMELINE — combo · Automation growth by quarter
+     ───────────────────────────────────────────────────────── */
+  const timelineEl = document.getElementById("chart-timeline");
+  if (timelineEl && charts.timeline) {
+    const ctx = timelineEl.getContext("2d");
+    new Chart(timelineEl, {
+      type: "bar",
+      data: {
+        labels: charts.timeline.labels,
         datasets: [
           {
-            label: "Deliverables",
-            data: project.workstreams.map(function (w) { return w.deliverables.length; }),
-            backgroundColor: C.cyan,
-            borderRadius: 8,
+            type: "bar",
+            label: "Added this quarter",
+            data: charts.timeline.bars,
+            backgroundColor: gradient(ctx, "rgba(139,92,246,.85)", "rgba(139,92,246,.35)"),
+            borderRadius: 6,
             borderSkipped: false,
-            maxBarThickness: 36
+            maxBarThickness: 28,
+            yAxisID: "y"
           },
           {
-            label: "Modules",
-            data: project.workstreams.map(function (w) { return w.modules.length; }),
-            backgroundColor: C.violet,
-            borderRadius: 8,
-            borderSkipped: false,
-            maxBarThickness: 36
+            type: "line",
+            label: "Cumulative active",
+            data: charts.timeline.line,
+            borderColor: C.cyan,
+            backgroundColor: gradient(ctx, "rgba(6,182,212,.35)", "rgba(6,182,212,.02)"),
+            fill: true,
+            tension: 0.4,
+            borderWidth: 3,
+            pointRadius: 5,
+            pointBackgroundColor: C.pink,
+            pointBorderColor: "#fff",
+            pointBorderWidth: 2,
+            pointHoverRadius: 8,
+            yAxisID: "y1"
           }
         ]
       },
       options: {
         ...chartDefaults,
+        interaction: { mode: "index", intersect: false },
         scales: {
           x: { ...chartDefaults.scales.x, grid: { display: false } },
-          y: { ...chartDefaults.scales.y, ticks: { ...chartDefaults.scales.y.ticks, stepSize: 1 }, beginAtZero: true }
+          y:  { ...chartDefaults.scales.y, position: "left",  beginAtZero: true,
+                title: { display: true, text: "Added", color: "#94a3b8", font: { size: 10 } } },
+          y1: { ...chartDefaults.scales.y, position: "right", beginAtZero: true,
+                grid: { drawOnChartArea: false },
+                title: { display: true, text: "Cumulative", color: "#94a3b8", font: { size: 10 } } }
         }
       }
     });
   }
 
-  /* ───────────────────────────────────────────────────────────
-     4. DELIVERY TIMELINE — gradient area line
-     ─────────────────────────────────────────────────────────── */
-  const timelineEl = document.getElementById("chart-timeline");
-  if (timelineEl && project.timeline) {
-    const ctx = timelineEl.getContext("2d");
-
-    new Chart(timelineEl, {
-      type: "line",
+  /* ─────────────────────────────────────────────────────────
+     5. REGIONAL — bar · Active users by region
+     ───────────────────────────────────────────────────────── */
+  const regionalEl = document.getElementById("chart-regional");
+  if (regionalEl && charts.regional) {
+    const palette = [C.blue, C.violet, C.cyan, C.amber, C.green];
+    new Chart(regionalEl, {
+      type: "bar",
       data: {
-        labels: project.timeline.map(function (t) { return t.period; }),
+        labels: charts.regional.labels,
         datasets: [{
-          label: "Workstream activity",
-          data: project.timeline.map(function (t) { return t.items; }),
-          borderColor: C.cyan,
-          backgroundColor: gradient(ctx, "rgba(6,182,212,.45)", "rgba(139,92,246,.05)"),
-          fill: true,
-          tension: 0.4,
-          borderWidth: 3,
-          pointRadius: 6,
-          pointBackgroundColor: C.violet,
-          pointBorderColor: "#fff",
-          pointBorderWidth: 2,
-          pointHoverRadius: 9,
-          pointHoverBackgroundColor: C.pink
+          label: "Active users",
+          data: charts.regional.values,
+          backgroundColor: charts.regional.labels.map(function (_, i) { return palette[i % palette.length]; }),
+          borderRadius: 8,
+          borderSkipped: false,
+          maxBarThickness: 56
         }]
       },
       options: {
         ...chartDefaults,
         plugins: { ...chartDefaults.plugins, legend: { display: false } },
         scales: {
-          x: { ...chartDefaults.scales.x, grid: { display: false } },
-          y: { ...chartDefaults.scales.y, beginAtZero: true }
+          x: { ...chartDefaults.scales.x, grid: { display: false }, ticks: { color: "#e2e8f0", font: { size: 12, weight: "700" } } },
+          y: { ...chartDefaults.scales.y, beginAtZero: true, ticks: { ...chartDefaults.scales.y.ticks, stepSize: 5 } }
         }
       }
     });
   }
 
-  /* ───────────────────────────────────────────────────────────
-     5. REGIONAL API COVERAGE — polar area (NEW)
-     ─────────────────────────────────────────────────────────── */
-  const regionalEl = document.getElementById("chart-regional");
-  if (regionalEl) {
-    const regions = ["India", "Dubai", "Antwerp", "New York"];
-    const coverage = [14, 11, 8, 6];
-
-    new Chart(regionalEl, {
-      type: "polarArea",
-      data: {
-        labels: regions,
-        datasets: [{
-          data: coverage,
-          backgroundColor: [SOFT.blue, SOFT.violet, SOFT.cyan, SOFT.amber],
-          borderColor: [C.blue, C.violet, C.cyan, C.amber],
-          borderWidth: 2,
-          hoverBackgroundColor: [C.blue, C.violet, C.cyan, C.amber]
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: { duration: 1400, animateRotate: true, animateScale: true, easing: "easeOutQuart" },
-        scales: {
-          r: {
-            ticks: { color: "#94a3b8", backdropColor: "transparent", showLabelBackdrop: false, stepSize: 4 },
-            grid:        { color: "rgba(148,163,184,.12)" },
-            angleLines:  { color: "rgba(148,163,184,.12)" },
-            pointLabels: { color: "#e2e8f0", font: { size: 12, weight: "600" } }
-          }
-        },
-        plugins: {
-          legend: {
-            position: "bottom",
-            labels: { color: "#cbd5e1", padding: 14, usePointStyle: true, pointStyle: "circle", boxWidth: 10 }
-          },
-          tooltip: chartDefaults.plugins.tooltip
-        }
-      }
-    });
-  }
-
-  /* ───────────────────────────────────────────────────────────
-     6. WORKSTREAM CAPABILITY MIX — radar (NEW)
-     ─────────────────────────────────────────────────────────── */
+  /* ─────────────────────────────────────────────────────────
+     6. RADAR — Workstream capability mix
+     ───────────────────────────────────────────────────────── */
   const radarEl = document.getElementById("chart-radar");
-  if (radarEl && project.workstreams) {
-    const axes = ["Deliverables", "Modules", "Tech stack", "Integrations", "Operational depth"];
-
-    function scoreFor(w) {
-      return [
-        w.deliverables.length,
-        w.modules.length,
-        w.tags.length,
-        Object.keys(w.metrics || {}).reduce(function (n, k) {
-          var v = w.metrics[k];
-          return n + (typeof v === "number" ? v : 0);
-        }, 0) / 3,
-        (w.status === "live" ? 6 : w.status === "doc" ? 4 : 2)
-      ];
-    }
-
+  if (radarEl && charts.radar) {
     const datasetColors = [
       { stroke: C.cyan,   fill: "rgba(6,182,212,.22)"  },
       { stroke: C.violet, fill: "rgba(139,92,246,.22)" },
@@ -360,12 +268,12 @@
     new Chart(radarEl, {
       type: "radar",
       data: {
-        labels: axes,
-        datasets: project.workstreams.map(function (w, i) {
+        labels: charts.radar.labels,
+        datasets: charts.radar.datasets.map(function (ds, i) {
           const col = datasetColors[i % datasetColors.length];
           return {
-            label: w.name,
-            data: scoreFor(w),
+            label: ds.label,
+            data: ds.values,
             borderColor: col.stroke,
             backgroundColor: col.fill,
             borderWidth: 2.5,
@@ -385,7 +293,9 @@
         scales: {
           r: {
             beginAtZero: true,
-            ticks: { color: "#94a3b8", backdropColor: "transparent", showLabelBackdrop: false, stepSize: 2 },
+            min: 0,
+            max: 100,
+            ticks: { color: "#94a3b8", backdropColor: "transparent", showLabelBackdrop: false, stepSize: 20 },
             grid:        { color: "rgba(148,163,184,.1)" },
             angleLines:  { color: "rgba(148,163,184,.1)" },
             pointLabels: { color: "#e2e8f0", font: { size: 11, weight: "600" } }

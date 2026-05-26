@@ -1,398 +1,133 @@
 (function () {
 
   const d = window.CRM_PORTFOLIO_DATA;
+  const project = d && d.project;
+  const reports = project && project.reports;
+  if (!reports) return;
 
-  const catalog = d && d.project && d.project.reports && d.project.reports.catalog;
-
-  if (!catalog) return;
-
-
+  const cards = reports.cards || [];
+  const pageKpis = reports.kpis || [];
 
   const cardsRoot = document.getElementById("report-cards");
+  const kpiRoot   = document.getElementById("report-kpis");
+  const detail    = document.getElementById("report-detail");
+  const body      = document.getElementById("report-body");
 
-  const kpiRoot = document.getElementById("report-kpis");
-
-  const detail = document.getElementById("report-detail");
-
-  const body = document.getElementById("report-body");
-
-  if (!cardsRoot) return;
-
-
-
-  function escapeHtml(str) {
-
-    return String(str)
-
+  function escapeHtml(s) {
+    return String(s == null ? "" : s)
       .replace(/&/g, "&amp;")
-
       .replace(/</g, "&lt;")
-
       .replace(/>/g, "&gt;")
-
       .replace(/"/g, "&quot;");
-
   }
 
+  /* Card type → icon + color tone */
+  const TYPE_META = {
+    "Operational": { icon: "⚙️", tone: "blue"   },
+    "Technical":   { icon: "🔧", tone: "violet" },
+    "Process":     { icon: "📋", tone: "amber"  },
+    "Portfolio":   { icon: "🎯", tone: "green"  },
+    "Executive":   { icon: "📊", tone: "cyan"   },
+    "Compliance":  { icon: "🔒", tone: "red"    }
+  };
 
-
-  function getByPath(path) {
-
-    if (!path) return undefined;
-
-    return path.split(".").reduce(function (obj, key) {
-
-      return obj && obj[key];
-
-    }, d);
-
+  function metaFor(type) {
+    return TYPE_META[type] || { icon: "📄", tone: "blue" };
   }
 
-
-
-  function skillTier(weight) {
-
-    if (weight >= 90) return "Core";
-
-    if (weight >= 82) return "Strong";
-
-    return "Supporting";
-
+  /* KPI cards */
+  function renderKpis(list, root) {
+    if (!root || !list || !list.length) return;
+    root.innerHTML = list.map(function (k) {
+      return '<article class="panel kpi tilt ' + (k.tone || "") + '">' +
+        '<div class="kpi-label">' + escapeHtml(k.label) + '</div>' +
+        '<div class="kpi-value" data-counter>' + escapeHtml(k.value) + '</div>' +
+        '<div class="kpi-foot">' + escapeHtml(k.foot) + '</div>' +
+        '</article>';
+    }).join("");
   }
 
-
-
-  function resolveRowValue(spec, row) {
-
-    if (typeof spec === "string") return row[spec];
-
-    if (spec && spec.value !== undefined) return spec.value;
-
-    if (spec && spec.fn === "weightPct") return row.weight + "%";
-
-    if (spec && spec.fn === "skillTier") return skillTier(row.weight);
-
-    if (spec && spec.fn === "deliverableCount") return String(row.deliverables.length);
-
-    if (spec && spec.fn === "moduleCount") return String(row.modules.length);
-
-    return "";
-
+  function findCard(id) {
+    return cards.find(function (r) { return r.id === id; });
   }
 
-
-
-  function resolveRows(section) {
-
-    const table = section.table;
-
-    if (!table) return [];
-
-    if (table.rows) {
-
-      return table.rows.map(function (r) {
-
-        return Array.isArray(r) ? r : [r.col1, r.col2, r.col3, r.col4].filter(function (_, i) {
-
-          return i < table.headers.length;
-
-        });
-
-      });
-
-    }
-
-    if (table.rowsFrom) {
-
-      const source = getByPath(table.rowsFrom);
-
-      if (!source) return [];
-
-      return source.map(function (row) {
-
-        return table.rowMap.map(function (spec) {
-
-          return resolveRowValue(spec, row);
-
-        });
-
-      });
-
-    }
-
-    return [];
-
-  }
-
-
-
-  function renderKpis(kpis, root) {
-
-    if (!root || !kpis || !kpis.length) return;
-
-    root.innerHTML = kpis
-
-      .map(function (k) {
-
-        return (
-
-          '<article class="panel kpi tilt ' +
-
-          (k.tone || "") +
-
-          '"><div class="kpi-label">' +
-
-          escapeHtml(k.label) +
-
-          '</div><div class="kpi-value" data-counter>' +
-
-          escapeHtml(k.value) +
-
-          '</div><div class="kpi-foot">' +
-
-          escapeHtml(k.foot) +
-
-          "</div></article>"
-
-        );
-
-      })
-
-      .join("");
-
-  }
-
-
-
-  function renderTable(section) {
-
-    const table = section.table;
-
-    const rows = resolveRows(section);
-
-    const head =
-
-      '<thead><tr>' +
-
-      table.headers.map(function (h) {
-
-        return "<th>" + escapeHtml(h) + "</th>";
-
-      }).join("") +
-
-      "</tr></thead>";
-
-    const bodyRows = rows
-
-      .map(function (cells) {
-
-        return (
-
-          "<tr>" +
-
-          cells
-
-            .map(function (cell) {
-
-              return "<td>" + escapeHtml(cell) + "</td>";
-
-            })
-
-            .join("") +
-
-          "</tr>"
-
-        );
-
-      })
-
-      .join("");
-
-    return (
-
-      '<div class="table-wrap"><table class="crm-table">' +
-
-      head +
-
-      "<tbody>" +
-
-      bodyRows +
-
-      "</tbody></table></div>"
-
-    );
-
-  }
-
-
-
-  function findReport(id) {
-
-    return catalog.find(function (r) {
-
-      return r.id === id;
-
-    });
-
-  }
-
-
-
-  function renderReport(id) {
-
-    const rep = findReport(id);
-
+  function renderCard(id) {
+    const rep = findCard(id);
     if (!rep || !detail || !body) return;
-
     detail.classList.add("active");
 
+    /* Clear the detail KPI grid — mini-KPIs are placeholders right now,
+       so rendering them as em-dashes adds visual noise. Skip until the
+       values are wired to real Analytics queries. */
+    const detailKpis = document.getElementById("report-detail-kpis");
+    if (detailKpis) detailKpis.innerHTML = "";
 
+    const sourceTags = (rep.dataSources || []).map(function (s) {
+      return '<span class="tag">' + escapeHtml(s) + '</span>';
+    }).join("");
 
-    const reportKpis = document.getElementById("report-detail-kpis");
-
-    if (reportKpis) renderKpis(rep.kpis, reportKpis);
-
-
-
-    const sectionsHtml = (rep.sections || [])
-
-      .map(function (sec) {
-
-        return (
-
-          '<section style="margin-top:16px">' +
-
-          '<h3 style="font-size:14px;font-weight:700">' +
-
-          escapeHtml(sec.title) +
-
-          "</h3>" +
-
-          (sec.description
-
-            ? '<p style="color:var(--muted);font-size:12px;margin:4px 0 10px">' +
-
-              escapeHtml(sec.description) +
-
-              "</p>"
-
-            : "") +
-
-          renderTable(sec) +
-
-          "</section>"
-
-        );
-
-      })
-
-      .join("");
-
-
+    const viewLinks = (rep.details && rep.details.viewLinks) || [];
+    const linksHtml = viewLinks.length
+      ? '<div style="margin-top:14px"><p style="font-size:11px;color:var(--faint);font-weight:700;margin-bottom:6px">ANALYTICS VIEWS</p>' +
+        viewLinks.map(function (v) {
+          return '<a class="tag" href="' + escapeHtml(v.url || "#") + '" target="_blank">' + escapeHtml(v.name) + '</a>';
+        }).join(" ") + '</div>'
+      : "";
 
     body.innerHTML =
-
-      '<h2 style="font-size:16px;font-weight:700;margin-bottom:4px">' +
-
-      escapeHtml(rep.title) +
-
-      "</h2>" +
-
-      '<p style="color:var(--muted);font-size:12px;margin-bottom:12px">' +
-
-      escapeHtml(rep.description) +
-
-      " · Updated " +
-
-      escapeHtml(rep.updated) +
-
-      "</p>" +
-
-      sectionsHtml;
-
-
+      '<h2 style="font-size:18px;font-weight:700;margin-bottom:4px">' + escapeHtml(rep.name) + '</h2>' +
+      '<p style="color:var(--muted);font-size:13px;margin-bottom:14px">' + escapeHtml(rep.summary) + '</p>' +
+      '<p style="font-size:12px;color:var(--faint);font-weight:700;margin:14px 0 6px">DATA SOURCES</p>' +
+      '<div class="tag-row">' + sourceTags + '</div>' +
+      (rep.impact ? '<p style="margin-top:14px;font-size:13px;color:#bfdbfe"><strong>Impact:</strong> ' + escapeHtml(rep.impact) + '</p>' : "") +
+      linksHtml;
 
     history.replaceState(null, "", "#" + id);
-
+    detail.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
+  /* Render top KPIs */
+  if (kpiRoot && pageKpis.length) renderKpis(pageKpis, kpiRoot);
 
+  /* Render report cards */
+  if (cardsRoot) {
+    cardsRoot.innerHTML = cards.map(function (rep) {
+      const m = metaFor(rep.type);
+      const statusLabel = (rep.status === "planned") ? "Planned" : "Active";
+      const statusClass = (rep.status === "planned") ? "warn" : "live";
 
-  const pageKpis = d.project.reports.pageKpis;
+      /* Show source tags as the preview "metric" — real data, not em-dashes */
+      const previewSources = (rep.dataSources || []).slice(0, 3).map(function (s) {
+        return '<span class="tag">' + escapeHtml(s) + '</span>';
+      }).join("");
+      const extraCount = Math.max(0, (rep.dataSources || []).length - 3);
+      const extraTag = extraCount > 0
+        ? '<span class="tag" style="opacity:.65">+' + extraCount + ' more</span>'
+        : "";
 
-  if (kpiRoot && pageKpis) {
+      return '<a class="panel report-card tilt tone-' + m.tone + '" href="#' + rep.id + '" data-id="' + rep.id + '">' +
+        '<div class="report-card-head">' +
+          '<div class="report-card-icon">' + m.icon + '</div>' +
+          '<span class="status-pill ' + statusClass + '">' + escapeHtml(statusLabel) + '</span>' +
+        '</div>' +
+        (rep.kicker ? '<div class="card-kicker">' + escapeHtml(rep.kicker) + '</div>' : "") +
+        '<h3>' + escapeHtml(rep.name) + '</h3>' +
+        '<p>' + escapeHtml(rep.summary) + '</p>' +
+        '<div class="tag-row" style="margin-top:14px">' + previewSources + extraTag + '</div>' +
+        (rep.impact ? '<div class="report-card-foot" style="margin-top:14px">' + escapeHtml(rep.impact) + ' →</div>' : "") +
+        '</a>';
+    }).join("");
 
-    renderKpis(pageKpis, kpiRoot);
-
-  }
-
-
-
-  cardsRoot.innerHTML = catalog
-
-    .map(function (rep) {
-
-      return (
-
-        '<a class="panel report-card" href="#' +
-
-        rep.id +
-
-        '" data-id="' +
-
-        rep.id +
-
-        '">' +
-
-        '<span class="status-pill doc">' +
-
-        escapeHtml(rep.type) +
-
-        "</span>" +
-
-        "<h3>" +
-
-        escapeHtml(rep.title) +
-
-        "</h3>" +
-
-        '<p style="color:var(--muted);font-size:12px;margin-top:6px">' +
-
-        escapeHtml(rep.description) +
-
-        "</p>" +
-
-        '<div class="meta">Updated ' +
-
-        escapeHtml(rep.updated) +
-
-        "</div></a>"
-
-      );
-
-    })
-
-    .join("");
-
-
-
-  cardsRoot.querySelectorAll(".report-card").forEach(function (card) {
-
-    card.addEventListener("click", function (e) {
-
-      e.preventDefault();
-
-      renderReport(card.getAttribute("data-id"));
-
+    cardsRoot.querySelectorAll(".report-card").forEach(function (card) {
+      card.addEventListener("click", function (e) {
+        e.preventDefault();
+        renderCard(card.getAttribute("data-id"));
+      });
     });
+  }
 
-  });
-
-
-
+  /* Deep-link handling */
   const hash = location.hash.replace("#", "");
-
-  if (hash && findReport(hash)) renderReport(hash);
+  if (hash && findCard(hash)) renderCard(hash);
 
 })();
-

@@ -120,9 +120,7 @@
 
     <div class="report-status">
 
-      <span class="pulse-dot"></span>
-
-      Reports Active
+      Production snapshot
 
     </div>
 
@@ -131,72 +129,32 @@
 </section>
 
       <div class="kpi-grid reveal-stagger" id="report-kpis"></div>
-<section class="section reveal">
 
-  <div class="section-head">
+      <section class="section reveal">
+        <div class="section-head">
+          <h2>Operational Insights</h2>
+          <p>Real numbers from the KGK Zoho Analytics workspace.</p>
+        </div>
+        <div class="executive-grid reveal-stagger" id="operational-cards"></div>
+      </section>
 
-    <h2>Operational Insights</h2>
-
-    <p>
-      Enterprise architecture observations
-      across CRM, integrations
-      and delivery operations.
-    </p>
-
-  </div>
-
-  <div class="executive-grid reveal-stagger">
-
-    <div class="panel executive-card tilt">
-
-      <div class="exec-icon">⚙️</div>
-
-      <h3>Workflow Automation</h3>
-
-      <p>
-        CRM automation pipelines reduced
-        manual operational dependencies
-        through Kafka-driven synchronization.
-      </p>
-
-    </div>
-
-    <div class="panel executive-card tilt">
-
-      <div class="exec-icon">📦</div>
-
-      <h3>Inventory Synchronization</h3>
-
-      <p>
-        Regional inventory systems connected
-        through Oracle NIVID APIs
-        and RFID operational flows.
-      </p>
-
-    </div>
-
-    <div class="panel executive-card tilt">
-
-      <div class="exec-icon">📈</div>
-
-      <h3>Analytics Visibility</h3>
-
-      <p>
-        Executive dashboards improved
-        operational reporting visibility
-        across multiple business regions.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
       <div class="report-cards" id="report-cards"></div>
 
       <section class="section report-detail panel" id="report-detail">
         <div class="kpi-grid" id="report-detail-kpis" style="margin:14px 16px 0"></div>
         <div style="padding:14px 16px 18px" id="report-body"></div>
+      </section>
+
+      <section class="section reveal" id="analytics-block">
+        <div class="section-head">
+          <h2>Zoho Analytics workspace</h2>
+          <p>469 views powering the 12 production dashboards.</p>
+        </div>
+        <div class="impact-grid reveal-stagger" id="analytics-breakdown"></div>
+        <div class="panel" style="margin-top:18px;padding:24px">
+          <p style="font-size:11px;color:var(--faint);font-weight:700;margin-bottom:10px">LIVE DASHBOARDS</p>
+          <div class="tag-row" id="analytics-dashboards"></div>
+        </div>
       </section>
 
       <footer class="footer">
@@ -207,6 +165,49 @@
   </main>
 </div>
 <script src="assets/js/crm-portfolio-data.js"></script>
+<script>
+(function () {
+  const p = window.CRM_PORTFOLIO_DATA && window.CRM_PORTFOLIO_DATA.project;
+  if (!p) return;
+
+  /* Operational insight cards */
+  const ops = (p.reports && p.reports.operational) || [];
+  const opsRoot = document.getElementById("operational-cards");
+  if (opsRoot && ops.length) {
+    opsRoot.innerHTML = ops.map(function (c) {
+      return '<div class="panel executive-card tilt">' +
+        '<div class="exec-icon">' + (c.icon || "📌") + '</div>' +
+        '<h3>' + c.title + '</h3>' +
+        '<p>' + c.body + '</p>' +
+        '</div>';
+    }).join("");
+  }
+
+  /* Analytics workspace breakdown */
+  const a = p.analytics;
+  if (a) {
+    const breakdownRoot = document.getElementById("analytics-breakdown");
+    if (breakdownRoot) {
+      const tiles = [
+        { title: a.byType.Table + " base tables",        desc: "Source datasets wired into the workspace" },
+        { title: a.byType.AnalysisView + " analysis views", desc: "Charted breakdowns built on top of tables" },
+        { title: a.byType.Report + " tabular reports",   desc: "Boardroom-ready exports and printables" },
+        { title: a.byType.SummaryView + " summary views", desc: "Roll-up cards for at-a-glance reporting" }
+      ];
+      breakdownRoot.innerHTML = tiles.map(function (t) {
+        return '<article class="panel impact-card tilt"><strong>' + t.title + '</strong><span>' + t.desc + '</span></article>';
+      }).join("");
+    }
+
+    const dashRoot = document.getElementById("analytics-dashboards");
+    if (dashRoot && Array.isArray(a.dashboards)) {
+      dashRoot.innerHTML = a.dashboards.map(function (name) {
+        return '<span class="tag">' + name + '</span>';
+      }).join("");
+    }
+  }
+})();
+</script>
 <script src="assets/js/reports-renderer.js"></script>
 <div class="mobile-overlay" id="mobileOverlay"></div>
 </body>

@@ -72,7 +72,7 @@
       <header class="page-header fade-up">
 
   <div class="eyebrow">
-    Enterprise Analytics Platform
+    KGK production CRM · synced 2026-05-26
   </div>
 
   <h1 class="page-title gradient-title">
@@ -80,10 +80,9 @@
   </h1>
 
   <p class="page-desc large-desc">
-    Enterprise analytics layer visualizing
-    CRM integrations, operational workflows,
-    Kafka event coverage, regional systems,
-    dashboard KPIs and delivery intelligence.
+    Real-time configuration snapshot from the KGK Group
+    Enterprise Zoho CRM — Deluge workflows, assignment rules,
+    data sharing model and user provisioning.
   </p>
 
   <div class="hero-actions" style="margin-top:30px;">
@@ -105,19 +104,17 @@
 
     <div>
       <div class="analytics-label">
-        LIVE ENTERPRISE DELIVERY
+        LIVE PRODUCTION SNAPSHOT
       </div>
 
       <h2>
-        Multi-region CRM operations dashboard
+        Automation, security & user posture at a glance
       </h2>
     </div>
 
     <div class="analytics-pulse">
 
-      <span class="pulse-dot"></span>
-
-      Active Monitoring
+      Production snapshot
 
     </div>
 
@@ -126,86 +123,39 @@
 </section>
 
       <div class="kpi-grid reveal-stagger" id="dashboard-kpis"></div>
-<section class="executive-grid reveal-stagger">
 
-  <div class="panel executive-card tilt">
-    <div class="exec-icon">⚡</div>
-
-    <h3>Kafka Integrations</h3>
-
-    <p>
-      Real-time CRM synchronization across
-      operational and inventory systems.
-    </p>
-  </div>
-
-  <div class="panel executive-card tilt">
-    <div class="exec-icon">🌍</div>
-
-    <h3>Global Operations</h3>
-
-    <p>
-      Multi-region workflows supporting
-      India, Dubai, Antwerp and New York.
-    </p>
-  </div>
-
-  <div class="panel executive-card tilt">
-    <div class="exec-icon">📊</div>
-
-    <h3>Operational Intelligence</h3>
-
-    <p>
-      Analytics dashboards and KPI systems
-      for enterprise delivery visibility.
-    </p>
-  </div>
-
-</section>
+      <section class="executive-grid reveal-stagger" id="executive-cards"></section>
 
       <div class="chart-grid reveal-stagger">
-        <article class="panel chart-panel tilt tone-blue">
-          <h3>Schemas by CRM destination</h3>
-          <p>How the 10 Symphony Sync schemas distribute across Zoho CRM modules</p>
-          <div class="chart-wrap"><canvas id="chart-schemas" aria-label="Schemas by CRM destination chart"></canvas></div>
-        </article>
         <article class="panel chart-panel tilt tone-violet">
-          <h3>Skills distribution</h3>
-          <p>Weighted capabilities across the KGK CRM program</p>
-          <div class="chart-wrap"><canvas id="chart-skills" aria-label="Skills chart"></canvas></div>
+          <h3>Roles &amp; hierarchy</h3>
+          <p>61 active users grouped by role family</p>
+          <div class="chart-wrap"><canvas id="chart-schemas" aria-label="Roles and hierarchy chart"></canvas></div>
+        </article>
+        <article class="panel chart-panel tilt tone-amber">
+          <h3>Active users by region</h3>
+          <p>61 users across 5 operational regions</p>
+          <div class="chart-wrap"><canvas id="chart-regional" aria-label="Users by region chart"></canvas></div>
         </article>
       </div>
 
       <div class="chart-grid reveal-stagger">
         <article class="panel chart-panel tilt tone-cyan">
-          <h3>Deliverables vs modules</h3>
-          <p>Deliverable depth per workstream</p>
-          <div class="chart-wrap tall"><canvas id="chart-projects" aria-label="Workstream metrics chart"></canvas></div>
+          <h3>Workflows by module</h3>
+          <p>45 active Deluge functions across 13 modules</p>
+          <div class="chart-wrap tall"><canvas id="chart-projects" aria-label="Workflows by module chart"></canvas></div>
         </article>
         <article class="panel chart-panel tilt tone-pink">
-          <h3>Delivery timeline</h3>
-          <p>KGK workstreams by period</p>
-          <div class="chart-wrap tall"><canvas id="chart-timeline" aria-label="Timeline chart"></canvas></div>
-        </article>
-      </div>
-
-      <div class="chart-grid reveal-stagger">
-        <article class="panel chart-panel tilt tone-amber">
-          <h3>Regional API coverage</h3>
-          <p>NIVID endpoint footprint across operational regions</p>
-          <div class="chart-wrap tall"><canvas id="chart-regional" aria-label="Regional coverage chart"></canvas></div>
-        </article>
-        <article class="panel chart-panel tilt tone-green">
-          <h3>Workstream capability mix</h3>
-          <p>Symphony Sync, NIVID Connect, and Subform compared</p>
-          <div class="chart-wrap tall"><canvas id="chart-radar" aria-label="Workstream radar chart"></canvas></div>
+          <h3>Automation growth trajectory</h3>
+          <p>New per quarter + cumulative active functions</p>
+          <div class="chart-wrap tall"><canvas id="chart-timeline" aria-label="Workflow growth chart"></canvas></div>
         </article>
       </div>
 
       <section class="section reveal">
         <div class="section-head">
-          <h2>At-a-glance metrics</h2>
-          <p>Key figures across Symphony Sync, NIVID Connect, and Subform workstreams.</p>
+          <h2>Configuration highlights</h2>
+          <p>Real numbers from the KGK Zoho CRM — automation surface, security posture, and module coverage.</p>
         </div>
         <div class="impact-grid reveal-stagger" id="dash-highlights"></div>
       </section>
@@ -223,14 +173,32 @@
 <script>
 (function () {
   const p = window.CRM_PORTFOLIO_DATA.project;
-  const kpiRoot = document.getElementById("dashboard-kpis");
-  kpiRoot.innerHTML = p.dashboards.kpis.map(function (k) {
-    return '<article class="panel kpi tilt ' + (k.tone || "") + '"><div class="kpi-label">' + k.label + '</div><div class="kpi-value" data-counter>' + k.value + '</div><div class="kpi-foot">' + k.foot + '</div></article>';
-  }).join("");
+  const dash = p.dashboards || {};
 
-  document.getElementById("dash-highlights").innerHTML = p.dashboards.highlights.map(function (h) {
-    return '<article class="panel impact-card tilt"><strong>' + h.title + '</strong><span>' + h.desc + '</span></article>';
-  }).join("");
+  const kpiRoot = document.getElementById("dashboard-kpis");
+  if (kpiRoot && dash.kpis) {
+    kpiRoot.innerHTML = dash.kpis.map(function (k) {
+      return '<article class="panel kpi tilt ' + (k.tone || "") + '"><div class="kpi-label">' + k.label + '</div><div class="kpi-value" data-counter>' + k.value + '</div><div class="kpi-foot">' + k.foot + '</div></article>';
+    }).join("");
+  }
+
+  const execRoot = document.getElementById("executive-cards");
+  if (execRoot && dash.executive) {
+    execRoot.innerHTML = dash.executive.map(function (c) {
+      return '<div class="panel executive-card tilt">' +
+        '<div class="exec-icon">' + (c.icon || "📌") + '</div>' +
+        '<h3>' + c.title + '</h3>' +
+        '<p>' + c.body + '</p>' +
+        '</div>';
+    }).join("");
+  }
+
+  const highlightsRoot = document.getElementById("dash-highlights");
+  if (highlightsRoot && dash.highlights) {
+    highlightsRoot.innerHTML = dash.highlights.map(function (h) {
+      return '<article class="panel impact-card tilt"><strong>' + h.title + '</strong><span>' + h.desc + '</span></article>';
+    }).join("");
+  }
 })();
 </script>
 <div class="mobile-overlay" id="mobileOverlay"></div>
