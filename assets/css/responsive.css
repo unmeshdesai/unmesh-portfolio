@@ -52,7 +52,7 @@
     width:auto;
     backdrop-filter:blur(20px);
     -webkit-backdrop-filter:blur(20px);
-    background:rgba(11,17,32,.88);
+    background:var(--topbar-bg);
     border:0;
     border-bottom:1px solid var(--line);
     border-radius:0;

@@ -30,7 +30,7 @@ body.nav-collapsed .app{
   position:sticky;
   top:0;
   height:100vh;
-  background:rgba(15,23,42,.7);
+  background:var(--sidebar-bg);
   backdrop-filter:var(--blur);
   border-right:1px solid var(--line);
   padding:20px 14px;
@@ -38,8 +38,11 @@ body.nav-collapsed .app{
   display:flex;
   flex-direction:column;
   min-height:0;
-  overflow:hidden;
-  transition:transform .3s ease, opacity .25s ease;
+  /* overflow:visible so tooltips on rail-mode nav buttons can escape
+     the sidebar's right edge. Text hiding for rail mode uses
+     max-width:0 on inner spans, so sidebar overflow isn't load-bearing. */
+  overflow:visible;
+  transition:transform .3s ease, opacity .25s ease, background-color .35s ease;
 }
 
 /* RAIL MODE — Claude-style smooth fade collapse.
@@ -70,11 +73,28 @@ body.nav-collapsed .brand > div:last-child{
    Click expands the sidebar and focuses the input (handled in ui-effects.js). */
 body.nav-collapsed .sidebar > .search{
   width:44px;
+  height:44px;
+  max-height:44px;
   margin:0 auto 4px;
   padding:0;
   gap:0;
   justify-content:center;
   cursor:pointer;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.06);
+}
+
+body.nav-collapsed .sidebar > .search:hover{
+  background:rgba(59,130,246,.14);
+  border-color:var(--blue-border);
+}
+
+/* Pump the search icon up so it's actually visible in rail mode */
+body.nav-collapsed .sidebar > .search > span{
+  font-size:20px;
+  font-weight:600;
+  color:#93c5fd;
+  line-height:1;
 }
 
 body.nav-collapsed .sidebar > .search input{
@@ -196,6 +216,126 @@ a.brand:hover{
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
+}
+
+/* =========================================================
+   THEME TOGGLE — floating bottom-right FAB
+   One button, always visible, identical on mobile & desktop.
+   Old in-header instances are hidden (kept in DOM for backward
+   compat so any older deep-link click handler still works).
+   ========================================================= */
+
+/* Hide the legacy in-header / in-topbar instances */
+.sidebar .theme-toggle,
+.topbar .theme-toggle{
+  display:none !important;
+}
+
+.theme-toggle{
+  position:fixed;
+  bottom:22px;
+  right:22px;
+  z-index:9999;
+  width:52px;
+  height:52px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  border:1px solid var(--line-strong);
+  background:var(--panel);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  color:var(--text);
+  cursor:pointer;
+  overflow:hidden;
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.30),
+    0 0 0 6px rgba(59,130,246,.06);
+  transition:
+    transform .25s cubic-bezier(.5, 1.6, .5, 1),
+    box-shadow .3s ease,
+    background-color .35s ease,
+    border-color .3s ease;
+}
+
+.theme-toggle:hover{
+  transform:translateY(-3px) scale(1.05);
+  box-shadow:
+    0 18px 40px rgba(0,0,0,.35),
+    0 0 0 8px rgba(59,130,246,.12);
+}
+
+.theme-toggle:active{
+  transform:scale(.94);
+}
+
+.theme-toggle svg{
+  width:22px;
+  height:22px;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform-origin:center;
+  transition:
+    transform .55s cubic-bezier(.5, 1.6, .5, 1),
+    opacity .25s ease;
+}
+
+/* Default (dark mode): show sun, hide moon */
+.theme-toggle .icon-sun{
+  transform:translate(-50%,-50%) rotate(0deg) scale(1);
+  opacity:1;
+  color:#fbbf24;
+  filter:drop-shadow(0 0 8px rgba(251,191,36,.5));
+}
+.theme-toggle .icon-moon{
+  transform:translate(-50%,-50%) rotate(-180deg) scale(.3);
+  opacity:0;
+}
+
+/* Light mode: show moon, hide sun */
+[data-theme="light"] .theme-toggle{
+  background:rgba(255,255,255,.96);
+  box-shadow:
+    0 12px 30px rgba(15,23,42,.14),
+    0 0 0 6px rgba(124,58,237,.06);
+}
+[data-theme="light"] .theme-toggle:hover{
+  box-shadow:
+    0 18px 40px rgba(15,23,42,.18),
+    0 0 0 8px rgba(124,58,237,.10);
+}
+[data-theme="light"] .theme-toggle .icon-sun{
+  transform:translate(-50%,-50%) rotate(180deg) scale(.3);
+  opacity:0;
+}
+[data-theme="light"] .theme-toggle .icon-moon{
+  transform:translate(-50%,-50%) rotate(0deg) scale(1);
+  opacity:1;
+  color:#6d28d9;
+  filter:drop-shadow(0 0 6px rgba(109,40,217,.35));
+}
+
+/* Tighter spacing on phones */
+@media(max-width:680px){
+  .theme-toggle{
+    bottom:18px;
+    right:16px;
+    width:46px;
+    height:46px;
+  }
+  .theme-toggle svg{
+    width:20px;
+    height:20px;
+  }
+}
+
+/* Reduced motion — kill the spring/glow animations */
+@media (prefers-reduced-motion: reduce){
+  .theme-toggle,
+  .theme-toggle svg{
+    transition:none !important;
+  }
 }
 
 /* SIDEBAR CLOSE BUTTON */

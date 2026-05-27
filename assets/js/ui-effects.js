@@ -6,6 +6,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const sidebarSearch = document.querySelector('.sidebar .search');
   const overlay = document.getElementById('mobileOverlay');
 
+  /* =========================================================
+     THEME TOGGLE — sun ↔ moon with localStorage persistence.
+     The initial theme is set by the inline pre-render script in
+     each page's <body> so there's no flash of wrong theme.
+     ========================================================= */
+  const themeBtns = document.querySelectorAll('.theme-toggle');
+  function applyTheme(theme) {
+    if (theme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    try { localStorage.setItem('theme', theme); } catch (e) {}
+    themeBtns.forEach(b => b.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false'));
+  }
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      applyTheme(current === 'light' ? 'dark' : 'light');
+    });
+  });
+
   const MOBILE_BP = '(max-width: 900px)';
 
   function isMobile() {
@@ -16,6 +38,19 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('nav-collapsed');
   }
 
+  /* Keep the menu-close button's tooltip/aria-label in sync with state:
+       collapsed → "Show menu"   (clicking will expand)
+       expanded  → "Hide menu"   (clicking will collapse) */
+  function refreshMenuLabel() {
+    const collapsed = document.body.classList.contains('nav-collapsed');
+    const label = collapsed ? 'Show menu' : 'Hide menu';
+    document.querySelectorAll('.menu-close').forEach(btn => {
+      btn.setAttribute('data-tooltip', label);
+      btn.setAttribute('aria-label', label);
+    });
+  }
+  refreshMenuLabel();
+
   function handleToggle() {
     if (isMobile()) {
       if (sidebar) sidebar.classList.toggle('active');
@@ -23,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       const collapsed = document.body.classList.toggle('nav-collapsed');
       localStorage.setItem('navCollapsed', collapsed ? '1' : '0');
+      refreshMenuLabel();
     }
   }
 

@@ -12,8 +12,8 @@ html{
 
 body{
   background:
-    radial-gradient(circle at top left,#172554 0%,transparent 30%),
-    radial-gradient(circle at bottom right,#0f766e 0%,transparent 25%),
+    radial-gradient(circle at top left, var(--body-bg-1) 0%, transparent 30%),
+    radial-gradient(circle at bottom right, var(--body-bg-2) 0%, transparent 25%),
     var(--bg);
   color:var(--text);
   font-family:var(--font);
@@ -41,10 +41,10 @@ textarea{
 }
 
 ::-webkit-scrollbar-thumb{
-  background:#334155;
+  background:var(--scrollbar-thumb);
   border-radius:999px;
 }
 
 ::-webkit-scrollbar-thumb:hover{
-  background:#475569;
+  background:var(--scrollbar-thumb-hover);
 }

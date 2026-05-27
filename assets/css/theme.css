@@ -36,4 +36,387 @@
   --blur:blur(18px);
 
   --font:Inter,ui-sans-serif,system-ui,sans-serif;
+
+  /* Component-specific colors that flip with the theme */
+  --body-bg-1:#172554;
+  --body-bg-2:#0f766e;
+  --sidebar-bg:rgba(15,23,42,.70);
+  --topbar-bg:rgba(11,17,32,.88);
+  --btn-bg:rgba(255,255,255,.03);
+  --btn-hover-bg:rgba(255,255,255,.06);
+  --scrollbar-thumb:#334155;
+  --scrollbar-thumb-hover:#475569;
+}
+
+/* =========================================================
+   LIGHT THEME — applied via [data-theme="light"] on <html>
+   Pre-rendered before paint via the inline body script.
+   ========================================================= */
+[data-theme="light"]{
+  --bg:#f4f7fb;
+  --bg-secondary:#eef2f8;
+
+  --panel:rgba(255,255,255,.86);
+  --panel-solid:#ffffff;
+
+  --soft:#e2e8f0;
+  --line:rgba(15,23,42,.10);
+  --line-strong:rgba(15,23,42,.18);
+
+  --text:#0f172a;
+  --muted:#475569;
+  --faint:#64748b;
+
+  --blue-soft:rgba(59,130,246,.10);
+  --blue-border:rgba(59,130,246,.34);
+
+  --shadow:0 10px 30px rgba(15,23,42,.10);
+
+  --body-bg-1:#dbeafe;
+  --body-bg-2:#ccfbf1;
+  --sidebar-bg:rgba(255,255,255,.82);
+  --topbar-bg:rgba(255,255,255,.92);
+  --btn-bg:rgba(15,23,42,.04);
+  --btn-hover-bg:rgba(15,23,42,.08);
+  --scrollbar-thumb:#cbd5e1;
+  --scrollbar-thumb-hover:#94a3b8;
+}
+
+/* Smooth fade when switching themes */
+html, body, .panel, .sidebar, .topbar, .nav a, .nav i,
+.btn, .card, .kpi, .tag, .field input, .field textarea,
+.brand strong, .brand span, .mini-profile{
+  transition:
+    background-color .35s ease,
+    color .3s ease,
+    border-color .3s ease,
+    box-shadow .3s ease;
+}
+
+/* =========================================================
+   LIGHT-THEME POLISH — overrides for the few components that
+   hard-code translucent-white backgrounds (invisible on white).
+   ========================================================= */
+[data-theme="light"] .nav i{
+  background:rgba(29,78,216,.10);
+  color:#1d4ed8;
+}
+[data-theme="light"] .nav a.active i,
+[data-theme="light"] .nav-project.has-active > summary i{
+  background:rgba(29,78,216,.18);
+  color:#1d4ed8;
+}
+
+/* Rail-mode hover-revealed Hide-menu overlay — was dark navy,
+   needs to match the light surface */
+[data-theme="light"] body.nav-collapsed .menu-close{
+  background:rgba(255,255,255,.96);
+  border:1px solid rgba(15,23,42,.10);
+  color:#0f172a;
+  box-shadow:0 4px 12px rgba(15,23,42,.06);
+}
+
+/* Rail-mode search icon — light theme contrast */
+[data-theme="light"] body.nav-collapsed .sidebar > .search{
+  background:rgba(29,78,216,.06);
+  border-color:rgba(29,78,216,.18);
+}
+[data-theme="light"] body.nav-collapsed .sidebar > .search:hover{
+  background:rgba(29,78,216,.12);
+  border-color:rgba(29,78,216,.32);
+}
+[data-theme="light"] body.nav-collapsed .sidebar > .search > span{
+  color:#1d4ed8;
+}
+[data-theme="light"] .menu-close{
+  background:rgba(15,23,42,.04);
+  color:#475569;
+}
+[data-theme="light"] .menu-close:hover{
+  background:rgba(15,23,42,.08);
+  color:#0f172a;
+}
+[data-theme="light"] .search{
+  background:rgba(15,23,42,.04);
+}
+[data-theme="light"] .search:focus-within{
+  background:rgba(15,23,42,.06);
+}
+[data-theme="light"] .field input,
+[data-theme="light"] .field textarea{
+  background:rgba(15,23,42,.03);
+  color:var(--text);
+}
+[data-theme="light"] .field input:focus,
+[data-theme="light"] .field textarea:focus{
+  background:rgba(15,23,42,.05);
+}
+[data-theme="light"] .hero-backdrop::before{
+  background-image:
+    linear-gradient(rgba(15,23,42,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15,23,42,.06) 1px, transparent 1px);
+}
+[data-theme="light"] .marquee{
+  background:linear-gradient(90deg, rgba(59,130,246,.06), rgba(6,182,212,.06));
+}
+[data-theme="light"] .marquee-item{
+  color:#475569;
+}
+[data-theme="light"] .nav a:hover,
+[data-theme="light"] .nav-project > summary:hover{
+  background:rgba(15,23,42,.05);
+  color:#0f172a;
+}
+[data-theme="light"] .nav a.active{
+  background:linear-gradient(135deg, rgba(59,130,246,.14), rgba(6,182,212,.10));
+  color:#0f172a;
+}
+[data-theme="light"] .topbar{
+  box-shadow:0 8px 24px rgba(15,23,42,.10);
+}
+[data-theme="light"] .mobile-overlay{
+  background:rgba(15,23,42,.45);
+}
+[data-theme="light"] [data-tooltip]::after{
+  background:rgba(15,23,42,.95);
+  color:#fff;
+}
+
+/* Primary CTA stays high-contrast white-on-blue regardless of theme */
+.btn.primary{ color:#fff !important; }
+
+/* Light theme: swap the pale gradients used on titles and KPI numbers
+   for deeper hues so they read against a white background. */
+[data-theme="light"] .gradient-title,
+[data-theme="light"] .record h1.animated-gradient{
+  background:linear-gradient(90deg,#1d4ed8,#0891b2,#7c3aed,#0891b2,#1d4ed8);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+[data-theme="light"] .kpi-value,
+[data-theme="light"] .metric strong,
+[data-theme="light"] .mini-metric strong,
+[data-theme="light"] .impact-card strong,
+[data-theme="light"] .report-mini-metric strong{
+  background:linear-gradient(90deg,#1d4ed8,#0e7490);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+[data-theme="light"] .mini-metric strong{
+  color:#1d4ed8;
+}
+
+/* Generic colored accents that get lost on light bg */
+[data-theme="light"] .card-kicker,
+[data-theme="light"] .analytics-label,
+[data-theme="light"] .availability-label,
+[data-theme="light"] .eyebrow{
+  color:#1d4ed8;
+}
+[data-theme="light"] .eyebrow{
+  background:rgba(29,78,216,.10);
+}
+[data-theme="light"] .link,
+[data-theme="light"] .contact-card-cta{
+  color:#1d4ed8;
+}
+[data-theme="light"] .link:hover{
+  color:#0f172a;
+}
+[data-theme="light"] .record-id{
+  color:#1d4ed8;
+  background:rgba(29,78,216,.10);
+}
+[data-theme="light"] .tag{
+  color:#1d4ed8;
+  background:rgba(29,78,216,.08);
+  border-color:rgba(29,78,216,.20);
+}
+[data-theme="light"] .status-pill.live{
+  background:rgba(16,185,129,.14);
+  color:#047857;
+}
+[data-theme="light"] .status-pill.doc{
+  background:rgba(29,78,216,.14);
+  color:#1d4ed8;
+}
+[data-theme="light"] .status-pill.warn{
+  background:rgba(245,158,11,.16);
+  color:#92400e;
+}
+[data-theme="light"] .job-company{
+  color:#1d4ed8;
+}
+[data-theme="light"] .skills-grid th{
+  background:#1d4ed8;
+  color:#fff;
+}
+[data-theme="light"] .crm-table thead{
+  background:rgba(29,78,216,.10);
+}
+[data-theme="light"] .crm-table th{
+  color:#0f172a;
+}
+
+/* =========================================================
+   LIGHT THEME — text-color rescues for components that
+   hard-code white/pale colors meant for dark backgrounds.
+   ========================================================= */
+
+/* Active sidebar nav items + open project group */
+[data-theme="light"] .nav a.active,
+[data-theme="light"] .nav-project[open] > summary,
+[data-theme="light"] .nav-project.has-active > summary{
+  color:#0f172a;
+}
+[data-theme="light"] .nav-project.has-active > summary{
+  background:rgba(29,78,216,.10);
+}
+
+/* Available-for-opportunities card labels on Contact page */
+[data-theme="light"] .availability-grid strong{
+  color:#0f172a;
+}
+
+/* CTA panel body copy ("Open to CRM engineering roles…") */
+[data-theme="light"] .cta-content p,
+[data-theme="light"] .cta-content h2{
+  color:#0f172a;
+}
+[data-theme="light"] .cta-content p{
+  color:#475569;
+}
+[data-theme="light"] .cta-panel{
+  background:linear-gradient(135deg,rgba(59,130,246,.10),rgba(139,92,246,.08));
+  border-color:rgba(29,78,216,.18);
+}
+
+/* Schema / data tables in KGK Overview */
+[data-theme="light"] .crm-table td{
+  color:#0f172a;
+}
+[data-theme="light"] .crm-table tr:hover{
+  background:rgba(29,78,216,.05);
+}
+
+/* Analytics banner pulse text (Production snapshot) */
+[data-theme="light"] .analytics-pulse,
+[data-theme="light"] .report-status,
+[data-theme="light"] .preview-top{
+  color:#0f172a;
+}
+
+/* Hero side panel mini-metric labels */
+[data-theme="light"] .mini-metric{
+  background:rgba(15,23,42,.04);
+  border-color:rgba(15,23,42,.10);
+}
+
+/* Hero record (left panel of homepage) — bg gradient too dark on white */
+[data-theme="light"] .analytics-banner,
+[data-theme="light"] .reports-banner{
+  background:linear-gradient(135deg,rgba(59,130,246,.10),rgba(139,92,246,.06));
+  border-color:rgba(29,78,216,.18);
+}
+
+/* Highlight text inside workstream cards (kgk.html) */
+[data-theme="light"] .module-item p strong,
+[data-theme="light"] .module-item h3{
+  color:#0f172a;
+}
+
+/* Skills page module item proficiency tags */
+[data-theme="light"] .module-item .status-pill{
+  background:rgba(16,185,129,.14);
+  color:#047857;
+}
+
+/* Job header & body copy (Experience timeline) */
+[data-theme="light"] .job-title,
+[data-theme="light"] .timeline-content h3,
+[data-theme="light"] .panel.job h3,
+[data-theme="light"] .panel.timeline-content h3{
+  color:#0f172a;
+}
+
+/* Card titles + body copy on homepage and projects page */
+[data-theme="light"] .card h3,
+[data-theme="light"] .executive-card h3,
+[data-theme="light"] .architecture-card h3,
+[data-theme="light"] .contact-card-value,
+[data-theme="light"] .report-card h3{
+  color:#0f172a;
+}
+[data-theme="light"] .card p,
+[data-theme="light"] .executive-card p,
+[data-theme="light"] .architecture-card p,
+[data-theme="light"] .report-card p{
+  color:#475569;
+}
+
+/* Deliverable list bullets */
+[data-theme="light"] .deliverable-grid li{
+  color:#475569;
+}
+[data-theme="light"] .deliverable-grid li::before{
+  background:#1d4ed8;
+}
+
+/* Mini-profile in sidebar bottom */
+[data-theme="light"] .mini-profile strong{
+  color:#0f172a;
+}
+
+/* Search input */
+[data-theme="light"] .search input,
+[data-theme="light"] .search input::placeholder{
+  color:#0f172a;
+}
+[data-theme="light"] .search input::placeholder{
+  color:#94a3b8;
+}
+[data-theme="light"] .search span{
+  color:#475569;
+}
+
+/* Section headings */
+[data-theme="light"] .section-head h2,
+[data-theme="light"] .section-head h3,
+[data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] h3, [data-theme="light"] h4{
+  color:#0f172a;
+}
+[data-theme="light"] .section-head p,
+[data-theme="light"] .page-desc{
+  color:#475569;
+}
+
+/* Record (homepage hero card) lead text */
+[data-theme="light"] .record .lead,
+[data-theme="light"] .lead{
+  color:#475569;
+}
+
+/* Footer text */
+[data-theme="light"] .footer{
+  color:#64748b;
+  border-top-color:rgba(15,23,42,.10);
+}
+
+/* Form labels */
+[data-theme="light"] .field-label{
+  color:#475569;
+}
+[data-theme="light"] .contact-form-status{
+  color:#475569;
+}
+
+/* KPI tone backgrounds (ok / warn) — keep readable on light */
+[data-theme="light"] .kpi.ok::before{
+  background:linear-gradient(90deg,#10b981,#06b6d4);
+}
+[data-theme="light"] .kpi.warn::before{
+  background:linear-gradient(90deg,#f59e0b,#ec4899);
 }

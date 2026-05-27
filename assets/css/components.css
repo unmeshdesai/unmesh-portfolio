@@ -23,8 +23,8 @@
   padding:14px 22px;
   border-radius:14px;
   border:1px solid var(--line);
-  background:rgba(255,255,255,.03);
-  color:white;
+  background:var(--btn-bg);
+  color:var(--text);
   transition:.3s ease;
   font-weight:600;
   font-size:13px;
