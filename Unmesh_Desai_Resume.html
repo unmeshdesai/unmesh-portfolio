@@ -522,9 +522,11 @@
 }
 
 /* =========================================================
-   MOBILE RESPONSIVE — fits the resume to phone screens
+   MOBILE RESPONSIVE — fits the resume to phone screens.
+   Scoped to `screen` so the print pipeline always falls back to
+   the desktop A4 layout regardless of device viewport.
    ========================================================= */
-@media (max-width: 720px){
+@media screen and (max-width: 720px){
 
   /* Prevent any horizontal scroll on the body */
   html, body{
@@ -726,8 +728,8 @@
   }
 }
 
-/* Very narrow phones */
-@media (max-width: 380px){
+/* Very narrow phones — screen-only so print stays on A4 */
+@media screen and (max-width: 380px){
   .page{
     margin:10px 8px 80px;
     padding:18px 16px;
