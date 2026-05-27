@@ -538,6 +538,7 @@ body.nav-collapsed .nav-text{
 @media(max-width:900px){
   .topbar{
     display:flex;
+    gap:12px;
   }
 }
 
@@ -546,9 +547,76 @@ body.nav-collapsed .nav-text{
   flex-shrink:0;
 }
 
+/* MOBILE TOPBAR BRAND — visible only on small screens, taps to home */
+.topbar-brand{
+  display:none;
+  align-items:center;
+  gap:10px;
+  color:inherit;
+  text-decoration:none;
+  min-width:0;
+  flex:1;
+  transition:opacity .2s ease;
+}
+
+a.topbar-brand:active{
+  opacity:.7;
+}
+
+.topbar-brand-mark{
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  background:linear-gradient(135deg,#3b82f6,#06b6d4,#8b5cf6);
+  box-shadow:0 0 18px rgba(59,130,246,.4);
+  display:grid;
+  place-items:center;
+  color:white;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.04em;
+  flex-shrink:0;
+}
+
+.topbar-brand-text{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  line-height:1.25;
+  overflow:hidden;
+}
+
+.topbar-brand-text strong{
+  font-size:14px;
+  font-weight:700;
+  color:var(--text);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.topbar-brand-text em{
+  font-style:normal;
+  font-size:11px;
+  color:var(--muted);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
 @media(max-width:900px){
+  .topbar-brand{
+    display:flex;
+  }
   .topbar{
-    flex-wrap:wrap;
+    flex-wrap:nowrap;
+  }
+}
+
+/* Very narrow screens — hide the subtitle so the name doesn't truncate */
+@media(max-width:380px){
+  .topbar-brand-text em{
+    display:none;
   }
 }
 

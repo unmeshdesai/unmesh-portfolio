@@ -525,20 +525,128 @@
 }
 
 /* =========================================================
-   PERFORMANCE/MOBILE — disable heavy effects below 900px
+   PERFORMANCE/MOBILE — disable cursor-tracked effects below 900px,
+   but layer in mobile-specific motion to keep the view alive.
    ========================================================= */
 
 @media(max-width:900px){
-  .hero-backdrop::before,
-  .hero-particles{
-    display:none;
-  }
+
+  /* Cursor-tracked effects don't make sense on touch */
   .tilt,
   .btn.magnetic{
     transform:none !important;
   }
   .record::before{
     display:none;
+  }
+
+  /* Re-enable the hero ambient layer with a lighter footprint:
+     keep the gradient blobs (already mobile-safe) and bring back
+     a few particles — but hide the heavier scanning grid. */
+  .hero-backdrop::before{
+    display:none;
+  }
+  .hero-particles{
+    display:block;
+  }
+  /* Show only 6 particles on mobile (down from 12) */
+  .hero-particles span:nth-child(n+7){
+    display:none;
+  }
+  .hero-particles span{
+    animation-duration:18s;
+  }
+
+  /* Mobile entrance: bouncier spring + subtle tilt */
+  .reveal-stagger > *{
+    transform:translateY(36px) scale(.95);
+    transition:
+      opacity .75s ease,
+      transform .9s cubic-bezier(.34, 1.56, .64, 1);
+  }
+  .reveal-stagger.is-visible > *{
+    transform:none;
+  }
+  .reveal{
+    transform:translateY(40px) scale(.96);
+    transition:
+      opacity .8s ease,
+      transform .95s cubic-bezier(.34, 1.56, .64, 1);
+  }
+
+  /* Brand mark in the mobile topbar — gentle glow pulse */
+  .topbar-brand-mark{
+    animation:brandPulse 3.6s ease-in-out infinite;
+  }
+  @keyframes brandPulse{
+    0%,100%{
+      box-shadow:0 0 16px rgba(59,130,246,.40), 0 0 0 rgba(139,92,246,0);
+    }
+    50%{
+      box-shadow:0 0 26px rgba(139,92,246,.55), 0 0 10px rgba(6,182,212,.40);
+    }
+  }
+
+  /* Eyebrow pill — soft shimmer sweep */
+  .eyebrow,
+  .record-id{
+    position:relative;
+    overflow:hidden;
+  }
+  .eyebrow::after,
+  .record-id::after{
+    content:'';
+    position:absolute;
+    top:0;
+    left:-60%;
+    width:50%;
+    height:100%;
+    background:linear-gradient(90deg, transparent, rgba(147,197,253,.35), transparent);
+    transform:skewX(-18deg);
+    animation:pillShimmer 4.5s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes pillShimmer{
+    0%   { left:-60%; }
+    60%  { left:120%; }
+    100% { left:120%; }
+  }
+
+  /* Primary CTAs — gentle idle nudge since magnetic doesn't apply on touch */
+  .btn.primary{
+    animation:ctaIdle 5s ease-in-out infinite;
+  }
+  @keyframes ctaIdle{
+    0%,100% { transform:translateY(0); }
+    50%     { transform:translateY(-3px); }
+  }
+
+  /* Tap feedback — press response on cards & buttons */
+  .card:active,
+  .panel.card:active,
+  .panel.executive-card:active,
+  .panel.contact-card:active,
+  .panel.architecture-card:active,
+  .panel.impact-card:active,
+  .panel.kpi:active,
+  .panel.report-card:active{
+    transform:scale(.97) !important;
+    transition:transform .12s ease;
+  }
+  .btn:active{
+    transform:scale(.96) !important;
+    transition:transform .12s ease;
+  }
+
+  /* KPI numbers — soft float to draw the eye */
+  .metric strong,
+  .mini-metric strong,
+  .kpi-value{
+    animation:numberFloat 4s ease-in-out infinite;
+  }
+  @keyframes numberFloat{
+    0%,100% { transform:translateY(0); }
+    50%     { transform:translateY(-2px); }
   }
 }
 
@@ -563,7 +671,14 @@
   .btn.primary::before,
   .hero-backdrop::before,
   .hero-particles span,
-  .marquee-track{
+  .marquee-track,
+  .topbar-brand-mark,
+  .eyebrow::after,
+  .record-id::after,
+  .btn.primary,
+  .metric strong,
+  .mini-metric strong,
+  .kpi-value{
     animation:none !important;
     transition:none !important;
   }
