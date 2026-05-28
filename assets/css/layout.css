@@ -417,19 +417,16 @@ body.nav-collapsed .nav-project > summary[data-tooltip]:hover::after{
 }
 
 .brand-mark{
-  width:38px;
-  height:38px;
+  width:40px;
+  height:40px;
   border-radius:10px;
-  background:linear-gradient(135deg,#3b82f6,#06b6d4,#8b5cf6);
-  box-shadow:0 0 24px rgba(59,130,246,.35);
+  background:url('../favicon.svg') center/100% 100% no-repeat;
+  box-shadow:0 6px 18px rgba(59,130,246,.35);
   flex-shrink:0;
-  display:grid;
-  place-items:center;
-  color:white;
-  font-size:13px;
-  font-weight:800;
-  letter-spacing:.04em;
-  font-family:var(--font);
+  overflow:hidden;
+  /* the "UD" text stays in the DOM for a11y but the logo renders it */
+  color:transparent;
+  font-size:0;
 }
 
 .brand strong{
@@ -704,18 +701,15 @@ a.topbar-brand:active{
 }
 
 .topbar-brand-mark{
-  width:36px;
-  height:36px;
+  width:38px;
+  height:38px;
   border-radius:10px;
-  background:linear-gradient(135deg,#3b82f6,#06b6d4,#8b5cf6);
-  box-shadow:0 0 18px rgba(59,130,246,.4);
-  display:grid;
-  place-items:center;
-  color:white;
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:.04em;
+  background:url('../favicon.svg') center/100% 100% no-repeat;
+  box-shadow:0 4px 14px rgba(59,130,246,.4);
   flex-shrink:0;
+  overflow:hidden;
+  color:transparent;
+  font-size:0;
 }
 
 .topbar-brand-text{

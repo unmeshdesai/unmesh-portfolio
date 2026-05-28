@@ -329,6 +329,16 @@
   pointer-events:none;
 }
 
+/* Ambient constellation canvas (injected by home-animations.js) */
+.hero-network{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:0;
+}
+
 .hero-particles span{
   position:absolute;
   bottom:-10px;
@@ -557,12 +567,19 @@
     animation-duration:18s;
   }
 
-  /* Mobile entrance: bouncier spring + subtle tilt */
+  /* Mobile entrance: bouncier spring + subtle alternating slide.
+     Smaller horizontal offset than desktop so nothing overflows. */
   .reveal-stagger > *{
     transform:translateY(36px) scale(.95);
     transition:
       opacity .75s ease,
       transform .9s cubic-bezier(.34, 1.56, .64, 1);
+  }
+  .reveal-stagger > *:nth-child(odd){
+    transform:translate3d(-16px, 32px, 0) scale(.95);
+  }
+  .reveal-stagger > *:nth-child(even){
+    transform:translate3d(16px, 32px, 0) scale(.95);
   }
   .reveal-stagger.is-visible > *{
     transform:none;
@@ -651,6 +668,52 @@
 }
 
 /* =========================================================
+   SCROLL PROGRESS BAR (top of viewport)
+   ========================================================= */
+.scroll-progress{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:3px;
+  transform:scaleX(0);
+  transform-origin:left center;
+  background:linear-gradient(90deg,#3b82f6,#06b6d4,#8b5cf6);
+  box-shadow:0 0 10px rgba(59,130,246,.5);
+  z-index:10000;
+  pointer-events:none;
+  will-change:transform;
+}
+
+/* =========================================================
+   ALTERNATING CARD SLIDE-IN (desktop) — cards enter from
+   alternating sides for a more dynamic stagger.
+   ========================================================= */
+@media(min-width:901px){
+  .reveal-stagger > *:nth-child(odd){
+    transform:translate3d(-30px, 22px, 0) scale(.97);
+  }
+  .reveal-stagger > *:nth-child(even){
+    transform:translate3d(30px, 22px, 0) scale(.97);
+  }
+  .reveal-stagger.is-visible > *{
+    transform:none;
+  }
+}
+
+/* =========================================================
+   COUNTER POP — brief scale bounce when a number lands
+   ========================================================= */
+.counter-pop{
+  animation:counterPop .55s cubic-bezier(.34, 1.56, .64, 1);
+}
+@keyframes counterPop{
+  0%{   transform:scale(1); }
+  45%{  transform:scale(1.16); }
+  100%{ transform:scale(1); }
+}
+
+/* =========================================================
    REDUCED MOTION
    ========================================================= */
 
@@ -678,12 +741,15 @@
   .btn.primary,
   .metric strong,
   .mini-metric strong,
-  .kpi-value{
+  .kpi-value,
+  .counter-pop{
     animation:none !important;
     transition:none !important;
   }
   .reveal,
   .reveal-stagger > *,
+  .reveal-stagger > *:nth-child(odd),
+  .reveal-stagger > *:nth-child(even),
   .record h1 .word{
     opacity:1 !important;
     transform:none !important;
@@ -692,5 +758,9 @@
   .tilt,
   .btn.magnetic{
     transform:none !important;
+  }
+  /* keep the scroll bar static (no parallax) under reduced motion */
+  .scroll-progress{
+    display:none;
   }
 }
