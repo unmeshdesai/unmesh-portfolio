@@ -139,3 +139,83 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
+
+/* =========================================================
+   SMOOTH MOMENTUM SCROLL (Lenis) + ANCHOR EASING
+   Desktop wheel/trackpad gets eased inertia scrolling for a
+   premium feel; touch keeps native momentum. Loaded from CDN.
+   ========================================================= */
+(function () {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+
+  const s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js';
+  s.defer = true;
+  s.onload = function () {
+    if (typeof Lenis === 'undefined') return;
+
+    const lenis = new Lenis({
+      duration: 1.05,
+      easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.6
+    });
+
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    window.__lenis = lenis;
+
+    /* Smooth-scroll same-page anchor links (#work, #experience, #contact…) */
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        const id = a.getAttribute('href');
+        if (!id || id === '#') return;
+        const target = document.querySelector(id);
+        if (target) {
+          e.preventDefault();
+          lenis.scrollTo(target, { offset: -24, duration: 1.1 });
+        }
+      });
+    });
+  };
+  document.head.appendChild(s);
+})();
+
+
+/* =========================================================
+   PAGE TRANSITIONS
+   Fade/slide the content out on internal navigation, fade in
+   on load — no hard reload flash. External links, new-tab,
+   downloads, anchors, mailto/tel are left untouched.
+   ========================================================= */
+(function () {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+
+  document.addEventListener('click', function (e) {
+    /* respect modifier-click (open in new tab) */
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+
+    const a = e.target.closest('a');
+    if (!a) return;
+
+    const href = a.getAttribute('href');
+    if (!href) return;
+    if (a.target === '_blank' || a.hasAttribute('download')) return;
+    if (href.startsWith('#') || href.startsWith('mailto:') ||
+        href.startsWith('tel:') || href.startsWith('http')) return;
+
+    /* internal page navigation — animate out, then go */
+    e.preventDefault();
+    document.body.classList.add('is-leaving');
+    setTimeout(function () { window.location.href = href; }, 280);
+  });
+
+  /* If restored from bfcache (back button), clear the leaving state */
+  window.addEventListener('pageshow', function (ev) {
+    if (ev.persisted) document.body.classList.remove('is-leaving');
+  });
+})();
