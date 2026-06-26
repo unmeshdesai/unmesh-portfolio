@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="64" height="64" role="img" aria-label="Unmesh Desai">
   <defs>
     <linearGradient id="udGrad" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#3b82f6"/>
@@ -6,20 +6,21 @@
       <stop offset="1" stop-color="#8b5cf6"/>
     </linearGradient>
     <linearGradient id="udSheen" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/>
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".22"/>
       <stop offset=".55" stop-color="#ffffff" stop-opacity="0"/>
     </linearGradient>
   </defs>
 
-  <!-- gradient tile + soft top sheen -->
-  <rect width="64" height="64" rx="16" fill="url(#udGrad)"/>
-  <rect width="64" height="64" rx="16" fill="url(#udSheen)"/>
+  <!-- Gradient tile + soft sheen -->
+  <rect width="48" height="48" rx="12" fill="url(#udGrad)"/>
+  <rect width="48" height="48" rx="12" fill="url(#udSheen)"/>
 
-  <!-- UD monogram, tight modern kerning -->
-  <text x="32" y="33" text-anchor="middle" dominant-baseline="central"
-        font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="27" font-weight="800"
-        letter-spacing="-1" fill="#ffffff">UD</text>
-
-  <!-- accent underline -->
-  <rect x="25" y="47" width="14" height="3" rx="1.5" fill="#ffffff" fill-opacity=".85"/>
+  <!-- Antler / Horn Icon (white, centered) -->
+  <g transform="translate(4, 4)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M 20 34 C 20 34, 8 30, 7 22 C 6 14, 10 7, 12 5 C 12.5 4.2, 13 4, 13.2 4.5 C 13.5 5.5, 12 10, 12.5 15 C 13 20, 17 24, 20 26"/>
+    <path d="M 20 34 C 20 34, 32 30, 33 22 C 34 14, 30 7, 28 5 C 27.5 4.2, 27 4, 26.8 4.5 C 26.5 5.5, 28 10, 27.5 15 C 27 20, 23 24, 20 26"/>
+    <path d="M 20 26 C 20 28, 20 31, 20 34"/>
+    <circle cx="12.5" cy="4.5" r="1.4" fill="#ffffff" stroke="none"/>
+    <circle cx="27.5" cy="4.5" r="1.4" fill="#ffffff" stroke="none"/>
+  </g>
 </svg>

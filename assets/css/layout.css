@@ -420,13 +420,14 @@ body.nav-collapsed .nav-project > summary[data-tooltip]:hover::after{
   width:40px;
   height:40px;
   border-radius:10px;
-  background:url('../favicon.svg') center/100% 100% no-repeat;
-  box-shadow:0 6px 18px rgba(59,130,246,.35);
+  background:url('../unmesh-desai-logo-dark.svg') left center / auto 38px no-repeat;
   flex-shrink:0;
   overflow:hidden;
-  /* the "UD" text stays in the DOM for a11y but the logo renders it */
   color:transparent;
   font-size:0;
+}
+[data-theme="light"] .brand-mark{
+  background-image:url('../unmesh-desai-logo-light.svg');
 }
 
 .brand strong{
@@ -704,12 +705,14 @@ a.topbar-brand:active{
   width:38px;
   height:38px;
   border-radius:10px;
-  background:url('../favicon.svg') center/100% 100% no-repeat;
-  box-shadow:0 4px 14px rgba(59,130,246,.4);
+  background:url('../unmesh-desai-logo-dark.svg') left center / auto 36px no-repeat;
   flex-shrink:0;
   overflow:hidden;
   color:transparent;
   font-size:0;
+}
+[data-theme="light"] .topbar-brand-mark{
+  background-image:url('../unmesh-desai-logo-light.svg');
 }
 
 .topbar-brand-text{
